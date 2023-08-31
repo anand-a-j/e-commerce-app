@@ -14,6 +14,7 @@ const DB = "mongodb+srv://anandaj:%40nAnd2001@cluster0.0tprisw.mongodb.net/?retr
 
 // Middleware - act as middle man between client and sever
 // Client -> Middleware -> Sever-> Client
+app.use(express.json()); 
 app.use(authRouter);
 
 // Connection to mongoose

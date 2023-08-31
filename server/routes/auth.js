@@ -1,15 +1,38 @@
 const express = require('express');
+const User = require('../models/user.js');
+const bcryptjs = require('bcryptjs');
 
 const authRouter = express.Router();
 
-authRouter.post('/api/signup', (req,res) => {
- // Get the data from client-----------------------------------------------------------------------------
+// SIGN UP
+authRouter.post('/api/signup', async(req,res) => {
+try{
+ /// Get the data from client-----------------------------------------------------------------------------
   const {name,email,password} = req.body;
-  
 
- // post that data in the database-----------------------------------------------------------------------
+ // checking user already sign up
+ const existingUser = await User.findOne({email});
+ if(existingUser) {
+    return res.status(400).json({msg:"User with same email already exist!"});
+ }
 
- // return that data to the user-------------------------------------------------------------------------
+// secure password
+const hashedPassword = await bcryptjs.hash(password, 8);
+
+// create user model
+ let user = new User({
+     email,
+     password: hashedPassword,
+     name
+ });
+
+ user = await user.save();
+ res.json(user);
+ /// post that data in the database-----------------------------------------------------------------------
+ /// return that data to the user-------------------------------------------------------------------------
+}catch(e){
+ res.status(500).json({error: e.message});
+}
 
 });
 
