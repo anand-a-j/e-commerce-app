@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return "Enter your $hintText";
         }
-        return "null";
+        return null;
       },
     );
   }

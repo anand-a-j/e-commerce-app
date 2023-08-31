@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/auth/services/auth_service.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -17,9 +18,20 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
+  AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,19 +62,33 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(
                     children: [
                       CustomTextField(
-                          controller: _emailController, hintText: "Email"),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                      CustomTextField(
-                          controller: _passwordController, hintText: "Password"),
+                          controller: _emailController, 
+                          hintText: "Email"
+                          ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       CustomTextField(
-                          controller: _nameController, hintText: "Username"),
+                          controller: _passwordController,
+                          hintText: "Password"
+                          ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      CustomButton(label: "Sign Up", onTap: (){})
+                      CustomTextField(
+                          controller: _nameController, 
+                          hintText: "Username"
+                          ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      CustomButton(
+                          label: "Sign Up",
+                          onTap: () {
+                            if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                            }
+                          })
                     ],
                   ),
                 ),
@@ -78,18 +104,26 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     }),
               ),
-              if(_auth == Auth.signin)
-              CustomTextField(
-                    controller: _emailController, hintText: "Email"),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              CustomTextField(
-                  controller: _passwordController, hintText: "Password"),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              CustomButton(label: "Sign In", onTap: () {})
+              if (_auth == Auth.signin)
+                Form(
+                  key: _signInFormKey,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                          controller: _emailController, hintText: "Email"),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      CustomTextField(
+                          controller: _passwordController,
+                          hintText: "Password"),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      CustomButton(label: "Sign In", onTap: () {})
+                    ],
+                  ),
+                )
             ],
           ),
         ),

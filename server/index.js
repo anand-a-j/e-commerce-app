@@ -3,6 +3,7 @@ console.log("Node js currently running...");
 // Imports from packages
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require("cors");
 
 // Imports from other files
 const authRouter = require('./routes/auth');
@@ -14,6 +15,7 @@ const DB = "mongodb+srv://anandaj:%40nAnd2001@cluster0.0tprisw.mongodb.net/?retr
 
 // Middleware - act as middle man between client and sever
 // Client -> Middleware -> Sever-> Client
+app.use(cors());
 app.use(express.json()); 
 app.use(authRouter);
 
