@@ -116,42 +116,21 @@ class AuthService {
             'Content-Type': 'application/json; charSet=UTF-8',
             'x-auth-token': token!
           });
-
+      print(tokenRes.statusCode);
       var response = jsonDecode(tokenRes.body);
-      
-      if(response==true){
+
+      if (response == true) {
         // get user data
+        http.Response userRes = await http.get(Uri.parse('$uri/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charSet=UTF-8',
+              'x-auth-token': token
+            });
+
+        // ignore: use_build_context_synchronously
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
       }
-      // http.Response res = await http.post(
-      //   Uri.parse('$uri/api/signin'),
-      //   body: jsonEncode({'email': email, 'password': password}),
-      //   headers: <String, String>{
-      //     'Content-Type': 'application/json; charset=UTF-8',
-      //     "Access-Control-Allow-Origin":
-      //         "*", // Required for CORS support to work
-      //     "Access-Control-Allow-Headers":
-      //         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      //     "Access-Control-Allow-Methods": "POST, OPTIONS"
-      //   },
-      // );
-
-      // print("Response body:${res.body}");
-      // print("Status Code :${res.statusCode}");
-
-      // ignore: use_build_context_synchronously
-      // httpErrorHandle(
-      //     response: res,
-      //     context: context,
-      //     onSuccess: () async {
-      //       final prefs = await SharedPreferences.getInstance();
-      //       String token = jsonDecode(res.body)['token'];
-      //       // ignore: use_build_context_synchronously
-      //       Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-      //       await prefs.setString('x-auth-token', token);
-      //       // ignore: use_build_context_synchronously
-      //       Navigator.pushNamedAndRemoveUntil(
-      //           context, HomeScreen.routeName, (route) => false);
-      //     });
     } catch (e) {
       print(e.toString());
       showSnackBar(context, e.toString());

@@ -10,6 +10,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     print("User ; $user");
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Text("HomeSceen"),
+      ),
+    );
   }
 }

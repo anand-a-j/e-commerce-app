@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth.js');
 
 const authRouter = express.Router();
 
@@ -83,6 +84,12 @@ authRouter.post('/tokenIsValid',async (req,res)=>{
   }catch(e){
    res.status(500).json({error:e.message});
   }
+})
+
+// get user data
+authRouter.get('/',auth, async(req,res)=>{
+   const user = await User.findById(req.user);
+   res.json({...user._doc,token:req.token});
 })
 
 // Export this file accessing for other files
