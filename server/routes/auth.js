@@ -64,5 +64,26 @@ authRouter.post('/api/signin', async(req,res)=>{
     }
 })
 
+// vaildate token
+authRouter.post('/tokenIsValid',async (req,res)=>{
+  try{
+   const token = req.header('x-auth-token');
+   if(!token){
+    return res.json(false);
+   }
+  const ifVerified = jwt.verify(token,'passwordKey');
+  if(!ifVerified){
+      return res.json(false);
+   }
+   const user = await User.findById(ifVerified.id)
+   if(!user){
+      return res.json(false);
+   }
+   res.json(true);
+  }catch(e){
+   res.status(500).json({error:e.message});
+  }
+})
+
 // Export this file accessing for other files
 module.exports = authRouter;

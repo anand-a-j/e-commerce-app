@@ -28,8 +28,14 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
-        name: _nameController.text
-    );
+        name: _nameController.text);
+  }
+
+  void signInUser() {
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text);
   }
 
   @override
@@ -62,23 +68,18 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(
                     children: [
                       CustomTextField(
-                          controller: _emailController, 
-                          hintText: "Email"
-                          ),
+                          controller: _emailController, hintText: "Email"),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       CustomTextField(
                           controller: _passwordController,
-                          hintText: "Password"
-                          ),
+                          hintText: "Password"),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       CustomTextField(
-                          controller: _nameController, 
-                          hintText: "Username"
-                          ),
+                          controller: _nameController, hintText: "Username"),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
@@ -86,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           label: "Sign Up",
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()) {
-                                signUpUser();
+                              signUpUser();
                             }
                           })
                     ],
@@ -120,7 +121,13 @@ class _AuthScreenState extends State<AuthScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      CustomButton(label: "Sign In", onTap: () {})
+                      CustomButton(
+                          label: "Sign In",
+                          onTap: () {
+                            if (_signInFormKey.currentState!.validate()) {
+                              signInUser();
+                            }
+                          })
                     ],
                   ),
                 )
