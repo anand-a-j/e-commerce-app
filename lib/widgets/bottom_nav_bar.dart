@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commerce_app/features/account/screen/account_screen.dart';
 import 'package:e_commerce_app/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +14,7 @@ class BottomNavBar extends StatelessWidget {
       Center(
         child: Text('Cart'),
       ),
-      Center(
-        child: Text('Profile'),
-      )
+      AccountScreen()
     ];
     return Scaffold(
       // body: Center(child: Text("hello world"),),
