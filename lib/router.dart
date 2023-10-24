@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/admin/screen/add_product_screen.dart';
 import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/features/home/screens/home_screen.dart';
 import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
@@ -12,6 +13,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case HomeScreen.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const BottomNavBar());
+    case AddProductScreen.routeName:
+    return MaterialPageRoute(
+      settings: routeSettings,
+      builder: (_) => const AddProductScreen());
     default: 
       return MaterialPageRoute(
         settings: routeSettings,

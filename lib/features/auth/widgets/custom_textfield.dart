@@ -14,9 +14,11 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      maxLines: maxLines,
       decoration: InputDecoration(
         isDense: true,
         hintText: hintText,
+        
         border: const OutlineInputBorder(borderSide: BorderSide()),
       ),
       validator: (value) {

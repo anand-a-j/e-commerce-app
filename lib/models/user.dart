@@ -54,7 +54,8 @@ class UserModel {
       String? password,
       String? address,
       String? type,
-      String? token}) {
+      String? token
+      }) {
     return UserModel(
         id: id ?? this.id,
         name: name ?? this.name,
