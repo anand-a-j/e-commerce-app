@@ -1,19 +1,30 @@
+import 'package:e_commerce_app/features/home/screens/category_deals_screen.dart';
 import 'package:e_commerce_app/features/home/widgets/product_container.dart';
 import 'package:e_commerce_app/features/home/widgets/product_title.dart';
+import 'package:e_commerce_app/features/search/screens/search_screen.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/slider_container_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    // TextEditingController searchController = TextEditingController();
     print("User ; $user");
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +38,11 @@ class HomeScreen extends StatelessWidget {
                 width: 0.8,
               ),
               borderRadius: BorderRadius.circular(10)),
-          child: Text(" Sreach products here"),
+          child: TextField(
+            // controller: searchController,
+            decoration: const InputDecoration(hintText: "Search products here"),
+            onSubmitted: navigateToSearchScreen,
+          ),
         ),
       ),
       body: CustomScrollView(
@@ -42,7 +57,18 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: GlobalVariables.categoryImages.length,
                       itemBuilder: (context, index) {
-                        return Chip(label: Text(GlobalVariables.categoryImages[index]['title'].toString()));
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, CategoryDealsScreen.routeName,
+                                  arguments: GlobalVariables
+                                      .categoryImages[index]['title']
+                                      .toString());
+                            },
+                            child: Chip(
+                                label: Text(GlobalVariables
+                                    .categoryImages[index]['title']
+                                    .toString())));
                       }),
                 ),
                 SliderContainerWidget(),
@@ -59,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                       }),
                 ),
                 productTitleWidget(),
-                 Container(
+                Container(
                   height: 170,
                   color: Colors.white,
                   child: ListView.builder(
@@ -78,4 +104,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
