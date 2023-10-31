@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/home/widgets/product_container.dart';
 import 'package:e_commerce_app/features/home/widgets/product_title.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,9 +40,9 @@ class HomeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 10,
+                      itemCount: GlobalVariables.categoryImages.length,
                       itemBuilder: (context, index) {
-                        return Chip(label: Text("Category"));
+                        return Chip(label: Text(GlobalVariables.categoryImages[index]['title'].toString()));
                       }),
                 ),
                 SliderContainerWidget(),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:e_commerce_app/models/product.dart';
@@ -61,7 +62,7 @@ class AdminServices {
             response: response,
             context: context,
             onSuccess: () {
-              print(
+              debugPrint(
                   "response sellProduct===> ${response.statusCode}=> ${response.body}");
               showSnackBar(context, "Product Added successfully");
               Navigator.pop(context);
@@ -74,6 +75,86 @@ class AdminServices {
     }
   }
 
-  // get all products---------------------------------------------------------
-  
+  // fetch all products---------------------------------------------------------
+  Future<List<ProductModel>> fetchAllProducts(BuildContext context) async {
+    debugPrint("fetch product function called");
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<ProductModel> productList = [];
+    debugPrint("token ${userProvider.user.token}");
+    try {
+      http.Response response = await http.get(
+        Uri.parse('$uri/admin/get-products'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+              "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+          "Access-Control-Allow-Methods": "GET, OPTIONS"
+        },
+      );
+
+      debugPrint("response => ${response.statusCode}");
+      debugPrint("response => ${response.body}");
+
+      if (context.mounted) {
+        httpErrorHandle(
+            response: response,
+            context: context,
+            onSuccess: () {
+              List<dynamic> result = jsonDecode(response.body);
+              for (int i = 0; i < result.length; i++) {
+                productList.add(
+                  ProductModel.fromJson(
+                    jsonEncode(result[i]),
+                  ),
+                );
+              }
+              debugPrint(
+                  "response fetchAllProducts===> ${response.statusCode}=> ${response.body}");
+            });
+      }
+    } catch (e) {
+      debugPrint("get product error ==> ${e.toString()}");
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+    }
+    return productList;
+  }
+
+  // Delete the product
+  void deleteProduct(
+      {required BuildContext context,
+      required ProductModel product,
+      required VoidCallback onSuccess}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response response = await http.post(
+        Uri.parse('$uri/admin/delete-product'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+              "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+          "Access-Control-Allow-Methods": "POST, OPTIONS"
+        },
+        body: jsonEncode({'id': product.id}),
+      );
+
+      if (context.mounted) {
+        httpErrorHandle(
+            response: response,
+            context: context,
+            onSuccess: () {
+              onSuccess();
+            });
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, 'add product post err ${e.toString()}');
+      }
+    }
+  }
 }
