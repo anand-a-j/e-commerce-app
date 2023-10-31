@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/features/admin/services/admin_services.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_button.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -16,12 +17,15 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  TextEditingController productController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  final AdminServices adminServices = AdminServices();
 
   List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
+  String? category;
 
   List<String> productCategory = [
     'Moblies',
@@ -32,13 +36,33 @@ class _AddProductScreenState extends State<AddProductScreen> {
   ];
 
   void selectImages() async {
-    var result = await pickImages();
-    setState(() {
-      images = result;
-    });
+    try {
+      var result = await pickImages();
+      print("image result => $result");
+      print(result.length);
+      setState(() {
+        images = result;
+      });
+    } catch (e) {
+      debugPrint("selectImage issue =${e.toString()}");
+    }
   }
 
-  String? category;
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      print(images.length);
+      
+      adminServices.sellProduct(
+          context: context,
+          name: nameController.text,
+          description: descriptionController.text,
+          price: double.parse(priceController.text),
+          quantity: double.parse(quantityController.text),
+          category: category ?? 'Essentials',
+          images: images);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +71,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -100,7 +125,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   height: 15,
                 ),
                 CustomTextField(
-                    controller: productController, hintText: "Product Name"),
+                    controller: nameController, hintText: "Product Name"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -139,7 +164,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                CustomButton(label: "Sell", onTap: () {}),
+                CustomButton(label: "Sell", onTap: sellProduct),
               ],
             ),
           ),
