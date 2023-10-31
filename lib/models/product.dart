@@ -43,7 +43,7 @@ class ProductModel {
         price: map['price']?.toDouble() ?? 0.0,
         images: List<String>.from(map['images']),
         category: map['category'] ?? '',
-        id: map['_id'] ?? '',
+        id: map['_id'],
         // userId: map['userId'] ?? ''
         );
   }

@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class AdminServices {
-  // sell product------------------------------------------------------------
+  // sell products------------------------------------------------------------
   void sellProduct(
       {required BuildContext context,
       required String name,
@@ -43,15 +43,12 @@ class AdminServices {
         category: category,
       );
 
-      print("TOKEN ==> ${userProvider.user.token}");
-
       http.Response response = await http.post(
         Uri.parse('$uri/admin/add-product'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          ' x-auth-token': userProvider.user.token,
-          "Access-Control-Allow-Origin":
-              "*", // Required for CORS support to work
+          'x-auth-token': userProvider.user.token,
+          "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers":
               "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
           "Access-Control-Allow-Methods": "POST, OPTIONS"
@@ -72,8 +69,11 @@ class AdminServices {
       }
     } catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, 'add product post err ${e.toString()}');
       }
     }
   }
+
+  // get all products---------------------------------------------------------
+  
 }

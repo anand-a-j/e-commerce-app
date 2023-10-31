@@ -8,19 +8,20 @@ const admin = async (req, res, next) => {
             return res.status(401).json({ msg: "no auth token, access denied" })
         }
         const ifverfied = jwt.verify(token, 'passwordKey');
-        if (!ifverfied) return res.status(401).json({ msg: 'Token verification failed. authorization denied' })
+        if (!ifverfied) return res.status(401).json({ msg: 'Token verification failed. authorization denied' });
 
-        const user = await User.findById(verified.id)
+        const user = await User.findById(ifverfied.id);
+        console.log("user ==> " + user);
 
-        if(user.type == 'user' || user.type == 'seller'){
-            return res.status(401).json({ msg: 'You Are Not An Admin!!!' })
+        if(user.type != 'user' || user.type == 'seller'){
+            return res.status(401).json({ msg: 'You Are Not An Admin!!!' });
         }
 
         req.user = ifverfied.id;
         req.token = token;
         next();
-    } catch (e) {
-        res.status(500).json({ err: err.message });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
 

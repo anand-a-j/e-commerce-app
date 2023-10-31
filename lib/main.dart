@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/features/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/features/auth/services/auth_service.dart';
-import 'package:e_commerce_app/features/home/screens/home_screen.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/router.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -45,12 +44,12 @@ class _MyAppState extends State<MyApp> {
             appBarTheme: const AppBarTheme(
                 elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: (settings) => generateRoute(settings),
-        home: AdminScreen()
-        // home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-        //     ? Provider.of<UserProvider>(context).user.type == 'user'
-        //         ? BottomNavBar()
-        //         : AdminScreen()
-        //     : AuthScreen()
+        // home: AdminScreen()
+        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+            ? Provider.of<UserProvider>(context).user.type == 'user'
+                ? BottomNavBar()
+                : AdminScreen()
+            : AuthScreen()
             );
   }
 }

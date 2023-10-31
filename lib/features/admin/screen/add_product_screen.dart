@@ -51,7 +51,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void sellProduct() {
     if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
       print(images.length);
-      
+
+      print("name ==> ${nameController.text}");
+      print("des ==> ${descriptionController.text}");
+      print("prie ==. ${priceController.text}");
+      print("quantity ==> ${quantityController.text}");
+      print("cate ==> $category");
+      print("images ==> $images");
+
       adminServices.sellProduct(
           context: context,
           name: nameController.text,

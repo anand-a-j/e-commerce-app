@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/features/admin/screen/admin_screen.dart';
+import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 class TopButtons extends StatelessWidget {
@@ -15,15 +17,24 @@ class TopButtons extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                OutlinedButton(onPressed: () {}, child: const Text("Your Orders")),
-                OutlinedButton(onPressed: () {}, child: const Text("Turn Sellers"))
+                OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>AdminScreen()));
+                    },
+                    child: const Text("Your Orders")),
+                OutlinedButton(
+                    onPressed: () {}, child: const Text("Turn Sellers"))
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 OutlinedButton(onPressed: () {}, child: const Text("Log Out")),
-                OutlinedButton(onPressed: () {}, child: const Text("Your wishlist"))
+                OutlinedButton(
+                    onPressed: () {}, child: const Text("Your wishlist"))
               ],
             )
           ],
