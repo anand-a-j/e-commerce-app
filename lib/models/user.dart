@@ -8,38 +8,46 @@ class UserModel {
   final String address;
   final String type;
   final String token;
+  final List<dynamic>? cart;
 
-  UserModel({
-      required this.id,
+  UserModel(
+      {required this.id,
       required this.name,
       required this.email,
       required this.password,
       required this.address,
       required this.type,
-      required this.token
-      });
+      required this.token,
+      required this.cart});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'email':email,
+      'email': email,
       'password': password,
       'address': address,
       'type': type,
-      'token': token
+      'token': token,
+      'cart': cart
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-        id: map['_id'] ?? '',
-        name: map['name'] ?? '',
-        email: map['email'] ?? '',
-        password: map['password'] ?? '',
-        address: map['address'] ?? '',
-        type: map['type'] ?? '',
-        token: map['token'] ?? '');
+      id: map['_id'] ?? '',
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      password: map['password'] ?? '',
+      address: map['address'] ?? '',
+      type: map['type'] ?? '',
+      token: map['token'] ?? '',
+      cart: List<Map<String, dynamic>>.from(
+        map['cart']?.map(
+          (x) => Map<String, dynamic>.from(x),
+        ),
+      ),
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -54,7 +62,8 @@ class UserModel {
       String? password,
       String? address,
       String? type,
-      String? token
+      String? token,
+      List<dynamic>? cart
       }) {
     return UserModel(
         id: id ?? this.id,
@@ -63,6 +72,8 @@ class UserModel {
         password: password ?? this.password,
         address: address ?? this.address,
         type: type ?? this.type,
-        token: token ?? this.token);
+        token: token ?? this.token,
+        cart: cart ?? this.cart
+        );
   }
 }

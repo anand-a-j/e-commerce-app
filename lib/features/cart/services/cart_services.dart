@@ -9,18 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class ProductDetailsServices {
-  void addToCart(
-      {required BuildContext context,
-      required ProductModel product,
-      // required double quantity
-      }) async {
+class CartServices {
+  void removeFromCart({
+    required BuildContext context,
+    required ProductModel product,
+    // required double quantity
+  }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       debugPrint("product id ==> ${product.id}");
 
-      http.Response response = await http.post(
-        Uri.parse('$uri/api/add-to-cart'),
+      http.Response response = await http.delete(
+        Uri.parse('$uri/api/remove-from-cart/${product.id}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -29,9 +29,6 @@ class ProductDetailsServices {
               "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
           "Access-Control-Allow-Methods": "POST, OPTIONS"
         },
-        body: jsonEncode({
-          'id': product.id!,
-        }),
       );
 
       if (context.mounted) {
@@ -39,7 +36,8 @@ class ProductDetailsServices {
             response: response,
             context: context,
             onSuccess: () {
-              UserModel user = userProvider.user.copyWith(cart: jsonDecode(response.body)['cart']);
+              UserModel user = userProvider.user
+                  .copyWith(cart: jsonDecode(response.body)['cart']);
               userProvider.setUserFromModel(user);
               debugPrint(
                   "response addToProduct===> ${response.statusCode}=> ${response.body}");

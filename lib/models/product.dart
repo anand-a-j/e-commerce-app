@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:e_commerce_app/models/rating.dart';
+
 class ProductModel {
   final String name;
   final String description;
@@ -8,8 +10,7 @@ class ProductModel {
   final List<String> images;
   final String category;
   final String? id;
-  // final String? userId;
-  // rating
+  final List<Rating>? rating;
 
   ProductModel(
       {required this.name,
@@ -19,8 +20,7 @@ class ProductModel {
       required this.images,
       required this.category,
       this.id,
-      // this.userId
-      });
+      this.rating});
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,7 +31,7 @@ class ProductModel {
       'images': images,
       'category': category,
       'id': id,
-      // 'userId': userId
+      'rating': rating
     };
   }
 
@@ -44,8 +44,13 @@ class ProductModel {
         images: List<String>.from(map['images']),
         category: map['category'] ?? '',
         id: map['_id'],
-        // userId: map['userId'] ?? ''
-        );
+        rating: map['ratings'] != null
+            ? List<Rating>.from(
+                map['ratings']?.map(
+                  (x) => Rating.fromMap(x),
+                ),
+              )
+            : null);
   }
 
   String toJson() => json.encode(toMap());
