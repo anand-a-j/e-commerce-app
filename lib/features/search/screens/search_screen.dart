@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/product_details/screens/product_details_screen.dart';
 import 'package:e_commerce_app/features/search/service/search_services.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
@@ -39,12 +40,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: productList!.length,
                     itemBuilder: (context, index) {
                       ProductModel product = productList![index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(product.images[0]),
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ProductDetailsScreen.routeName,arguments: product);
+                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(product.images[0]),
+                          ),
+                          title: Text(product.name),
+                          subtitle: Text(product.price.toString()),
                         ),
-                        title: Text(product.name),
-                        subtitle: Text(product.price.toString()),
                       );
                     }),
               );
