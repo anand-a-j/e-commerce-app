@@ -8,7 +8,7 @@ class UserModel {
   final String address;
   final String type;
   final String token;
-  final List<dynamic>? cart;
+  final List<dynamic> cart;
 
   UserModel(
       {required this.id,
@@ -64,7 +64,7 @@ class UserModel {
       String? type,
       String? token,
       List<dynamic>? cart
-      }) {
+      }) {  
     return UserModel(
         id: id ?? this.id,
         name: name ?? this.name,

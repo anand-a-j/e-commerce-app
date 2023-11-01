@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/address/screen/address_screen.dart';
 import 'package:e_commerce_app/features/cart/services/cart_services.dart';
 import 'package:e_commerce_app/features/product_details/services/product_details_services.dart';
 import 'package:e_commerce_app/models/product.dart';
@@ -38,6 +39,11 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Cart"),
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.pushNamed(context, AddressScreen.routeName);
+            }, icon: Icon(Icons.save))
+          ],
         ),
         body: user.cart == null
             ? Center(
