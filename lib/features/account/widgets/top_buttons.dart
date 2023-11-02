@@ -1,5 +1,5 @@
+import 'package:e_commerce_app/features/account/service/account_service.dart';
 import 'package:e_commerce_app/features/admin/screen/admin_screen.dart';
-import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 class TopButtons extends StatelessWidget {
@@ -22,7 +22,7 @@ class TopButtons extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>AdminScreen()));
+                              builder: (context) => AdminScreen()));
                     },
                     child: const Text("Your Orders")),
                 OutlinedButton(
@@ -32,7 +32,11 @@ class TopButtons extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                OutlinedButton(onPressed: () {}, child: const Text("Log Out")),
+                OutlinedButton(
+                    onPressed: () {
+                      AccountService().logOut(context);
+                    },
+                    child: const Text("Log Out")),
                 OutlinedButton(
                     onPressed: () {}, child: const Text("Your wishlist"))
               ],

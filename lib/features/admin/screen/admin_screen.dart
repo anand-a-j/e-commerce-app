@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/features/admin/screen/analytics_screen.dart';
+import 'package:e_commerce_app/features/admin/screen/orders_screen.dart';
 import 'package:e_commerce_app/features/admin/screen/posts_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +11,8 @@ class AdminScreen extends StatelessWidget {
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
      List<Widget> _pages = const [
      PostsScreen(),
-      Center(
-        child: Text('Cart'),
-      ),
-     Center(
-        child: Text('Something'),
-      ),
+      AnalyticsScreen(),
+     OrderScreen()
     ];
     return Scaffold(
       appBar: AppBar(
@@ -42,11 +40,11 @@ class AdminScreen extends StatelessWidget {
                 },
                 items: const [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.gif_box), label: "Home"),
+                      icon: Icon(Icons.list), label: "Home"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.shopping_cart), label: "Cart"),
+                      icon: Icon(Icons.analytics), label: "Analytics"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: "Profile")
+                      icon: Icon(Icons.check_box), label: "Orders")
                 ]);
           }),
       
