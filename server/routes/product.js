@@ -17,8 +17,7 @@ productRouter.get("/api/products/", auth, async (req, res) => {
 
 // fetch products based on search query
 productRouter.get("/api/products/search/:name", auth, async (req, res) => {
-    try {
-        
+    try { 
         const products = await Product.find({
          name: {$regex: req.params.name, $options: "i"},
 
@@ -55,5 +54,63 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
     }
 });
 
+// get deal of the day product
+productRouter.get('/api/deal-of-day',auth ,async (req,res)=>{
+    try {
+        let products = await Product.find({});
+       products = products.sort((a,b) => {
+            let aSum = 0;
+            let bSum = 0;
+
+            for(let i=0; i<a.ratings.length;i++){
+                aSum += a.ratings[i].rating;
+            }
+
+            for (let i = 0; i < b.ratings.length; i++) {
+                bSum += b.ratings[i].rating;
+            }
+
+            return aSum < bSum ? 1 : -1;
+        });
+        res.json(products);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+// get popular products
+productRouter.get('/api/popular-products', auth, async (req, res) => {
+    try {
+        let products = await Product.find({});
+        products = products.sort((a, b) => {
+            let aSum = 0;
+            let bSum = 0;
+
+
+            for (let i = 0; i < a.ratings.length; i++) {
+                aSum += a.ratings[i].rating;
+            }
+
+            for (let i = 0; i < b.ratings.length; i++) {
+                bSum += b.ratings[i].rating;
+            }
+
+            return aSum < bSum ? 1 : -1 
+        });
+        res.json(products);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+// Create a route to get new arrivals
+productRouter.get('/api/new-arrivals', auth, async (req, res) => {
+    try {
+        const products = await Product.find({}).sort({ createdAt: -1 }); 
+        res.json(products);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
 
 module.exports = productRouter;
