@@ -16,6 +16,7 @@ class GlobalVariables {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+  static const blackColor = Colors.black87;
 
     static const List<String> carouselImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
@@ -44,6 +45,10 @@ class GlobalVariables {
     },
     {
       'title': 'Fashion',
+      'image': 'assets/images/fashion.jpeg',
+    },
+    {
+      'title': 'Fashions',
       'image': 'assets/images/fashion.jpeg',
     },
   ];

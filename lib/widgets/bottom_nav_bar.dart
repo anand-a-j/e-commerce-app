@@ -9,11 +9,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
-    List<Widget> _pages = const [
-      HomeScreen(),
-      CartScreen(),
-      AccountScreen()
-    ];
+    List<Widget> _pages = const [HomeScreen(), CartScreen(), AccountScreen()];
     return Scaffold(
       // body: Center(child: Text("hello world"),),
       body: ValueListenableBuilder(
@@ -32,11 +28,26 @@ class BottomNavBar extends StatelessWidget {
                 },
                 items: const [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: "Home"),
+                      icon: ImageIcon(
+                        AssetImage(
+                          'assets/icons/home.png',
+                        ),
+                      ),
+                      label: "Home"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.shopping_cart), label: "Cart"),
+                      icon: ImageIcon(
+                        AssetImage(
+                          'assets/icons/cart.png',
+                        ),
+                      ),
+                      label: "Cart"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: "Profile")
+                      icon: ImageIcon(
+                        AssetImage(
+                          'assets/icons/user.png',
+                        ),
+                      ),
+                      label: "Profile"),
                 ]);
           }),
     );
