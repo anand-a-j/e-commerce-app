@@ -8,7 +8,7 @@ class UserModel {
   final String address;
   final String type;
   final String token;
-  final List<dynamic> cart;
+  final List<dynamic>? cart;
 
   UserModel(
       {required this.id,

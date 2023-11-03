@@ -4,7 +4,6 @@ import 'package:e_commerce_app/features/auth/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pay/pay.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
@@ -22,10 +21,6 @@ class _AddressScreenState extends State<AddressScreen> {
   TextEditingController cityController = TextEditingController();
 
   // List<PaymentItem> paymentItems = [];
-
-  // void onGooglePayResult(paymentResult) {
-  //   debugPrint(paymentResult.toString());
-  // }
 
   String addressToBeUsed = '';
   final AddressServices addressServices = AddressServices();
@@ -45,7 +40,7 @@ class _AddressScreenState extends State<AddressScreen> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   width: double.infinity,
                   color: Colors.amber.shade100,
                   child: Text(address),

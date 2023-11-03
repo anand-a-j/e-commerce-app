@@ -9,7 +9,6 @@ import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import '../widgets/dealofday_container.dart';
 import '../widgets/slider_container_widget.dart';
 
@@ -22,14 +21,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
   final HomeServices homeServices = HomeServices();
+
   List<ProductModel>? dealOfTheDay;
+  List<ProductModel>? newArrival;
 
   @override
   void initState() {
     getDealOfTheDayProducts();
+    getNewArrivalProducts();
     super.initState();
   }
+
 
   void getDealOfTheDayProducts() async {
     dealOfTheDay =
@@ -37,8 +41,20 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  void getNewArrivalProducts() async {
+    newArrival = await homeServices.fetchnewArrivalProduct(context: context);
+    setState(() {});
+  }
+
   navigateToSearchScreen(String query) {
+    _searchController.text = '';
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -69,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              expandedHeight: 70,
               backgroundColor: GlobalVariables.backgroundColor,
               title: Text(
                 "E Commerce App",
@@ -90,12 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Dimensions.kWidth10
               ],
-              bottom: AppBar(
-                backgroundColor: GlobalVariables.backgroundColor,
-                title: Container(
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(50),
+                child: Container(
+                  margin: EdgeInsets.all(10),
                   padding: const EdgeInsets.only(left: 10),
                   width: double.infinity,
-                  height: 48,
+                  height: 50,
                   decoration: BoxDecoration(
                       color: GlobalVariables.backgroundColor,
                       border: Border.all(
@@ -103,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 0.8),
                       borderRadius: Dimensions.kRadius10),
                   child: TextField(
-                    // controller: searchController,
+                    controller: _searchController,
                     decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.search),
                       hintText: "Search products here",
@@ -113,6 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+              // AppBar(
+              //   backgroundColor: GlobalVariables.backgroundColor,
+              //   title:
+              // ),
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -221,19 +243,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           product: dealOfTheDay![0],
                         ),
                   productTitleWidget(),
-                  Container(
-                    height: 240,
-                    color: Colors.white,
-                    child: ListView.builder(
-                        itemCount: dealOfTheDay!.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ProductContainerWidget(
-                            product: dealOfTheDay![index],
-                          );
-                        }),
-                  ),
+                  newArrival == null
+                      ? const ProductContainerShimmer()
+                      : Container(
+                          height: 240,
+                          color: Colors.white,
+                          child: ListView.builder(
+                              itemCount: newArrival!.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return ProductContainerWidget(
+                                  product: newArrival![index],
+                                );
+                              }),
+                        ),
                   Container(
                     margin: const EdgeInsets.all(10),
                     width: double.infinity,
