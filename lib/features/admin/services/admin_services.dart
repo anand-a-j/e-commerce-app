@@ -205,11 +205,11 @@ class AdminServices {
               var res = jsonDecode(response.body);
               totalEarning = res['totalEarnings'];
               sales = [
-                Sales('Mobiles', res['mobilesEarnings']),
-                Sales('Essentials', res['essentialsEarnings']),
-                Sales('Appliances', res['appliancesEarnings']),
-                Sales('Books', res['booksEarnings']),
-                Sales('Fashion', res['fashionEarnings']),
+                Sales('Smart Phone', res['Smart PhoneEarnings']),
+                Sales('Laptop', res['LaptopEarnings']),
+                Sales('Tablet', res['TabletEarnings']),
+                Sales('Speakers', res['SpeakersEarnings']),
+                Sales('SmartWatch', res['SmartWatchEarnings']),
               ];
             });
       }
@@ -219,10 +219,7 @@ class AdminServices {
         showSnackBar(context, e.toString());
       }
     }
-    return {
-      'sales':sales,
-      'totalEarnings':totalEarning
-    };
+    return {'sales': sales, 'totalEarnings': totalEarning};
   }
 
   // Delete a product-----------------------------------------------------------

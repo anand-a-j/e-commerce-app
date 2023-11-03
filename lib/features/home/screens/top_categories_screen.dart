@@ -6,10 +6,8 @@ class TopCategoryScreen extends StatelessWidget {
   const TopCategoryScreen({super.key});
 
   navigateToCategoryPage(BuildContext context, String category) {
-    Navigator.pushNamed(
-      context, CategoryDealsScreen.routeName,
-      arguments: category
-    );
+    Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+        arguments: category);
   }
 
   @override
@@ -19,14 +17,15 @@ class TopCategoryScreen extends StatelessWidget {
         title: const Text("Categories"),
       ),
       body: GridView.builder(
-        itemCount: GlobalVariables.categoryImages.length,
+        itemCount: GlobalVariables.productCategory.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 30),
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () =>navigateToCategoryPage(context, GlobalVariables.categoryImages[index]['title'].toString()) ,
+            onTap: () => navigateToCategoryPage(context,
+                GlobalVariables.productCategory[index]['title'].toString()),
             child: Text(
-              GlobalVariables.categoryImages[index]['title'].toString(),
+              GlobalVariables.productCategory[index]['title'].toString(),
             ),
           );
         },

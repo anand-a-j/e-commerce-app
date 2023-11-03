@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-
   void getDealOfTheDayProducts() async {
     dealOfTheDay =
         await homeServices.fetchDealOfTheDayProduct(context: context);
@@ -165,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           scrollDirection: Axis.horizontal,
                           physics: PageScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: 5,
+                          itemCount: GlobalVariables.productCategory.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -191,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         )),
                                   ),
                                   Dimensions.kHeight10,
-                                  Text(GlobalVariables.categoryImages[index]
+                                  Text(GlobalVariables.productCategory[index]
                                           ['title']
                                       .toString())
                                 ],
@@ -205,19 +204,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   width: double.infinity,
                   //   child: ListView.builder(
                   //       scrollDirection: Axis.horizontal,
-                  //       itemCount: GlobalVariables.categoryImages.length,
+                  //       itemCount: GlobalVariables.productCategory.length,
                   //       itemBuilder: (context, index) {
                   //         return GestureDetector(
                   //             onTap: () {
                   //               Navigator.pushNamed(
                   //                   context, CategoryDealsScreen.routeName,
                   //                   arguments: GlobalVariables
-                  //                       .categoryImages[index]['title']
+                  //                       .productCategory[index]['title']
                   //                       .toString());
                   //             },
                   //             child: Chip(
                   //                 label: Text(GlobalVariables
-                  //                     .categoryImages[index]['title']
+                  //                     .productCategory[index]['title']
                   //                     .toString())));
                   //       }),
                   // ),

@@ -83,21 +83,23 @@ adminRouter.get('/admin/analytics', admin, async (req, res) => {
          }
       }
 
-   // get category wise earnings
-      let mobilesEarnings = await fetchCategoryWiseProduct('Mobiles');
-      let essentialsEarnings = await fetchCategoryWiseProduct('Essentials');
-      let appliancesEarnings = await fetchCategoryWiseProduct('Appliances');
-      let booksEarnings = await fetchCategoryWiseProduct('Books');
-      let fashionEarnings = await fetchCategoryWiseProduct('Fashion');
+      // get category wise earnings
+      let SmartPhoneEarnings = await fetchCategoryWiseProduct('SmartPhone');
+      let LaptopEarnings = await fetchCategoryWiseProduct('Laptop');
+      let TabletEarnings = await fetchCategoryWiseProduct('Tablet');
+      let SpeakersEarnings = await fetchCategoryWiseProduct('Speakers');
+      let SmartWatchEarnings = await fetchCategoryWiseProduct('SmartWatch');
+      let HeadPhonesEarnings = await fetchCategoryWiseProduct('HeadPhones');
 
 
       let earnings = {
          totalEarnings,
-         mobilesEarnings,
-         essentialsEarnings,
-         appliancesEarnings,
-         booksEarnings,
-         fashionEarnings
+         SmartPhoneEarnings,
+         LaptopEarnings,
+         TabletEarnings,
+         SpeakersEarnings,
+         SmartWatchEarnings,
+         HeadPhonesEarnings
       }
 
       res.json(earnings);
@@ -113,11 +115,11 @@ async function fetchCategoryWiseProduct(category) {
 
    for (let i = 0; i < categoryOrders.length; i++) {
       for (let j = 0; j < categoryOrders[i].products.length; j++) {
-         earnings += totalEarnings += categoryOrders[i].products[j].quantity * 
-         categoryOrders[i].products[j].product.price;
+         earnings += totalEarnings += categoryOrders[i].products[j].quantity *
+            categoryOrders[i].products[j].product.price;
       }
    }
-  return earnings;
+   return earnings;
 }
 
 module.exports = adminRouter;

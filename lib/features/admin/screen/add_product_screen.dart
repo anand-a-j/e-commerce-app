@@ -29,10 +29,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   List<String> productCategory = [
     'Moblies',
-    'Essentials',
-    'Appliances',
-    'Books',
-    'Fashion'
+    'Laptop',
+    'Tablet',
+    'Speakers',
+    'SmartWatch'
   ];
 
   void selectImages() async {
@@ -50,14 +50,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void sellProduct() {
     if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-
       adminServices.sellProduct(
           context: context,
           name: nameController.text,
           description: descriptionController.text,
           price: double.parse(priceController.text),
           quantity: double.parse(quantityController.text),
-          category: category ?? 'Essentials',
+          category: category ?? 'Laptop',
           images: images);
     }
   }
