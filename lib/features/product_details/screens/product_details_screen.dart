@@ -157,14 +157,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(width: 1, color: Colors.blueAccent)),
+                        border: Border.all(width: 1, color: GlobalVariables.primaryColor)),
                     child: const Center(
                       child: Text(
                         "Add to Cart",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
-                            color: Colors.blueAccent),
+                            color: GlobalVariables.primaryColor),
                       ),
                     ),
                   ),
@@ -182,7 +182,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.blueAccent),
+                        color: GlobalVariables.primaryColor),
                     child: const Center(
                       child: Text(
                         "Buy Now",
@@ -219,9 +219,9 @@ class AppBarButton extends StatelessWidget {
       height: 50,
       width: 50,
       decoration: BoxDecoration(
-          color: Colors.amber.shade50, borderRadius: BorderRadius.circular(10)),
+          color: GlobalVariables.primaryColor.withOpacity(0.7), borderRadius: BorderRadius.circular(10)),
       child: Center(
-        child: IconButton(onPressed: onPressed, icon: Icon(icon)),
+        child: IconButton(onPressed: onPressed, icon: Icon(icon,color: GlobalVariables.backgroundColor,)),
       ),
     );
   }

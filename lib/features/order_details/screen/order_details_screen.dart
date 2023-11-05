@@ -1,7 +1,10 @@
 import 'package:e_commerce_app/features/admin/services/admin_services.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_button.dart';
+import 'package:e_commerce_app/features/home/widgets/product_title.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
+import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,20 +49,141 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Order Details"),
+        backgroundColor: GlobalVariables.backgroundColor,
+        title: const Text(
+          "Order Details",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
-          Text(widget.order.id),
-          Text(widget.order.address),
-          for (int i = 0; i < widget.order.products.length; i++)
-            Text(widget.order.products[i].name),
-          Text(widget.order.id),
+          const productTitleWidget(label: "Order Details"),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text("Order Id"), Text(widget.order.id)],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Date"),
+                    Text(dateConvert(widget.order.orderedAt))
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const productTitleWidget(label: "Shipping Address"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+              height: 150,
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 0.7, color: Colors.grey)),
+              child: Text(
+                widget.order.address,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+          const productTitleWidget(label: "Products"),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.order.products.length,
+              itemBuilder: (context, index) {
+                var product = widget.order.products[index];
+                return SizedBox(               
+                  height: 70,
+                  width: double.infinity,
+                  child: ListTile(
+                    leading: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade100,
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                            image: NetworkImage(product.images[0]),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    title:
+                        Text(product.name),
+                    subtitle:
+                        Text("Quantity: ${product.quantity} Price: ${product.price}"),
+                  ),
+                );
+              },
+            ),
+          ),
+          const productTitleWidget(label: "Price Details"),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text("Total"), Text(widget.order.totalPrice.toString())],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Delivery Charge"),
+                    Text("Free")
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Tax"), 
+                    Text("₹0.00")
+                    ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.grey,     
+              
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [const Text("Sub Total"), Text('₹ ${widget.order.totalPrice}0')],
+                ),
+              ),
+            ],
+          ),
+         const SizedBox(height: 5,),
+          const productTitleWidget(label: "Order Status"),
           Stepper(
             currentStep: currentStep,
             controlsBuilder: (context, details) {
               if (user.type == 'admin') {
-                return CustomButton(label: "Done", onTap: () => changeOrderStatus());
+                return CustomButton(
+                    label: "Done", onTap: () => changeOrderStatus());
               }
               return const SizedBox.shrink();
             },

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/features/admin/services/admin_services.dart';
 import 'package:e_commerce_app/features/auth/widgets/custom_button.dart';
-import 'package:e_commerce_app/features/auth/widgets/custom_textfield.dart';
+import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   String? category;
 
   List<String> productCategory = [
-    'Moblies',
+    'SmartPhone',
     'Laptop',
     'Tablet',
     'Speakers',
@@ -38,8 +38,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void selectImages() async {
     try {
       var result = await pickImages();
-      print("image result => $result");
-      print(result.length);
       setState(() {
         images = result;
       });
@@ -148,7 +146,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   width: double.infinity,
                   child: DropdownButton(
                       icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                      hint: Text("Select the category"),
+                      hint: const Text("Select the category"),
                       value: category,
                       items: productCategory.map((String item) {
                         return DropdownMenuItem(value: item, child: Text(item));

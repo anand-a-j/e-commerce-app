@@ -44,6 +44,7 @@ const hashedPassword = await bcryptjs.hash(password, 8);
 // SIGN IN Route
 authRouter.post('/api/signin', async(req,res)=>{
     try{
+      console.log("Sign in");
      const {email, password} = req.body;
 
      const user = await User.findOne({email});

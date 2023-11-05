@@ -74,14 +74,17 @@ adminRouter.post('/admin/change-order-status', admin, async (req, res) => {
 // get total earnings of orders
 adminRouter.get('/admin/analytics', admin, async (req, res) => {
    try {
-      const orders = Order.find({});
+      const orders = await Order.find({});
       let totalEarnings = 0;
+
+      console.log('orders length:'+ orders.length);
 
       for (let i = 0; i < orders.length; i++) {
          for (let j = 0; j < orders[i].products.length; j++) {
             totalEarnings += orders[i].products[j].quantity * orders[i].products[j].product.price;
          }
       }
+      console.log('total'+ totalEarnings);
 
       // get category wise earnings
       let SmartPhoneEarnings = await fetchCategoryWiseProduct('SmartPhone');
@@ -90,7 +93,7 @@ adminRouter.get('/admin/analytics', admin, async (req, res) => {
       let SpeakersEarnings = await fetchCategoryWiseProduct('Speakers');
       let SmartWatchEarnings = await fetchCategoryWiseProduct('SmartWatch');
       let HeadPhonesEarnings = await fetchCategoryWiseProduct('HeadPhones');
-
+     
 
       let earnings = {
          totalEarnings,
@@ -101,21 +104,27 @@ adminRouter.get('/admin/analytics', admin, async (req, res) => {
          SmartWatchEarnings,
          HeadPhonesEarnings
       }
+      console.log('total earnings' + earnings.totalEarnings);
+
+     
 
       res.json(earnings);
 
    } catch (e) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: e.message });
    }
 });
 
 async function fetchCategoryWiseProduct(category) {
    let earnings = 0;
-   let categoryOrders = await Order.find({ 'products.product.category': category });
+   let categoryOrders = await Order.find({
+      "products.product.category": category,
+   });
 
    for (let i = 0; i < categoryOrders.length; i++) {
       for (let j = 0; j < categoryOrders[i].products.length; j++) {
-         earnings += totalEarnings += categoryOrders[i].products[j].quantity *
+         earnings +=
+            categoryOrders[i].products[j].quantity *
             categoryOrders[i].products[j].product.price;
       }
    }

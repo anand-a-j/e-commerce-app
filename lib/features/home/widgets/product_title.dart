@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class productTitleWidget extends StatelessWidget {
+  final String label;
   const productTitleWidget({
     super.key,
+    required this.label
   });
 
   @override
@@ -15,10 +17,10 @@ class productTitleWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Deal of the Day",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            label,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          TextButton(onPressed: () {}, child: Text("View All")),
+          // TextButton(onPressed: () {}, child: Text("View All")),
         ],
       ),
     );

@@ -112,13 +112,14 @@ class _CartScreenState extends State<CartScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(product.name,
+                                      Text(
+                                        product.name,
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400)),
-                                      Dimensions.kHeight10,
+                                      SizedBox(height: 5,),
                                       Text("Free Delivery"),
-                                      Dimensions.kHeight10,
+                                      SizedBox(height: 5,),
                                       Text(
                                         "₹ ${product.price}",
                                         style: TextStyle(
@@ -138,7 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                                               height: 25,
                                               width: 25,
                                               decoration: BoxDecoration(
-                                                color: Colors.blue,
+                                                color: GlobalVariables.primaryColor,
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -170,7 +171,7 @@ class _CartScreenState extends State<CartScreen> {
                                               height: 25,
                                               width: 25,
                                               decoration: BoxDecoration(
-                                                color: Colors.blue,
+                                                color: GlobalVariables.primaryColor,
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -219,21 +220,26 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: const Center(
-                        child: Text(
-                          "Checkout",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, AddressScreen.routeName,arguments:sum.toDouble());
+                      },
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(
+                            left: 15, right: 15, bottom: 10),
+                        decoration: BoxDecoration(
+                            color: GlobalVariables.primaryColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: const Center(
+                          child: Text(
+                            "Checkout",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
                         ),
                       ),
                     ),

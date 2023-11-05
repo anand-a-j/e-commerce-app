@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/product_details/screens/product_details_screen.dart';
 import 'package:e_commerce_app/features/product_details/services/product_details_services.dart';
 import 'package:e_commerce_app/models/product.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -94,7 +95,7 @@ class ProductContainerWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color.fromARGB(221, 0, 0, 0)),
+                    color: GlobalVariables.primaryColor),
                 child: const Center(
                   child: Text(
                     "Add to Cart",

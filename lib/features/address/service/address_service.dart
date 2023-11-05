@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:e_commerce_app/models/user.dart';
-import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/api.dart';
 import 'package:e_commerce_app/utils/error_handling.dart';
@@ -34,6 +32,7 @@ class AddressServices {
             response: response,
             context: context,
             onSuccess: () {
+              debugPrint("Success address added ${response.body}");
               UserModel user = userProvider.user.copyWith(
                 address: jsonDecode(response.body)['address'],
               );
@@ -51,24 +50,28 @@ class AddressServices {
   void placeOrder(
       {required BuildContext context,
       required String address,
-      required double totalAmount}) async {
+      required double totalAmount,
+      required String paymentId}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     print(userProvider.user.cart);
     try {
-      http.Response response = await http.post(Uri.parse('$uri/api/order'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers":
-                "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-            "Access-Control-Allow-Methods": "GET, OPTIONS"
-          },
-          body: jsonEncode({
-            'cart': userProvider.user.cart,
-            'address': address,
-            'totalPrice': totalAmount,
-          }));
+      http.Response response = await http.post(
+        Uri.parse('$uri/api/order'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+              "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+          "Access-Control-Allow-Methods": "GET, OPTIONS"
+        },
+        body: jsonEncode({
+          'cart': userProvider.user.cart,
+          'address': address,
+          'totalPrice': totalAmount,
+          'paymentId':paymentId
+        }),
+      );
 
       debugPrint("response => ${response.statusCode}");
       debugPrint("response => ${response.body}");

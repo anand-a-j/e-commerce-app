@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/address/screen/address_screen.dart';
 import 'package:e_commerce_app/features/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/features/auth/services/auth_service.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthService _auth = AuthService();
+
   @override
   void initState() {
     _auth.getUserData(context: context);
@@ -31,25 +33,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<UserProvider>(context, listen: false)
-        .user
-        .token
-        .toString());
     return MaterialApp(
-        title: 'E-Commerce App',
-        theme: ThemeData(
-            scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-            colorScheme: const ColorScheme.light(
-                primary: GlobalVariables.secondaryColor),
-            appBarTheme: const AppBarTheme(
-                elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
-        onGenerateRoute: (settings) => generateRoute(settings),
-        // home: AdminScreen()
-        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? Provider.of<UserProvider>(context).user.type == 'user'
-                ? BottomNavBar()
-                : AdminScreen()
-            : AuthScreen()
-            );
+      title: 'E-Commerce App',
+      theme: ThemeData(
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        colorScheme:
+            const ColorScheme.light(primary: GlobalVariables.primaryColor),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      // home: AddressScreen(totalAmount: 100.0),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? BottomNavBar()
+              : AdminScreen()
+          : AuthScreen()
+    );
   }
 }

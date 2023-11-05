@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/features/cart/screen/cart_screen.dart';
+import 'package:e_commerce_app/features/home/screens/category_deals_screen.dart';
 import 'package:e_commerce_app/features/home/services/home_services.dart';
 import 'package:e_commerce_app/features/home/widgets/product_container.dart';
 import 'package:e_commerce_app/features/home/widgets/product_title.dart';
@@ -21,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _searchController = TextEditingController();
   final HomeServices homeServices = HomeServices();
 
   List<ProductModel>? dealOfTheDay;
@@ -45,22 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
-  navigateToSearchScreen(String query) {
-    _searchController.text = '';
-    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     // TextEditingController searchController = TextEditingController();
-    print("User ; $user");
     return Scaffold(
       // appBar: AppBar(
       //   title: Container(
@@ -90,44 +79,84 @@ class _HomeScreenState extends State<HomeScreen> {
                 "E Commerce App",
                 style: TextStyle(color: Colors.black),
               ),
-              actions: const [
-                ImageIcon(
-                  AssetImage(
-                    'assets/icons/user.png',
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.pushNamed(context, )
+                  },
+                  child: ImageIcon(
+                    AssetImage(
+                      'assets/icons/user.png',
+                    ),
+                    color: GlobalVariables.blackColor,
                   ),
-                  color: GlobalVariables.blackColor,
                 ),
-                Dimensions.kWidth10,
-                ImageIcon(
-                  AssetImage(
-                    'assets/icons/cart.png',
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, CartScreen.routeName);
+                  },
+                  child: Stack(
+                    children: [
+                      ImageIcon(
+                        AssetImage(
+                          'assets/icons/cart.png',
+                        ),
+                        color: GlobalVariables.blackColor,
+                        size: 50,
+                      ),
+                      Positioned(
+                        right: 5,
+                        top: 2,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.red,
+                          radius: 8,
+                          child: Center(
+                            child: Text(
+                              user.cart == null
+                                  ? '0'
+                                  : user.cart!.length.toString(),
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  color: GlobalVariables.blackColor,
                 ),
-                Dimensions.kWidth10
+                SizedBox(
+                  width: 15,
+                )
               ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  padding: const EdgeInsets.only(left: 10),
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: GlobalVariables.backgroundColor,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 122, 122, 122),
-                          width: 0.8),
-                      borderRadius: Dimensions.kRadius10),
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: const InputDecoration(
-                      suffixIcon: Icon(Icons.search),
-                      hintText: "Search products here",
-                      border: InputBorder.none,
-                    ),
-                    onSubmitted: navigateToSearchScreen,
-                  ),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, SearchScreen.routeName);
+                  },
+                  child: Container(
+                      margin: EdgeInsets.all(10),
+                      padding: const EdgeInsets.only(left: 10),
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: GlobalVariables.backgroundColor,
+                          border: Border.all(
+                              color: Color.fromARGB(255, 122, 122, 122),
+                              width: 0.8),
+                          borderRadius: Dimensions.kRadius10),
+                      child: const Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Search your products",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Icon(Icons.search)
+                          ],
+                        ),
+                      )),
                 ),
               ),
               // AppBar(
@@ -141,7 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   CarouselSlider.builder(
                     itemCount: GlobalVariables.carouselImages.length,
                     itemBuilder: (context, index, _) {
-                      return SliderContainerWidget();
+                      return SliderContainerWidget(
+                        imageUrl: GlobalVariables.carouselImages[index],
+                      );
                     },
                     options: CarouselOptions(
                       // height: 180.0,
@@ -155,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       viewportFraction: 0.95,
                     ),
                   ),
-                  productTitleWidget(),
+                  const productTitleWidget(
+                    label: "Categories",
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height: 250,
@@ -166,34 +199,44 @@ class _HomeScreenState extends State<HomeScreen> {
                           shrinkWrap: true,
                           itemCount: GlobalVariables.productCategory.length,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10),
                           itemBuilder: (context, index) {
-                            return SizedBox(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 90,
-                                    height: 90,
-                                    decoration: BoxDecoration(
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, CategoryDealsScreen.routeName,
+                                    arguments: GlobalVariables
+                                        .productCategory[index]['title']
+                                        .toString());
+                              },
+                              child: SizedBox(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      height: 90,
+                                      decoration: BoxDecoration(
                                         color: Colors.purple.shade50,
                                         borderRadius: BorderRadius.circular(50),
                                         image: DecorationImage(
                                           image: NetworkImage(GlobalVariables
                                               .carouselImages[index]),
                                           fit: BoxFit.fill,
-                                        )),
-                                  ),
-                                  Dimensions.kHeight10,
-                                  Text(GlobalVariables.productCategory[index]
-                                          ['title']
-                                      .toString())
-                                ],
+                                        ),
+                                      ),
+                                    ),
+                                    Dimensions.kHeight10,
+                                    Text(GlobalVariables.productCategory[index]
+                                            ['title']
+                                        .toString())
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -220,7 +263,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   //                     .toString())));
                   //       }),
                   // ),
-                  productTitleWidget(),
+                  const productTitleWidget(
+                    label: "Best Deals",
+                  ),
                   dealOfTheDay == null
                       ? const ProductContainerShimmer()
                       : Container(
@@ -235,13 +280,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               }),
                         ),
-                  productTitleWidget(),
+                  const productTitleWidget(label: "Deal Of The Day"),
                   dealOfTheDay == null
                       ? const DealOfTheDayContainerShimmer()
                       : DealOfTheDayContainer(
                           product: dealOfTheDay![0],
                         ),
-                  productTitleWidget(),
+                  const productTitleWidget(label: "New Arrivals"),
                   newArrival == null
                       ? const ProductContainerShimmer()
                       : Container(
@@ -268,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhZGdldHxlbnwwfDB8MHx8fDA%3D"),
                             fit: BoxFit.cover)),
                   ),
-                  productTitleWidget(),
+                  // productTitleWidget(),
                 ],
               ),
             ),

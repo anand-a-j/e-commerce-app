@@ -177,7 +177,7 @@ class AdminServices {
   Future<Map<String, dynamic>> fetchEarnings(BuildContext context) async {
     debugPrint("fetch all analytics function called");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Sales> sales = [];
+    List<Sales>? sales = [];
     int totalEarning = 0;
 
     // debugPrint("token ${userProvider.user.token}");
@@ -205,11 +205,12 @@ class AdminServices {
               var res = jsonDecode(response.body);
               totalEarning = res['totalEarnings'];
               sales = [
-                Sales('Smart Phone', res['Smart PhoneEarnings']),
+                Sales('SmartPhone', res['SmartPhoneEarnings']),
                 Sales('Laptop', res['LaptopEarnings']),
                 Sales('Tablet', res['TabletEarnings']),
                 Sales('Speakers', res['SpeakersEarnings']),
                 Sales('SmartWatch', res['SmartWatchEarnings']),
+                Sales('HeadPhones', res['HeadPhonesEarnings'])
               ];
             });
       }

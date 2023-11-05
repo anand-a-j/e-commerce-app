@@ -10,16 +10,18 @@ class Order {
   final int orderedAt;
   final int status;
   final double totalPrice;
-  Order({
-    required this.id,
-    required this.products,
-    required this.quantity,
-    required this.address,
-    required this.userId,
-    required this.orderedAt,
-    required this.status,
-    required this.totalPrice,
-  });
+  final String paymentId;
+  Order(
+      {required this.id,
+      required this.products,
+      required this.quantity,
+      required this.address,
+      required this.userId,
+      required this.orderedAt,
+      required this.status,
+      required this.totalPrice,
+      required this.paymentId
+      });
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,25 +33,26 @@ class Order {
       'orderedAt': orderedAt,
       'status': status,
       'totalPrice': totalPrice,
+      'paymentId': paymentId
     };
   }
 
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
-      id: map['_id'] ?? '',
-      products: List<ProductModel>.from(
-          map['products']?.map((x) => ProductModel.fromMap(x['product']))),
-      quantity: List<int>.from(
-        map['products']?.map(
-          (x) => x['quantity'],
+        id: map['_id'] ?? '',
+        products: List<ProductModel>.from(
+            map['products']?.map((x) => ProductModel.fromMap(x['product']))),
+        quantity: List<int>.from(
+          map['products']?.map(
+            (x) => x['quantity'],
+          ),
         ),
-      ),
-      address: map['address'] ?? '',
-      userId: map['userId'] ?? '',
-      orderedAt: map['orderedAt']?.toInt() ?? 0,
-      status: map['status']?.toInt() ?? 0,
-      totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
-    );
+        address: map['address'] ?? '',
+        userId: map['userId'] ?? '',
+        orderedAt: map['orderedAt']?.toInt() ?? 0,
+        status: map['status']?.toInt() ?? 0,
+        totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
+        paymentId: map['paymentId'] ?? '');
   }
 
   String toJson() => json.encode(toMap());
