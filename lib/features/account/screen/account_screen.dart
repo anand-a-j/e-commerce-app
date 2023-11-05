@@ -11,7 +11,7 @@ class AccountScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: GlobalVariables.backgroundColor,
-        title: Text(
+        title: const Text(
           "Profile",
           style: TextStyle(
             color: GlobalVariables.blackColor,
@@ -22,7 +22,7 @@ class AccountScreen extends StatelessWidget {
             onPressed: () {},
             icon: Icon(Icons.search),
           ),
-          SizedBox(
+         const SizedBox(
             width: 10,
           )
         ],
@@ -32,7 +32,7 @@ class AccountScreen extends StatelessWidget {
           Container(
             height: 300,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
                         "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGVjaHxlbnwwfHwwfHx8MA%3D%3D"),

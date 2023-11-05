@@ -1,6 +1,8 @@
+import 'package:e_commerce_app/features/account/service/account_service.dart';
 import 'package:e_commerce_app/features/admin/screen/analytics_screen.dart';
 import 'package:e_commerce_app/features/admin/screen/orders_screen.dart';
 import 'package:e_commerce_app/features/admin/screen/posts_screen.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatelessWidget {
@@ -9,19 +11,23 @@ class AdminScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
-     List<Widget> _pages = const [
-     PostsScreen(),
+    List<Widget> _pages = const [
+      PostsScreen(),
       AnalyticsScreen(),
-     OrderScreen()
+      OrderScreen()
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("E Commerce"),
+        title: const Text("E Commerce Admin"),
         actions: [
           IconButton(
-            onPressed: (){}, 
-            icon: const Icon(Icons.admin_panel_settings)
-          )
+              onPressed: () {
+                AccountService().logOut(context);
+              },
+              icon: const Icon(
+                Icons.logout_outlined,
+                color: GlobalVariables.backgroundColor,
+              ))
         ],
       ),
       body: ValueListenableBuilder(
@@ -47,9 +53,6 @@ class AdminScreen extends StatelessWidget {
                       icon: Icon(Icons.check_box), label: "Orders")
                 ]);
           }),
-      
-
-      
     );
   }
 }

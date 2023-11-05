@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/admin/model/sales_model.dart';
 import 'package:e_commerce_app/features/admin/services/admin_services.dart';
 import 'package:e_commerce_app/features/admin/widget/bar_chart.dart';
+import 'package:e_commerce_app/features/admin/widget/category_sum_container.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -25,18 +26,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   void getEarnings() async {
     var earnings = await adminServices.fetchEarnings(context);
-    print("8547 total ==> ${earnings['totalEarnings']}");
     totalSales = earnings['totalEarnings'];
     sales = earnings['sales'];
-    print(sales!.length);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return totalSales == null || sales == null
-        ? Loader()
-        : Column(
+        ? const Loader()
+        : ListView(
             children: [
               Container(
                 height: 50,
@@ -44,7 +43,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    color: GlobalVariables.primaryColor,
+                    color: const Color.fromARGB(255, 95, 202, 98),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,8 +65,20 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   ],
                 ),
               ),
-              CategoryWiseSalesChart(sales: sales,)
+              CategoryWiseSalesChart(
+                sales: sales,
+              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: sales!.length,
+                  itemBuilder: (context, index) {
+                    return CategoryWiseSumContainer(
+                        title: sales![index].label,
+                        amount: sales![index].earning.toString()
+                    );
+                  })
             ],
           );
   }
 }
+

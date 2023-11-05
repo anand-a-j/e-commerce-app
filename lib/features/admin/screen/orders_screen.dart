@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/admin/services/admin_services.dart';
 import 'package:e_commerce_app/features/order_details/screen/order_details_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
+import 'package:e_commerce_app/utils/utils.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
@@ -29,20 +30,93 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return orders == null
-        ? Loader()
+        ? const Loader()
         : orders!.isEmpty
-            ? Text("No orders placed")
+            ? const Text("No orders placed")
             : ListView.builder(
                 itemCount: orders!.length,
                 itemBuilder: (context, index) {
-                  var order = orders![index];
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context, OrderDetailsScreen.routeName,arguments: order);
+                      Navigator.pushNamed(context, OrderDetailsScreen.routeName,
+                          arguments: orders![index]);
                     },
-                    child: ListTile(
-                      title: Text(order.orderedAt.toString()),
+                    child: Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.8, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Order ID:",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                orders![index].id,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Items:",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                orders![index].products.length.toString(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Total Price:",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '₹ ${orders![index].totalPrice.toString()}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Date:",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                dateConvert(orders![index].orderedAt),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

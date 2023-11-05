@@ -11,17 +11,17 @@ class CategoryWiseSalesChart extends StatefulWidget {
   const CategoryWiseSalesChart({super.key,required this.sales});
 
   List<Color> get availableColors => const <Color>[
-        Colors.red,
-        Colors.red,
-        Colors.red,
-        Colors.red,
-        Colors.red,
-        Colors.red,
+        Colors.purple,
+        Colors.purple,
+        Colors.purple,
+        Colors.purple,
+        Colors.purple,
+        Colors.purple,
       ];
 
   final Color barBackgroundColor = GlobalVariables.primaryColor;
   final Color barColor = GlobalVariables.primaryColor;
-  final Color touchedBarColor = Colors.yellow;
+  final Color touchedBarColor = Colors.green;
 
   @override
   State<StatefulWidget> createState() => CategoryWiseSalesChartState();
@@ -48,7 +48,7 @@ class CategoryWiseSalesChartState extends State<CategoryWiseSalesChart> {
                 const Text(
                   'Category',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: GlobalVariables.primaryColor,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -59,7 +59,7 @@ class CategoryWiseSalesChartState extends State<CategoryWiseSalesChart> {
                 const Text(
                   'Wise Sales',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: GlobalVariables.primaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
