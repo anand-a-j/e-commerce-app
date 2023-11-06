@@ -1,6 +1,8 @@
-import 'package:e_commerce_app/screens/auth/widgets/custom_button.dart';
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../widgets/custom_button.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   static const String routeName = '/order-success';
@@ -15,17 +17,15 @@ class OrderSuccessScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 300,
+              height: 250,
               width: double.infinity,
               margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://plus.unsplash.com/premium_photo-1689620817504-2f77cbddf142?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDF8Q0R3dXdYSkFiRXd8fGVufDB8fHx8fA%3D%3D"),
-                      fit: BoxFit.contain)),
+              child: Lottie.asset('assets/lottie/paymentsuccess.json',
+                  animate: true, 
+                  fit: BoxFit.fill),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
+           const Padding(
+              padding: EdgeInsets.all(15.0),
               child: Text(
                 "Order Placed Successfully",
                 style: TextStyle(
@@ -36,11 +36,11 @@ class OrderSuccessScreen extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: CustomButton(
-                    label: "Back To Home",
-                    onTap: () {
+                    title: "Batck To Home",
+                    onPressed: () {
                       Navigator.pushReplacementNamed(
                           context, HomeScreen.routeName);
-                    })),
+                    },),),
           ],
         ),
       ),

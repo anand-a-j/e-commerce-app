@@ -1,10 +1,11 @@
 import 'package:e_commerce_app/screens/address/screen/address_screen.dart';
+import 'package:e_commerce_app/screens/cart/widget/empty_cart.dart';
 import 'package:e_commerce_app/services/cart_services.dart';
 import 'package:e_commerce_app/services/product_details_services.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
-import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
+import 'package:e_commerce_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,18 +51,18 @@ class _CartScreenState extends State<CartScreen> {
           Center(
               child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text("${user.cart!.length} items",
-                style: TextStyle(color: GlobalVariables.blackColor)),
+            child: Text("${user.cart!.length} item",
+                style: const TextStyle(color: GlobalVariables.blackColor)),
           ))
           // IconButton(onPressed: (){
           //   Navigator.pushNamed(context, AddressScreen.routeName);
           // }, icon: Icon(Icons.save))
         ],
       ),
-      body: user.cart == null || user.cart!.isEmpty
-          ? Center(
-              child: Text("No items in the cart"),
-            )
+      body: user.cart == null ?
+       const Loader() : 
+       user.cart!.isEmpty ?
+           const EmptyCart()
           : Column(
               children: [
                 // Container(
@@ -83,17 +84,37 @@ class _CartScreenState extends State<CartScreen> {
                         return Container(
                           height: 130,
                           width: double.infinity,
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 6),
+                              ),
+                              BoxShadow(
+                                blurRadius: 3,
+                                color: Colors.grey,
+                                offset: Offset(-1, 0),
+                              ),
+                              BoxShadow(
+                                blurRadius: 5,
+                                color: Colors.grey,
+                                offset: Offset(2, 0),
+                              )
+                            ],
                               borderRadius: BorderRadius.circular(15),
-                              color: Colors.amber),
+                              color: Colors.white
+
+                              ),
                           child: Row(
                             children: [
                               Container(
                                 height: 130,
                                 width: 130,
-                                margin: EdgeInsets.all(10),
+                                margin: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   image: DecorationImage(
@@ -104,7 +125,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       left: 10, top: 15, bottom: 5, right: 10),
                                   height: 130,
                                   child: Column(
@@ -114,17 +135,17 @@ class _CartScreenState extends State<CartScreen> {
                                     children: [
                                       Text(
                                         product.name,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w400)),
-                                      SizedBox(height: 5,),
-                                      Text("Free Delivery"),
-                                      SizedBox(height: 5,),
+                                              fontWeight: FontWeight.bold)),
+                                     const SizedBox(height: 5,),
+                                     const Text("Free Delivery",style: TextStyle(fontStyle: FontStyle.italic),),
+                                     const SizedBox(height: 5,),
                                       Text(
                                         "₹ ${product.price}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -132,7 +153,8 @@ class _CartScreenState extends State<CartScreen> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              increaseQuantity(product);
+                                               decreaseQuantity(product);
+                                              
                                             },
                                             child: Container(
                                               //  margin: EdgeInsets.all(5),
@@ -143,9 +165,9 @@ class _CartScreenState extends State<CartScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: Center(
+                                              child: const Center(
                                                 child: Icon(
-                                                  Icons.add,
+                                                  Icons.remove,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -165,7 +187,7 @@ class _CartScreenState extends State<CartScreen> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              decreaseQuantity(product);
+                                             increaseQuantity(product);
                                             },
                                             child: Container(
                                               height: 25,
@@ -175,9 +197,9 @@ class _CartScreenState extends State<CartScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: Center(
+                                              child: const Center(
                                                 child: Icon(
-                                                  Icons.compare_arrows_sharp,
+                                                  Icons.add,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -199,11 +221,11 @@ class _CartScreenState extends State<CartScreen> {
                     Container(
                       height: 50,
                       width: double.infinity,
-                      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                         const Text(
                             "Total:",
                             style: TextStyle(
                                 // color: Colors.white,
@@ -212,8 +234,8 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           Text(
                             "₹ $sum",
-                            style: TextStyle(
-                                // color: Colors.white,
+                            style: const TextStyle(
+                                // color: GlobalVariables.primaryColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18),
                           ),
@@ -230,7 +252,7 @@ class _CartScreenState extends State<CartScreen> {
                         margin: const EdgeInsets.only(
                             left: 15, right: 15, bottom: 10),
                         decoration: BoxDecoration(
-                            color: GlobalVariables.primaryColor,
+                             color: GlobalVariables.primaryColor,
                             borderRadius: BorderRadius.circular(15)),
                         child: const Center(
                           child: Text(

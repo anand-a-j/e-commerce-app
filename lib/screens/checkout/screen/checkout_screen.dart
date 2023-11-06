@@ -8,6 +8,7 @@ import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../../../widgets/custom_button.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -82,12 +83,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           children: [
             Center(
               child: Container(
-                height: 220,
+                height: 240,
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(color: Colors.purple.shade300
-                    // image: DecorationImage(image: NetworkImage(url))
-                    ),
+                child: Center(
+              child: Lottie.asset(
+                'assets/lottie/checkout.json',
+                animate: true,
+                repeat: true,
+                fit: BoxFit.contain
+                ),
+            ),
               ),
             ),
             ListView(

@@ -1,28 +1,36 @@
+import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/services/account_service.dart';
 import 'package:e_commerce_app/screens/order_details/screen/orders_screen.dart';
+import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatelessWidget {
+  static const String routeName = '/account-screen';
   const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: GlobalVariables.backgroundColor,
+        backgroundColor: GlobalVariables.primaryColor,
         title: const Text(
           "Profile",
           style: TextStyle(
-            color: GlobalVariables.blackColor,
+            color: GlobalVariables.backgroundColor,
           ),
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
+            icon: const Icon(Icons.shopping_cart_checkout_rounded,color: Colors.white,),
           ),
-         const SizedBox(
+          const SizedBox(
             width: 10,
           )
         ],
@@ -33,10 +41,32 @@ class AccountScreen extends StatelessWidget {
             height: 300,
             width: double.infinity,
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGVjaHxlbnwwfHwwfHx8MA%3D%3D"),
-                    fit: BoxFit.cover)),
+             gradient: GlobalVariables.gradient,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              )
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                 const CircleAvatar(
+                    radius: 60,
+                    backgroundColor: GlobalVariables.primaryLightColor,
+                  ),
+                  Dimensions.kHeight10,
+                   Text(
+                    user.name,
+                    style: const TextStyle(
+                      color: GlobalVariables.backgroundColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: ListView(

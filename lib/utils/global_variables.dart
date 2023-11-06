@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
-
   // COLORS
   static const gradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 29, 201, 192),
-      Color.fromARGB(255, 125, 221, 216),
+      Color(0xff9746ff),
+      Color.fromARGB(255, 128, 39, 176),
     ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     stops: [0.5, 1.0],
   );
-  
+
   static const primaryColor = Color(0xff9746ff);
+  static const primaryLightColor = Color(0xffe1d4ff);
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
@@ -31,27 +33,27 @@ class GlobalVariables {
   static const List<Map<String, String>> productCategory = [
     {
       'title': 'SmartPhone',
-      'image': 'assets/images/SmartPhone.jpeg',
+      'image': 'assets/category/smartphone.png',
     },
     {
       'title': 'Laptop',
-      'image': 'assets/images/Laptop.jpeg',
+      'image': 'assets/category/laptop.png',
     },
     {
       'title': 'Tablet',
-      'image': 'assets/images/Tablet.jpeg',
+      'image': 'assets/category/tablet.png',
     },
     {
       'title': 'Speakers',
-      'image': 'assets/images/Speakers.jpeg',
+      'image': 'assets/category/speaker.png',
     },
     {
       'title': 'SmartWatch',
-      'image': 'assets/images/SmartWatch.jpeg',
+      'image': 'assets/category/smartwatch.png',
     },
     {
       'title': 'HeadPhones',
-      'image': 'assets/images/SmartWatch.jpeg',
+      'image': 'assets/category/headphone.png',
     },
   ];
 }

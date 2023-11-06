@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/home/screens/category_deals_screen.dart';
 import 'package:e_commerce_app/services/home_services.dart';
@@ -49,42 +50,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
-    // TextEditingController searchController = TextEditingController();
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Container(
-      //     width: double.infinity,
-      //     height: 40,
-      //     decoration: BoxDecoration(
-      //         color: Colors.white,
-      //         border: Border.all(
-      //           color: Colors.grey,
-      //           width: 0.8,
-      //         ),
-      //         borderRadius: BorderRadius.circular(10)),
-      //     child: TextField(
-      //       // controller: searchController,
-      //       decoration: const InputDecoration(hintText: "Search products here"),
-      //       onSubmitted: navigateToSearchScreen,
-      //     ),
-      //   ),
-      // ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
               expandedHeight: 70,
               backgroundColor: GlobalVariables.backgroundColor,
-              title: Text(
-                "E Commerce App",
-                style: TextStyle(color: Colors.black),
+              title: const Text(
+                "IShopTech",
+                style: TextStyle(
+                  color: GlobalVariables.primaryColor,
+                  fontSize: 22,
+                ),
               ),
               actions: [
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, )
+                    Navigator.pushNamed(context, AccountScreen.routeName);
                   },
-                  child: ImageIcon(
+                  child: const ImageIcon(
                     AssetImage(
                       'assets/icons/user.png',
                     ),
@@ -97,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Stack(
                     children: [
-                      ImageIcon(
+                     const ImageIcon(
                         AssetImage(
                           'assets/icons/cart.png',
                         ),
@@ -115,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               user.cart == null
                                   ? '0'
                                   : user.cart!.length.toString(),
-                              style: TextStyle(fontSize: 10),
+                              style: const TextStyle(fontSize: 10),
                             ),
                           ),
                         ),
@@ -123,9 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 15,
-                )
+                Dimensions.kWidth10
               ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
@@ -134,18 +117,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pushNamed(context, SearchScreen.routeName);
                   },
                   child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.only(left: 10),
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(
                           color: GlobalVariables.backgroundColor,
                           border: Border.all(
-                              color: Color.fromARGB(255, 122, 122, 122),
+                              color: const Color.fromARGB(255, 122, 122, 122),
                               width: 0.8),
                           borderRadius: Dimensions.kRadius10),
                       child: const Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -159,10 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                 ),
               ),
-              // AppBar(
-              //   backgroundColor: GlobalVariables.backgroundColor,
-              //   title:
-              // ),
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -175,8 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                     options: CarouselOptions(
-                      // height: 180.0,
-                      //  enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
                       autoPlayCurve: Curves.fastOutSlowIn,
@@ -195,14 +172,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Center(
                       child: GridView.builder(
                           scrollDirection: Axis.horizontal,
-                          physics: PageScrollPhysics(),
+                          physics: const PageScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: GlobalVariables.productCategory.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10),
+                                  crossAxisSpacing: 10
+                                  ),
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -222,19 +200,47 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 90,
                                       height: 90,
                                       decoration: BoxDecoration(
-                                        color: Colors.purple.shade50,
+                                        color: GlobalVariables.primaryLightColor,
                                         borderRadius: BorderRadius.circular(50),
-                                        image: DecorationImage(
-                                          image: NetworkImage(GlobalVariables
-                                              .carouselImages[index]),
-                                          fit: BoxFit.fill,
+                                        boxShadow:const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            spreadRadius: 1,
+                                            blurRadius: 6,
+                                            offset: Offset(0, 6),
+                                          ),
+                                        BoxShadow(
+                                            blurRadius: 3,
+                                            color: Colors.grey,
+                                            offset:  Offset(-1, 0),
+                                          ),
+                                          BoxShadow(
+                                            blurRadius: 5,
+                                            color: Colors.grey,
+                                            offset:  Offset(2, 0),
+                                          )
+                                        ],
+                                        
+                                      ),
+                                      child: Container(
+                                        margin: const EdgeInsets.all(12 ),
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          // color: Colors.red,
+                                          image: DecorationImage(
+                                            image: AssetImage(GlobalVariables
+                                                .productCategory[index]['image']
+                                                .toString()),
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                       ),
                                     ),
                                     Dimensions.kHeight10,
                                     Text(GlobalVariables.productCategory[index]
                                             ['title']
-                                        .toString())
+                                        .toString(),style: const TextStyle(fontWeight: FontWeight.bold),)
                                   ],
                                 ),
                               ),
@@ -242,33 +248,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           }),
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 50,
-                  //   width: double.infinity,
-                  //   child: ListView.builder(
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemCount: GlobalVariables.productCategory.length,
-                  //       itemBuilder: (context, index) {
-                  //         return GestureDetector(
-                  //             onTap: () {
-                  //               Navigator.pushNamed(
-                  //                   context, CategoryDealsScreen.routeName,
-                  //                   arguments: GlobalVariables
-                  //                       .productCategory[index]['title']
-                  //                       .toString());
-                  //             },
-                  //             child: Chip(
-                  //                 label: Text(GlobalVariables
-                  //                     .productCategory[index]['title']
-                  //                     .toString())));
-                  //       }),
-                  // ),
                   const productTitleWidget(
                     label: "Best Deals",
                   ),
                   dealOfTheDay == null
                       ? const ProductContainerShimmer()
-                      : Container(
+                      : SizedBox(
                           height: 240,
                           child: ListView.builder(
                               itemCount: dealOfTheDay!.length,
@@ -308,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: MediaQuery.of(context).size.height * 0.23,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             image: NetworkImage(
                                 "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhZGdldHxlbnwwfDB8MHx8fDA%3D"),
                             fit: BoxFit.cover)),
