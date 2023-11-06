@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/features/admin/screen/admin_screen.dart';
-import 'package:e_commerce_app/features/auth/screens/auth_screen.dart';
-import 'package:e_commerce_app/features/auth/services/auth_service.dart';
+import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
+import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/router.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             ? Provider.of<UserProvider>(context).user.type == 'user'
                 ? const BottomNavBar()
                 : const AdminScreen()
-            : const AuthScreen()
+            : const SignInScreen()
           );
   }
 }

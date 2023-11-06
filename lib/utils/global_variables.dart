@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
+
   // COLORS
   static const gradient = LinearGradient(
     colors: [
@@ -14,7 +15,7 @@ class GlobalVariables {
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
-  static var selectedNavBarColor = Color(0xff9746ff);
+  static var selectedNavBarColor = const Color(0xff9746ff);
   static const unselectedNavBarColor = Colors.black87;
   static const blackColor = Colors.black87;
 
@@ -30,7 +31,7 @@ class GlobalVariables {
   static const List<Map<String, String>> productCategory = [
     {
       'title': 'SmartPhone',
-      'image': 'assets/images/Smart Phone.jpeg',
+      'image': 'assets/images/SmartPhone.jpeg',
     },
     {
       'title': 'Laptop',
