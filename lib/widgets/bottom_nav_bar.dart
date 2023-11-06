@@ -8,15 +8,42 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<bool> showExitPopup() async {
+      return await showDialog(     
+            context: context,
+            builder: (context) =>         
+            AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+              ),
+              title: const Text('Confirm Exit'),
+              content:const Text('Do you want to exit the App?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),  
+                  child: const Text('No'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Yes'),
+                ),
+              ],
+            ),
+          ) ?? false; 
+    }
+
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
-    List<Widget> _pages = const [HomeScreen(), CartScreen(), AccountScreen()];
+    List<Widget> pages = const [HomeScreen(), CartScreen(), AccountScreen()];
     return Scaffold(
       // body: Center(child: Text("hello world"),),
-      body: ValueListenableBuilder(
-        valueListenable: selectedIndex,
-        builder: (context, updatedIndex, _) {
-          return _pages[updatedIndex];
-        },
+      body: WillPopScope(
+        onWillPop: showExitPopup,
+        child: ValueListenableBuilder(
+          valueListenable: selectedIndex,
+          builder: (context, updatedIndex, _) {
+            return pages[updatedIndex];
+          },
+        ),
       ),
       bottomNavigationBar: ValueListenableBuilder(
           valueListenable: selectedIndex,

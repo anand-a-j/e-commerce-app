@@ -54,6 +54,8 @@ class AccountScreen extends StatelessWidget {
                  const CircleAvatar(
                     radius: 60,
                     backgroundColor: GlobalVariables.primaryLightColor,
+                    backgroundImage: AssetImage('assets/icons/profilepic.png',),
+                    
                   ),
                   Dimensions.kHeight10,
                    Text(
