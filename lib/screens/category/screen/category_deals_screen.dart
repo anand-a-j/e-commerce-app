@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/screens/category/widget/empty_product.dart';
 import 'package:e_commerce_app/services/home_services.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -38,11 +39,9 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
         title: Text(widget.category),
       ),
       body: productList == null
-          ? Loader()
+          ? const Loader()
           : productList!.isEmpty
-              ? const Center(
-                  child: Text("No Products Available"),
-                )
+              ? const EmptyProduct()
               : GridView.builder(
                   itemCount: productList!.length,
                   scrollDirection: Axis.vertical,
@@ -101,10 +100,6 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                                   ),
                                 ],
                               ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(10.0),
-                              //   child: OutlinedButton(onPressed: (){}, child:const Icon(Icons.add,color: GlobalVariables.primaryColor,)),
-                              // )
                             ],
                           ),
                         ],

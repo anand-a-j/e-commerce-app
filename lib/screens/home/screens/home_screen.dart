@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
-import 'package:e_commerce_app/screens/home/screens/category_deals_screen.dart';
+import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
 import 'package:e_commerce_app/services/home_services.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_container.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Stack(
                     children: [
-                     const ImageIcon(
+                      const ImageIcon(
                         AssetImage(
                           'assets/icons/cart.png',
                         ),
@@ -179,8 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10
-                                  ),
+                                  crossAxisSpacing: 10),
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -200,30 +199,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 90,
                                       height: 90,
                                       decoration: BoxDecoration(
-                                        color: GlobalVariables.primaryLightColor,
+                                        color:
+                                            GlobalVariables.primaryLightColor,
                                         borderRadius: BorderRadius.circular(50),
-                                        boxShadow:const [
+                                        boxShadow: const [
                                           BoxShadow(
                                             color: Colors.grey,
                                             spreadRadius: 1,
                                             blurRadius: 6,
                                             offset: Offset(0, 6),
                                           ),
-                                        BoxShadow(
+                                          BoxShadow(
                                             blurRadius: 3,
                                             color: Colors.grey,
-                                            offset:  Offset(-1, 0),
+                                            offset: Offset(-1, 0),
                                           ),
                                           BoxShadow(
                                             blurRadius: 5,
                                             color: Colors.grey,
-                                            offset:  Offset(2, 0),
+                                            offset: Offset(2, 0),
                                           )
                                         ],
-                                        
                                       ),
                                       child: Container(
-                                        margin: const EdgeInsets.all(12 ),
+                                        margin: const EdgeInsets.all(12),
                                         height: 80,
                                         width: 80,
                                         decoration: BoxDecoration(
@@ -238,9 +237,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     Dimensions.kHeight10,
-                                    Text(GlobalVariables.productCategory[index]
-                                            ['title']
-                                        .toString(),style: const TextStyle(fontWeight: FontWeight.bold),)
+                                    Text(
+                                      GlobalVariables.productCategory[index]
+                                              ['title']
+                                          .toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
                               ),

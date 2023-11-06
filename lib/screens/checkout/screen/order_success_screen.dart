@@ -21,10 +21,9 @@ class OrderSuccessScreen extends StatelessWidget {
               width: double.infinity,
               margin: const EdgeInsets.all(10),
               child: Lottie.asset('assets/lottie/paymentsuccess.json',
-                  animate: true, 
-                  fit: BoxFit.fill),
+                  animate: true, fit: BoxFit.fill),
             ),
-           const Padding(
+            const Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
                 "Order Placed Successfully",
@@ -34,13 +33,14 @@ class OrderSuccessScreen extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: CustomButton(
-                    title: "Batck To Home",
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, HomeScreen.routeName);
-                    },),),
+              padding: const EdgeInsets.all(15.0),
+              child: CustomButton(
+                title: "Batck To Home",
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                },
+              ),
+            ),
           ],
         ),
       ),

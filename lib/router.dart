@@ -7,7 +7,7 @@ import 'package:e_commerce_app/screens/auth/screens/sign_up_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/checkout/screen/checkout_screen.dart';
 import 'package:e_commerce_app/screens/checkout/screen/order_success_screen.dart';
-import 'package:e_commerce_app/screens/home/screens/category_deals_screen.dart';
+import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:e_commerce_app/screens/order_details/screen/order_details_screen.dart';
 import 'package:e_commerce_app/screens/order_details/screen/orders_screen.dart';

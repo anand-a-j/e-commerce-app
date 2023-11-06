@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:e_commerce_app/services/address_service.dart';
 import 'package:e_commerce_app/screens/checkout/screen/order_success_screen.dart';
-import 'package:e_commerce_app/screens/order_details/screen/order_details_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -112,7 +111,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, top: 10, bottom: 10),
                   child: Container(
-                    height: 100,
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(

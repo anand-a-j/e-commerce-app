@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/services/address_service.dart';
 import 'package:e_commerce_app/screens/checkout/screen/checkout_screen.dart';
 import 'package:e_commerce_app/router.dart';
+import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
@@ -19,7 +20,6 @@ class AddressScreen extends StatefulWidget {
 
 class _AddressScreenState extends State<AddressScreen> {
   final _addressFormKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
   TextEditingController homeController = TextEditingController();
   TextEditingController streetController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
@@ -33,7 +33,6 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context, listen: true).user;
-    // nameController.text = user.name;
 
     return Scaffold(
       appBar: AppBar(
@@ -54,48 +53,46 @@ class _AddressScreenState extends State<AddressScreen> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  CustomTextField(
-                    controller: nameController,
-                    hintText: "Name",
-                    autofocus: true,
+                 
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).size.height * 0.01,
-                  // ),
-                  // CustomTextField(
-                  //     controller: homeController,
-                  //     hintText: "Flat, House No, Building"),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).size.height * 0.01,
-                  // ),
-                  // CustomTextField(
-                  //     controller: streetController, hintText: "Area/Street"),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).size.height * 0.01,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //   children: [
-                  //     Expanded(
-                  //         child: CustomTextField(
-                  //             controller: cityController, hintText: "City")),
-                  //     Dimensions.kWidth10,
-                  //     Expanded(
-                  //       child: CustomTextField(
-                  //           controller: stateController, hintText: "State"),
-                  //     ),
-                  //   ],
-                  // ),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).size.height * 0.01,
-                  // ),
-                  // CustomTextField(
-                  //     controller: pincodeController, hintText: "Pincode"),
-                  // SizedBox(
-                  //   height: MediaQuery.of(context).size.height * 0.01,
-                  // ),
-                  // CustomTextField(
-                  //     controller: phoneController, hintText: "Phone Number"),
+                  CustomTextField(
+                      controller: homeController,
+                      hintText: "Flat, House No, Building",
+                      autofocus: true,
+                      ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  CustomTextField(
+                      controller: streetController, hintText: "Area/Street"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                          child: CustomTextField(
+                              controller: cityController, hintText: "City")),
+                      Dimensions.kWidth10,
+                      Expanded(
+                        child: CustomTextField(
+                            controller: stateController, hintText: "State"),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  CustomTextField(
+                      controller: pincodeController, hintText: "Pincode"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  CustomTextField(
+                      controller: phoneController, hintText: "Phone Number"),
                 ],
               ),
             ),
@@ -106,7 +103,7 @@ class _AddressScreenState extends State<AddressScreen> {
               onPressed: () {
                 if (_addressFormKey.currentState!.validate()) {
                   addressToBeUsed =
-                      '${nameController.text},${homeController.text},${streetController.text},${cityController.text},${stateController.text},${pincodeController.text},${phoneController.text}';
+                      '''${user.name}\n${homeController.text}\n${streetController.text}\n${cityController.text},${stateController.text}\n${pincodeController.text}\nPh: ${phoneController.text}''';
 
                  addressServices.saveUserAddress(
                       context: context, address: user.address);

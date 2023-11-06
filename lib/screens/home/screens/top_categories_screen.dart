@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/screens/home/screens/category_deals_screen.dart';
+import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 

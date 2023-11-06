@@ -22,12 +22,12 @@ class GlobalVariables {
   static const blackColor = Colors.black87;
 
   static const List<String> carouselImages = [
-    'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
-    'https://images-eu.ssl-images-amazon.com/images/G/31/img2021/Vday/bwl/English.jpg',
-    'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/AdvantagePrime/BAU/14thJan/D37196025_IN_WL_AdvantageJustforPrime_Jan_Mob_ingress-banner_1242x450.jpg',
-    'https://images-na.ssl-images-amazon.com/images/G/31/Symbol/2020/00NEW/1242_450Banners/PL31_copy._CB432483346_.jpg',
-    'https://images-na.ssl-images-amazon.com/images/G/31/img21/shoes/September/SSW/pc-header._CB641971330_.jpg',
-    'https://images-na.ssl-images-amazon.com/images/G/31/img21/shoes/September/SSW/pc-header._CB641971330_.jpg'
+    'https://t4.ftcdn.net/jpg/02/24/88/07/240_F_224880717_YmNbocwrjak9AyvQ9QrTnELWCeOGtKvH.jpg',
+    'https://t3.ftcdn.net/jpg/06/27/32/22/240_F_627322214_bUX8nE769bUOib6ZSS4yCrKUd3eeE1wO.jpg',
+    'https://t4.ftcdn.net/jpg/03/28/04/53/240_F_328045380_e3pwyyywERjxU9tnc109ijXRLEuN6zLb.jpg',
+    'https://images.samsung.com/is/image/samsung/assets/in/home/1103/Flip5_Yellow_D1.png?imwidth=1536',
+    'https://t4.ftcdn.net/jpg/04/57/67/51/240_F_457675103_So0dkhr44cgPVGIujF0nzvmbFLC3TY6H.jpg',
+    'https://t4.ftcdn.net/jpg/04/14/22/55/240_F_414225555_k4FE9n2fjaBen0QlOW1kSjaQBWfjfCjF.jpg'
   ];
 
   static const List<Map<String, String>> productCategory = [
