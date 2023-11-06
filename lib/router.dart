@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/address/screen/address_screen.dart';
 import 'package:e_commerce_app/screens/admin/screen/add_product_screen.dart';
-import 'package:e_commerce_app/screens/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_up_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
@@ -20,9 +19,9 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case AuthScreen.routeName:
-      return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => const AuthScreen());
+    // case AuthScreen.routeName:
+    //   return MaterialPageRoute(
+    //       settings: routeSettings, builder: (_) => const AuthScreen());
     case SignInScreen.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const SignInScreen());

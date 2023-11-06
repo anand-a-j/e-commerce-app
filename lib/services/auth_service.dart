@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:e_commerce_app/models/user.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
@@ -26,8 +27,7 @@ class AuthService {
           address: '',
           type: '',
           token: '',
-          cart: []
-          );
+          cart: []);
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
@@ -51,7 +51,9 @@ class AuthService {
           context: context,
           onSuccess: () {
             showSnackBar(
-                context, "Account Created, Login with same credentials");
+                context, "Account Created, Login with same credentials",
+                isError: false);
+            Navigator.pushReplacementNamed(context, SignInScreen.routeName);
           });
     } catch (e) {
       print(e.toString());

@@ -66,7 +66,7 @@ class AccountService {
       await prefs.setString('x-auth-token', '');
       Navigator.pushNamedAndRemoveUntil(
           context, SignInScreen.routeName, (route) => false);
-      showSnackBar(context, "Logout Successfully");
+      showSnackBar(context, "Logout Successfully",isError: false);
     } catch (e) {
       showSnackBar(context, e.toString());
     }

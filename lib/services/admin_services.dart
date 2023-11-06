@@ -66,7 +66,7 @@ class AdminServices {
             onSuccess: () {
               debugPrint(
                   "response sellProduct===> ${response.statusCode}=> ${response.body}");
-              showSnackBar(context, "Product Added successfully");
+              showSnackBar(context, "Product Added successfully",isError: false);
               Navigator.pop(context);
             });
       }

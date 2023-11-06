@@ -81,7 +81,7 @@ class AddressServices {
             response: response,
             context: context,
             onSuccess: () {
-              showSnackBar(context, "Your order has been placed successfully");
+              showSnackBar(context, "Your order has been placed successfully",isError: false);
               UserModel user = userProvider.user.copyWith(
                 cart: [],
               );

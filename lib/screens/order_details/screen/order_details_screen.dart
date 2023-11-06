@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/services/admin_services.dart';
-import 'package:e_commerce_app/screens/auth/widgets/custom_button.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
@@ -65,7 +64,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Order Id"), Text(widget.order.id)],
+                  children: [ const Text("Order Id"), Text(widget.order.id)],
                 ),
               ),
               Padding(
@@ -99,35 +98,32 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
           const productTitleWidget(label: "Products"),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: widget.order.products.length,
-              itemBuilder: (context, index) {
-                var product = widget.order.products[index];
-                return SizedBox(               
-                  height: 70,
-                  width: double.infinity,
-                  child: ListTile(
-                    leading: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade100,
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(
-                            image: NetworkImage(product.images[0]),
-                            fit: BoxFit.cover),
-                      ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.order.products.length,
+            itemBuilder: (context, index) {
+              var product = widget.order.products[index];
+              return SizedBox(
+                height: 70,
+                width: double.infinity,
+                child: ListTile(
+                  leading: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.purple.shade100,
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(
+                          image: NetworkImage(product.images[0]),
+                          fit: BoxFit.cover),
                     ),
-                    title:
-                        Text(product.name),
-                    subtitle:
-                        Text("Quantity: ${product.quantity} Price: ${product.price}"),
                   ),
-                );
-              },
-            ),
+                  title: Text(product.name),
+                  subtitle: Text(
+                      "Quantity: ${product.quantity} Price: ${product.price}"),
+                ),
+              );
+            },
           ),
           const productTitleWidget(label: "Price Details"),
           Column(
@@ -136,54 +132,55 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Total"), Text(widget.order.totalPrice.toString())],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Delivery Charge"),
-                    Text("Free")
+                   const Text("Total"),
+                    Text(widget.order.totalPrice.toString())
                   ],
                 ),
               ),
+              const Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text("Delivery Charge"), Text("Free")],
+                ),
+              ),
+             const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [ Text("Tax"), Text("₹0.00")],
+                ),
+              ),
+             const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Tax"), 
-                    Text("₹0.00")
-                    ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Divider(
-                  thickness: 1,
-                  color: Colors.grey,     
-              
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text("Sub Total"), Text('₹ ${widget.order.totalPrice}0')],
+                    const Text("Sub Total"),
+                    Text('₹ ${widget.order.totalPrice}0')
+                  ],
                 ),
               ),
             ],
           ),
-         const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           const productTitleWidget(label: "Order Status"),
           Stepper(
             currentStep: currentStep,
             controlsBuilder: (context, details) {
               if (user.type == 'admin') {
-                return CustomButton(
-                    label: "Done", onTap: () => changeOrderStatus());
+                return ElevatedButton(
+                    onPressed: () => changeOrderStatus(), child: const Text("Done"));
               }
               return const SizedBox.shrink();
             },

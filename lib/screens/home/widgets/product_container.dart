@@ -87,7 +87,7 @@ class ProductContainerWidget extends StatelessWidget {
               onTap: () {
                 productDetailsServices.addToCart(
                     context: context, product: product);
-                showSnackBar(context, "Product Added to Cart");
+                showSnackBar(context, "Product Added to Cart",isError: false);
               },
               child: Container(
                 height: 35,

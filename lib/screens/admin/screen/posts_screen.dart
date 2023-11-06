@@ -36,7 +36,7 @@ class _PostsScreenState extends State<PostsScreen> {
         product: product,
         onSuccess: () {
           products!.removeAt(index);
-          showSnackBar(context, "Product Deleted Successfully");
+          showSnackBar(context, "Product Deleted Successfully",isError: false);
           setState(() {});
         });
   }

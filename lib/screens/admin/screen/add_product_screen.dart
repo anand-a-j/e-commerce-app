@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/services/admin_services.dart';
-import 'package:e_commerce_app/screens/auth/widgets/custom_button.dart';
+import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
@@ -160,7 +159,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                CustomButton(label: "Sell", onTap: sellProduct),
+                CustomButton(title: "Sell", onPressed: sellProduct),
               ],
             ),
           ),

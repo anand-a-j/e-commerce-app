@@ -46,7 +46,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 Dimensions.kHeight10,
                 CustomTextField(controller: _passwordController, hintText: "Password"),
                 Dimensions.kHeight20,
-                CustomButton(title: "Login", onPressed: signInUser),
+                CustomButton(title: "Login", onPressed: (){
+                  if (_signInFormKey.currentState!.validate()) {
+                        signInUser();
+                      }
+                }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
                 const SignInBottomTitle()
               ],

@@ -51,7 +51,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CustomTextField(
                     controller: _passwordController, hintText: "Password"),
                  Dimensions.kHeight20,
-                CustomButton(title: "SignUp", onPressed: signUpUser),
+                CustomButton(title: "SignUp", onPressed: () {
+                  if (_signUpFormKey.currentState!.validate()) {
+                        signUpUser();
+                      }
+                }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
                 const SignUpBottomTitle()
               ],

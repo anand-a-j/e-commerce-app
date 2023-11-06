@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
               if (_searchController.text.isNotEmpty) {
                 fetchSearchedProducts();
               } else {
-                showSnackBar(context, "Enter your desired item name");
+                showSnackBar(context, "Enter your desired item name",isError: false);
               }
             },
           ),

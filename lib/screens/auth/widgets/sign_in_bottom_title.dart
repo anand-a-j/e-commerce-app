@@ -17,7 +17,7 @@ class SignInBottomTitle extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, SignUpScreen.routeName);
+            Navigator.pushReplacementNamed(context, SignUpScreen.routeName);
           },
           child: const Text(
             "SignUp",

@@ -3,10 +3,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-void showSnackBar(BuildContext context, String message) {
+void showSnackBar(BuildContext context, String message,{bool isError = true}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(message),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.all(10),
+      backgroundColor: isError ? Colors.red : Colors.green,
+      dismissDirection: DismissDirection.horizontal,
     ),
   );
 }

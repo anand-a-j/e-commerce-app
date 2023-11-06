@@ -131,36 +131,33 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: user.cart!.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        height: 70,
-                        width: double.infinity,
-                        child: ListTile(
-                          leading: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.purple.shade100,
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                  image: NetworkImage(user.cart![index]
-                                      ['product']['images'][0]),
-                                  fit: BoxFit.cover),
-                            ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: user.cart!.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      height: 70,
+                      width: double.infinity,
+                      child: ListTile(
+                        leading: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.purple.shade100,
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(user.cart![index]['product']['images'][0]),
+                                fit: BoxFit.cover),
                           ),
-                          title: Text(
-                              user.cart![index]['product']['name'].toString()),
-                          subtitle: Text(
-                              "Quantity: ${user.cart![index]['quantity']}"),
                         ),
-                      );
-                    },
-                  ),
+                        title: Text(
+                            user.cart![index]['product']['name'].toString()),
+                        subtitle: Text(
+                            "Quantity: ${user.cart![index]['quantity']}"),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
