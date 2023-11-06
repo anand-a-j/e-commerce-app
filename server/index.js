@@ -10,7 +10,7 @@ const productRouter = require('./routes/product');
 const userRouter = require('./routes/user');
 
 // Init
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const app = express();
 const DB = "mongodb+srv://anandaj:%40nAnd2001@cluster0.0tprisw.mongodb.net/?retryWrites=true&w=majority"
 
@@ -32,7 +32,7 @@ mongoose.connect(DB).then(()=>{
 
 // creating an api
 app.listen(PORT,"0.0.0.0",() => {
-    // console.log(`connect at port ${PORT} checked`);
+     console.log(`connect at port ${PORT} checked`);
 });
 
 

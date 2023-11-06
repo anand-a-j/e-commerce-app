@@ -11,7 +11,7 @@ class SignUpBottomTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          "Already Signin?",
+          "Already Signup?",
           style: TextStyle(color: Colors.black),
         ),
         TextButton(
@@ -19,7 +19,7 @@ class SignUpBottomTitle extends StatelessWidget {
             Navigator.pushNamed(context, SignInScreen.routeName);
           },
           child: const Text(
-            "Sign In",
+            "SignIn",
             style: TextStyle(
                 color: GlobalVariables.primaryColor,
                 fontWeight: FontWeight.bold),

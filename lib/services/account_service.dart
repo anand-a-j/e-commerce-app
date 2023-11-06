@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:e_commerce_app/screens/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/utils/api.dart';
 import 'package:e_commerce_app/utils/error_handling.dart';
 import 'package:e_commerce_app/utils/utils.dart';
@@ -64,7 +65,7 @@ class AccountService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('x-auth-token', '');
       Navigator.pushNamedAndRemoveUntil(
-          context, AuthScreen.routeName, (route) => false);
+          context, SignInScreen.routeName, (route) => false);
       showSnackBar(context, "Logout Successfully");
     } catch (e) {
       showSnackBar(context, e.toString());
