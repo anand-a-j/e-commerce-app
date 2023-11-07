@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
+import 'package:e_commerce_app/services/network_service.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -8,19 +9,20 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      NetworkService().isDeviceOffline(context);
+    });
     Future<bool> showExitPopup() async {
-      return await showDialog(     
+      return await showDialog(
             context: context,
-            builder: (context) =>         
-            AlertDialog(
+            builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)
-              ),
+                  borderRadius: BorderRadius.circular(10)),
               title: const Text('Confirm Exit'),
-              content:const Text('Do you want to exit the App?'),
+              content: const Text('Do you want to exit the App?'),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),  
+                  onPressed: () => Navigator.of(context).pop(false),
                   child: const Text('No'),
                 ),
                 TextButton(
@@ -29,7 +31,8 @@ class BottomNavBar extends StatelessWidget {
                 ),
               ],
             ),
-          ) ?? false; 
+          ) ??
+          false;
     }
 
     ValueNotifier<int> selectedIndex = ValueNotifier(0);

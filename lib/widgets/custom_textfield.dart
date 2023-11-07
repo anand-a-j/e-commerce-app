@@ -6,19 +6,24 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final int maxLines;
   final bool autofocus;
+  final TextInputType inputType;
+  final bool isPass;
   const CustomTextField(
       {super.key,
       required this.controller,
       required this.hintText,
       this.maxLines = 1,
-      this.autofocus = false
+      this.autofocus = false,
+      this.inputType = TextInputType.text,
+      this.isPass = false
       });
 
   OutlineInputBorder borderDecoration() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide:
-            const BorderSide(width: 0.7, color: GlobalVariables.primaryColor));
+      borderRadius: BorderRadius.circular(10),
+      borderSide:
+          const BorderSide(width: 0.7, color: GlobalVariables.primaryColor),
+    );
   }
 
   @override
@@ -27,6 +32,8 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       maxLines: maxLines,
       autofocus: autofocus,
+      keyboardType: inputType,
+      obscureText: isPass,
       decoration: InputDecoration(
           isDense: true,
           hintText: hintText,

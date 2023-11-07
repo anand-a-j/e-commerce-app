@@ -44,18 +44,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 const SignUpTitle(),
                 Dimensions.kHeight10,
-                CustomTextField(controller: _nameController, hintText: "Username"),
-                 Dimensions.kHeight10,
-                CustomTextField(controller: _emailController, hintText: "Email"),
-                 Dimensions.kHeight10,
                 CustomTextField(
-                    controller: _passwordController, hintText: "Password"),
-                 Dimensions.kHeight20,
-                CustomButton(title: "SignUp", onPressed: () {
-                  if (_signUpFormKey.currentState!.validate()) {
+                  controller: _nameController,
+                  hintText: "Username",
+                  inputType: TextInputType.name,
+                ),
+                Dimensions.kHeight10,
+                CustomTextField(
+                  controller: _emailController,
+                  hintText: "Email",
+                  inputType: TextInputType.emailAddress,
+                ),
+                Dimensions.kHeight10,
+                CustomTextField(
+                  controller: _passwordController,
+                  hintText: "Password",
+                  isPass: true,
+                ),
+                Dimensions.kHeight20,
+                CustomButton(
+                    title: "SignUp",
+                    onPressed: () {
+                      if (_signUpFormKey.currentState!.validate()) {
                         signUpUser();
                       }
-                }),
+                    }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
                 const SignUpBottomTitle()
               ],

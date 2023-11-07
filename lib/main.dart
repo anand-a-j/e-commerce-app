@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/login_provider.dart';
 import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
@@ -11,7 +12,10 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ],
       child: const MyApp(),
     ),
   );
@@ -30,13 +34,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _auth.getUserData(context: context);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'E-Commerce App',
+        title: 'IShopTech',
         theme: ThemeData(
           scaffoldBackgroundColor: GlobalVariables.backgroundColor,
           colorScheme:
@@ -51,7 +56,6 @@ class _MyAppState extends State<MyApp> {
             ? Provider.of<UserProvider>(context).user.type == 'user'
                 ? const BottomNavBar()
                 : const AdminScreen()
-            : const SignInScreen()
-          );
+            : const SignInScreen());
   }
 }

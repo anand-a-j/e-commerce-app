@@ -1,11 +1,13 @@
+import 'package:e_commerce_app/providers/login_provider.dart';
 import 'package:e_commerce_app/screens/auth/widgets/login_title.dart';
-import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/screens/auth/widgets/sign_in_bottom_title.dart';
+import 'package:e_commerce_app/services/network_service.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String routeName = '/sign-in-screen';
@@ -16,20 +18,22 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  AuthService authService = AuthService();
   final _signInFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void signInUser() {
-    authService.signInUser(
-        context: context,
-        email: _emailController.text,
-        password: _passwordController.text);
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      NetworkService().isDeviceOffline(context);
+    });
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -43,23 +47,36 @@ class _SignInScreenState extends State<SignInScreen> {
                 const LoginTitle(),
                 Dimensions.kHeight10,
                 CustomTextField(
-                    controller: _emailController, hintText: "Email"),
+                  controller: _emailController,
+                  hintText: "Email",
+                  inputType: TextInputType.emailAddress,
+                ),
                 Dimensions.kHeight10,
                 CustomTextField(
-                    controller: _passwordController, hintText: "Password"),
+                  controller: _passwordController,
+                  hintText: "Password",
+                  isPass: true,
+                ),
                 Dimensions.kHeight20,
-                CustomButton(
-                    title: "Login",
-                    onPressed: () {
-                      if (_emailController.text.isEmpty ||
-                          _passwordController.text.isEmpty) {
-                        showSnackBar(context, "Enter all the fields");
-                      } else {
-                        if (_signInFormKey.currentState!.validate()) {
-                          signInUser();
+                Consumer<LoginProvider>(
+                    builder: (context, loginProvider, child) {
+                  return CustomButton(
+                      isLoading: loginProvider.isLoading,
+                      title: "Login",
+                      onPressed: () {
+                        if (_emailController.text.isEmpty ||
+                            _passwordController.text.isEmpty) {
+                          showSnackBar(context, "Enter all the fields");
+                        } else {
+                          if (_signInFormKey.currentState!.validate()) {
+                            loginProvider.signInUser(
+                                context,
+                                _emailController.text.trim(),
+                                _passwordController.text.trim());
+                          }
                         }
-                      }
-                    }),
+                      });
+                }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
                 const SignInBottomTitle()
               ],

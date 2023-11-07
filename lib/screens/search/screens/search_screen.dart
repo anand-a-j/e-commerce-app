@@ -46,10 +46,10 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: GlobalVariables.backgroundColor,
         title: Container(
-          margin: const EdgeInsets.all(10),
+          // margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.only(left: 10),
           width: double.infinity,
-          height: 50,
+          height: 40,
           decoration: BoxDecoration(
               color: GlobalVariables.backgroundColor,
               border: Border.all(

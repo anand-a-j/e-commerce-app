@@ -1,11 +1,17 @@
+import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
+  final bool isLoading;
 
-  const CustomButton({super.key, required this.title, required this.onPressed});
+  const CustomButton(
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +24,42 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: GlobalVariables.primaryColor,
             borderRadius: BorderRadius.circular(15)),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-        ),
+        child: isLoading
+            ? const Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        
+                        color: GlobalVariables.backgroundColor,
+                         strokeWidth: 2.5,
+                      ),
+                    ),
+                    Dimensions.kWidth10,
+                    Text(
+                      "Loading...",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                ),
+              )
+            : Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
+              ),
       ),
     );
   }

@@ -124,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                           color: GlobalVariables.backgroundColor,
                           border: Border.all(
-                              color: const Color.fromARGB(255, 122, 122, 122),
-                              width: 0.8),
+                              color: const Color.fromARGB(255, 200, 200, 200),
+                              width: 0.7),
                           borderRadius: Dimensions.kRadius10),
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),

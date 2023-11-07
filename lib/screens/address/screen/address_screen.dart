@@ -53,20 +53,23 @@ class _AddressScreenState extends State<AddressScreen> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                 
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   CustomTextField(
-                      controller: homeController,
-                      hintText: "Flat, House No, Building",
-                      autofocus: true,
-                      ),
+                    controller: homeController,
+                    hintText: "Flat, House No, Building",
+                    autofocus: true,
+                    inputType: TextInputType.streetAddress,
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   CustomTextField(
-                      controller: streetController, hintText: "Area/Street"),
+                    controller: streetController,
+                    hintText: "Area/Street",
+                    inputType: TextInputType.streetAddress,
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
@@ -75,11 +78,17 @@ class _AddressScreenState extends State<AddressScreen> {
                     children: [
                       Expanded(
                           child: CustomTextField(
-                              controller: cityController, hintText: "City")),
+                        controller: cityController,
+                        hintText: "City",
+                        inputType: TextInputType.streetAddress,
+                      )),
                       Dimensions.kWidth10,
                       Expanded(
                         child: CustomTextField(
-                            controller: stateController, hintText: "State"),
+                          controller: stateController,
+                          hintText: "State",
+                          inputType: TextInputType.streetAddress,
+                        ),
                       ),
                     ],
                   ),
@@ -87,12 +96,18 @@ class _AddressScreenState extends State<AddressScreen> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   CustomTextField(
-                      controller: pincodeController, hintText: "Pincode"),
+                    controller: pincodeController,
+                    hintText: "Pincode",
+                    inputType: TextInputType.number,
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   CustomTextField(
-                      controller: phoneController, hintText: "Phone Number"),
+                    controller: phoneController,
+                    hintText: "Phone Number",
+                    inputType: TextInputType.number,
+                  ),
                 ],
               ),
             ),
@@ -105,10 +120,11 @@ class _AddressScreenState extends State<AddressScreen> {
                   addressToBeUsed =
                       '''${user.name}\n${homeController.text}\n${streetController.text}\n${cityController.text},${stateController.text}\n${pincodeController.text}\nPh: ${phoneController.text}''';
 
-                 addressServices.saveUserAddress(
+                  addressServices.saveUserAddress(
                       context: context, address: user.address);
 
-                   Navigator.pushNamed(context, CheckoutScreen.routeName,arguments: AddressArguments(
+                  Navigator.pushNamed(context, CheckoutScreen.routeName,
+                      arguments: AddressArguments(
                           widget.totalAmount, addressToBeUsed));
                 }
               })
@@ -117,4 +133,3 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 }
-
