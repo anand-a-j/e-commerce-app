@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-class LoginProvider extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 

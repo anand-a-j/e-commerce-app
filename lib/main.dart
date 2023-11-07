@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/providers/login_provider.dart';
+import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
@@ -14,8 +14,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => LoginProvider()),
-        ],
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ],
       child: const MyApp(),
     ),
   );

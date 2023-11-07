@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/providers/login_provider.dart';
+import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/screens/auth/widgets/login_title.dart';
 import 'package:e_commerce_app/screens/auth/widgets/sign_in_bottom_title.dart';
 import 'package:e_commerce_app/services/network_service.dart';
@@ -58,10 +58,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   isPass: true,
                 ),
                 Dimensions.kHeight20,
-                Consumer<LoginProvider>(
-                    builder: (context, loginProvider, child) {
+                Consumer<AuthProvider>(builder: (context, authProvider, child) {
                   return CustomButton(
-                      isLoading: loginProvider.isLoading,
+                      isLoading: authProvider.isLoading,
                       title: "Login",
                       onPressed: () {
                         if (_emailController.text.isEmpty ||
@@ -69,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           showSnackBar(context, "Enter all the fields");
                         } else {
                           if (_signInFormKey.currentState!.validate()) {
-                            loginProvider.signInUser(
+                            authProvider.signInUser(
                                 context,
                                 _emailController.text.trim(),
                                 _passwordController.text.trim());
