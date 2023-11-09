@@ -51,7 +51,7 @@ class AccountService {
     } catch (e) {
       debugPrint("get product-category error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return orderList;
@@ -68,7 +68,7 @@ class AccountService {
       }
     } catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
   }

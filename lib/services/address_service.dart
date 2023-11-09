@@ -69,7 +69,7 @@ class AddressServices {
           'cart': userProvider.user.cart,
           'address': address,
           'totalPrice': totalAmount,
-          'paymentId':paymentId
+          'paymentId': paymentId
         }),
       );
 
@@ -81,7 +81,8 @@ class AddressServices {
             response: response,
             context: context,
             onSuccess: () {
-              showSnackBar(context, "Your order has been placed successfully",isError: false);
+              showSnackBar(context, "Your order has been placed successfully",
+                  isError: false);
               UserModel user = userProvider.user.copyWith(
                 cart: [],
               );
@@ -94,7 +95,7 @@ class AddressServices {
     } catch (e) {
       debugPrint("post order error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
   }

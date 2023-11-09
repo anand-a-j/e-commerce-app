@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-
   // get user data
   void getUserData({
     required BuildContext context,
@@ -42,8 +41,8 @@ class AuthService {
       }
     } catch (e) {
       debugPrint(e.toString());
-      if(context.mounted){
-        showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, "No Internet Connection");
       }
     }
   }

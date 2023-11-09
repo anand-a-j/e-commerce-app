@@ -12,11 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
- bool _isLoading = false;
- bool get isLoading => _isLoading;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-
- // sign up user
+  // sign up user
   void signUpUser(
       {required BuildContext context,
       required String email,
@@ -65,7 +64,7 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
       print(e.toString());
-      showSnackBar(context, e.toString());
+      showSnackBar(context, "No Internet Connection");
     }
   }
 
@@ -112,9 +111,7 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
       print(e.toString());
-      showSnackBar(context, e.toString());
+      showSnackBar(context, "No Internet Connection");
     }
   }
-
-
 }

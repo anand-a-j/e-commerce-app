@@ -66,7 +66,8 @@ class AdminServices {
             onSuccess: () {
               debugPrint(
                   "response sellProduct===> ${response.statusCode}=> ${response.body}");
-              showSnackBar(context, "Product Added successfully",isError: false);
+              showSnackBar(context, "Product Added successfully",
+                  isError: false);
               Navigator.pop(context);
             });
       }
@@ -119,7 +120,7 @@ class AdminServices {
     } catch (e) {
       debugPrint("get product error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return productList;
@@ -167,7 +168,7 @@ class AdminServices {
     } catch (e) {
       debugPrint("get order error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return orderList;
@@ -217,7 +218,7 @@ class AdminServices {
     } catch (e) {
       debugPrint("get order error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return {'sales': sales, 'totalEarnings': totalEarning};

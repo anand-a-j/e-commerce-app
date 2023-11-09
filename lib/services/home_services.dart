@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class HomeServices{
-  Future<List<ProductModel>> fetchCategoryProducts({required BuildContext context, required String category}) async{
-   debugPrint("fetch product function called");
+class HomeServices {
+  Future<List<ProductModel>> fetchCategoryProducts(
+      {required BuildContext context, required String category}) async {
+    debugPrint("fetch product function called");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<ProductModel> productList = [];
     debugPrint("token ${userProvider.user.token}");
@@ -51,12 +52,11 @@ class HomeServices{
     } catch (e) {
       debugPrint("get product-category error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return productList;
   }
-
 
   Future<List<ProductModel>> fetchDealOfTheDayProduct(
       {required BuildContext context}) async {
@@ -100,7 +100,7 @@ class HomeServices{
     } catch (e) {
       debugPrint("get product-category error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return productList;
@@ -148,7 +148,7 @@ class HomeServices{
     } catch (e) {
       debugPrint("get new arrial error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return productList;

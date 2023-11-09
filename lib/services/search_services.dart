@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class SearchServices{
-   Future<List<ProductModel>> fetchSearchProducts(
+class SearchServices {
+  Future<List<ProductModel>> fetchSearchProducts(
       {required BuildContext context, required String searchQuery}) async {
     debugPrint("fetch product function called");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -52,7 +52,7 @@ class SearchServices{
     } catch (e) {
       debugPrint("get product-category error ==> ${e.toString()}");
       if (context.mounted) {
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "No Internet Connection");
       }
     }
     return productList;
