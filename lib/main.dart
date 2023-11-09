@@ -1,13 +1,9 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
-import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/screens/splash/screen/splash_screen.dart';
-import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/router.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
-import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

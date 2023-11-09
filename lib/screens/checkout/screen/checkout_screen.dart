@@ -4,6 +4,7 @@ import 'package:e_commerce_app/services/address_service.dart';
 import 'package:e_commerce_app/screens/checkout/screen/order_success_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/utils/api.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -169,7 +170,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   var amountInPaisa = (widget.totalAmount * 100).toInt();
                   const description = 'Test Payment';
                   var options = {
-                    'key': 'rzp_test_AWDV7ronep1euU',
+                    'key': razorPayApiKey,
                     'amount': amountInPaisa,
                     'name': user.name,
                     'description': description,

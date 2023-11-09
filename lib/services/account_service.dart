@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:e_commerce_app/screens/auth/screens/auth_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
@@ -12,8 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService {
-   Future<List<Order>> fetchOrderDetails(
-      {required BuildContext context}) async {
+  Future<List<Order>> fetchOrderDetails({required BuildContext context}) async {
     debugPrint("fetchorder function called");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
@@ -57,18 +55,21 @@ class AccountService {
       }
     }
     return orderList;
-  } 
-
+  }
 
   void logOut(BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('x-auth-token', '');
-      Navigator.pushNamedAndRemoveUntil(
-          context, SignInScreen.routeName, (route) => false);
-      showSnackBar(context, "Logout Successfully",isError: false);
+      if (context.mounted) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, SignInScreen.routeName, (route) => false);
+        showSnackBar(context, "Logout Successfully", isError: false);
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
     }
   }
 }

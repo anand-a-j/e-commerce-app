@@ -26,7 +26,7 @@ class AdminServices {
 
     try {
       // Uploading images to Cloundinary Storage
-      final cloudinary = CloudinaryPublic('dvlmszoxx', 'qrdldtox');
+      final cloudinary = CloudinaryPublic(cloudName, uploadPreset);
 
       List<String> imageUrls = [];
 
