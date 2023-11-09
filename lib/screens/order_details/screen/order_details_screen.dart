@@ -192,15 +192,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   isActive: currentStep >= 0),
               Step(
-                  title: const Text('Completed'),
+                  title: const Text('Packed'),
                   content: const Text(
-                    'Your order has been delivered, you are yet to sign.',
+                    'Order packed and shipping soon!',
                   ),
                   isActive: currentStep > 1),
               Step(
-                  title: const Text('Received'),
+                  title: const Text('Shipping'),
                   content: const Text(
-                    'Your order has been delivered and signed by you.',
+                    'Your order stated shipping',
                   ),
                   isActive: currentStep > 2),
               Step(
@@ -208,7 +208,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   content: const Text(
                     'Your order has been delivered and signed by you!',
                   ),
-                  isActive: currentStep >= 3),
+                  isActive: currentStep >= 3 && currentStep <=3),
             ],
           )
         ],

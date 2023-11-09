@@ -1,15 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_container.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
+import 'package:e_commerce_app/screens/product_details/screens/product_details_screen.dart';
 import 'package:e_commerce_app/screens/search/screens/search_screen.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
+import 'package:e_commerce_app/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import '../widgets/dealofday_container.dart';
 import '../widgets/slider_container_widget.dart';
@@ -23,12 +28,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final PagingController<int, ProductModel> _pagingController =
+      PagingController(firstPageKey: 0);
+
+  // List<ProductModel>? nextPageData;
+
   @override
   void initState() {
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+
     homeProvider.getDealOfTheDayProducts(context);
     homeProvider.getNewArrivalProducts(context);
+    _pagingController.addPageRequestListener((pageKey) {
+      fetchNextPage(pageKey);
+    });
     super.initState();
+  }
+
+  Future<void> fetchNextPage(int pageKey) async {
+    print("fetchnext page function called ");
+    try {
+      print("fetchnext page function called enter try ");
+      final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+      homeProvider.getDealOfTheDayProducts(context);
+      // List<ProductModel>?  nextPageData = await homeProvider.dealOfTheDay;
+
+      // homeProvider.setDealOfTheDay(nextPageData);
+
+      if (homeProvider.dealOfTheDay == null) {
+        _pagingController.appendPage(homeProvider.dealOfTheDay!, pageKey + 1);
+      } else {
+        // If it's the last page, mark it as the last page
+        _pagingController.appendLastPage(homeProvider.dealOfTheDay!);
+      }
+    } catch (error) {
+      print("fetchnext page function error ===> ${error.toString()} ");
+      // Handle error
+      _pagingController.error = error;
+    }
   }
 
   @override
@@ -239,53 +276,51 @@ class _HomeScreenState extends State<HomeScreen> {
                     label: "Best Deals",
                   ),
                   Consumer<HomeProvider>(
-                    builder: (context,homeProvider,child) {
-                      return homeProvider.isLoading
-                          ? const ProductContainerShimmer()
-                          : SizedBox(
-                              height: 240,
-                              child: ListView.builder(
-                                  itemCount: homeProvider.dealOfTheDay!.length,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return ProductContainerWidget(
-                                      product: homeProvider.dealOfTheDay![index],
-                                    );
-                                  }),
-                            );
-                    }
-                  ),
+                      builder: (context, homeProvider, child) {
+                    return homeProvider.isLoading
+                        ? const ProductContainerShimmer()
+                        : SizedBox(
+                            height: 240,
+                            child: ListView.builder(
+                                itemCount: homeProvider.dealOfTheDay!.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return ProductContainerWidget(
+                                    product: homeProvider.dealOfTheDay![index],
+                                  );
+                                }),
+                          );
+                  }),
                   const productTitleWidget(label: "Deal Of The Day"),
-                 Consumer<HomeProvider>(
-                   builder: (context,homeProvider,child) {
-                     return homeProvider.isLoading
-                          ? const DealOfTheDayContainerShimmer()
-                          : DealOfTheDayContainer(
-                              product: homeProvider.dealOfTheDay![0],
-                            );
-                   }
-                 ),
+                  Consumer<HomeProvider>(
+                      builder: (context, homeProvider, child) {
+                    return homeProvider.isLoading
+                        ? const DealOfTheDayContainerShimmer()
+                        : DealOfTheDayContainer(
+                            product: homeProvider.dealOfTheDay![0],
+                          );
+                  }),
                   const productTitleWidget(label: "New Arrivals"),
                   Consumer<HomeProvider>(
-                    builder: (context,homeProvider,child) {
-                      return homeProvider.isLoading
-                          ? const ProductContainerShimmer()
-                          : Container(
-                              height: 240,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                  itemCount: homeProvider.newArrival!.length,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return ProductContainerWidget(
-                                      product: homeProvider.newArrival![index],
-                                    );
-                                  }),
-                            );
-                    }
-                  ),
+                      builder: (context, homeProvider, child) {
+                    return homeProvider.isLoading
+                        ? const ProductContainerShimmer()
+                        : Container(
+                            height: 240,
+                            color: Colors.white,
+                            child: ListView.builder(
+                                reverse: true,
+                                itemCount: homeProvider.newArrival!.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return ProductContainerWidget(
+                                    product: homeProvider.newArrival![index],
+                                  );
+                                }),
+                          );
+                  }),
                   Container(
                     margin: const EdgeInsets.all(10),
                     width: double.infinity,
@@ -297,21 +332,100 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdhZGdldHxlbnwwfDB8MHx8fDA%3D"),
                             fit: BoxFit.cover)),
                   ),
-                  // productTitleWidget(),
+                  const productTitleWidget(label: "All Items"),
                 ],
               ),
             ),
-            // PagedListView<int, int>(
-            //   pagingController: _pagingController,
-            //   builderDelegate: PagedChildBuilderDelegate<int>(
-            //     itemBuilder: (context, item, index) {
-            //       return ListTile(
-            //         title: Text(numbers[index].toString()),
-            //         subtitle: Text(numbers[index].toString()),
-            //       );
-            //     },
-            //   ),
-            // )
+            SliverToBoxAdapter(
+              child: PagedListView<int, ProductModel>(
+                physics: const PageScrollPhysics(),
+                shrinkWrap: true,
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<ProductModel>(
+                    itemBuilder: (context, item, index) {
+                  double avgRating = 0;
+                  double totalRating = 0;
+                  for (int i = 0; i < item.rating!.length; i++) {
+                    totalRating += item.rating![i].rating;
+                  }
+
+                  if (totalRating != 0) {
+                    avgRating = totalRating / item.rating!.length;
+                  }
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, ProductDetailsScreen.routeName,
+                          arguments: item
+                          );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 130,
+                            width: 130,
+                            decoration: BoxDecoration(
+                                color: Colors.purple.shade100,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 1,
+                                    blurRadius: 6,
+                                    offset: Offset(0, 6),
+                                  ),
+                                  BoxShadow(
+                                    blurRadius: 3,
+                                    color: Colors.grey,
+                                    offset: Offset(-1, 0),
+                                  ),
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    color: Colors.grey,
+                                    offset: Offset(2, 0),
+                                  )
+                                ],
+                                image: DecorationImage(
+                                    image: NetworkImage(item.images[0]),
+                                    fit: BoxFit.cover)),
+                          ),
+                          Dimensions.kWidth20,
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Dimensions.kHeight10,
+                                RatingStars(rating: avgRating),
+                                Dimensions.kHeight10,
+                                Text(
+                                  '₹ ${item.price}',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
           ],
         ),
       ),

@@ -13,6 +13,11 @@ class HomeProvider extends ChangeNotifier {
 
   final HomeServices homeServices = HomeServices();
 
+  void setDealOfTheDay(List<ProductModel>? dealOfTheDay) {
+    _dealOfTheDay = dealOfTheDay;
+    notifyListeners();
+  }
+
   void getDealOfTheDayProducts(BuildContext context) async {
     _isLoading = true;
     notifyListeners();
