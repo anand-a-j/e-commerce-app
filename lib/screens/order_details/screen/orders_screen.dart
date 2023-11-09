@@ -34,7 +34,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: GlobalVariables.backgroundColor,
-        title: Text(
+        title: const Text(
           "My Orders",
           style: TextStyle(
             color: GlobalVariables.blackColor,
@@ -85,7 +85,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                            Text(
                                 "Items:",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),

@@ -16,4 +16,16 @@ class AuthProvider extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  void signUpUser(
+      BuildContext context, String email, String password, String username) {
+    _isLoading = true;
+    notifyListeners();
+
+    authService.signUpUser(
+        context: context, email: email, password: password, name: username);
+        
+    _isLoading = false;
+    notifyListeners();
+  }
 }

@@ -50,14 +50,12 @@ class _CartScreenState extends State<CartScreen> {
         ),
         actions: [
           Center(
-              child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text("${user.cart!.length} item",
-                style: const TextStyle(color: GlobalVariables.blackColor)),
-          ))
-          // IconButton(onPressed: (){
-          //   Navigator.pushNamed(context, AddressScreen.routeName);
-          // }, icon: Icon(Icons.save))
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("${user.cart!.length} item",
+                  style: const TextStyle(color: GlobalVariables.blackColor)),
+            ),
+          ),
         ],
       ),
       body: user.cart == null
@@ -66,12 +64,6 @@ class _CartScreenState extends State<CartScreen> {
               ? const EmptyCart()
               : Column(
                   children: [
-                    // Container(
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [Text("Total"), Text(sum.toString())],
-                    //   ),
-                    // ),
                     Expanded(
                       child: ListView.builder(
                           shrinkWrap: true,

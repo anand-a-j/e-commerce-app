@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/screens/auth/widgets/sign_up_bottom_title.dart';
 import 'package:e_commerce_app/screens/auth/widgets/sign_up_title.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
@@ -5,6 +6,7 @@ import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/sign-up-screen';
@@ -21,14 +23,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
-  void signUpUser() {
-    authService.signUpUser(
-        context: context,
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-        name: _nameController.text.trim());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +56,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPass: true,
                 ),
                 Dimensions.kHeight20,
-                CustomButton(
-                    title: "SignUp",
-                    onPressed: () {
-                      if (_signUpFormKey.currentState!.validate()) {
-                        signUpUser();
-                      }
-                    }),
+                Consumer<AuthProvider>(builder: (context, authProvider, child) {
+                  return CustomButton(
+                      title: "SignUp",
+                      isLoading: authProvider.isLoading,
+                      onPressed: () {
+                        if (_signUpFormKey.currentState!.validate()) {
+                          authProvider.signUpUser(
+                              context,
+                              _emailController.text.trim(),
+                              _passwordController.text.trim(),
+                              _nameController.text.trim());
+                        }
+                      });
+                }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
                 const SignUpBottomTitle()
               ],

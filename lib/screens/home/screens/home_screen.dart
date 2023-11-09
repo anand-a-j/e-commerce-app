@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/providers/home_provider.dart';
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
-import 'package:e_commerce_app/services/home_services.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_container.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
 import 'package:e_commerce_app/screens/search/screens/search_screen.dart';
-import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -24,27 +23,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final HomeServices homeServices = HomeServices();
-
-  List<ProductModel>? dealOfTheDay;
-  List<ProductModel>? newArrival;
-
   @override
   void initState() {
-    getDealOfTheDayProducts();
-    getNewArrivalProducts();
+    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    homeProvider.getDealOfTheDayProducts(context);
+    homeProvider.getNewArrivalProducts(context);
     super.initState();
-  }
-
-  void getDealOfTheDayProducts() async {
-    dealOfTheDay =
-        await homeServices.fetchDealOfTheDayProduct(context: context);
-    setState(() {});
-  }
-
-  void getNewArrivalProducts() async {
-    newArrival = await homeServices.fetchnewArrivalProduct(context: context);
-    setState(() {});
   }
 
   @override
@@ -254,42 +238,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   const productTitleWidget(
                     label: "Best Deals",
                   ),
-                  dealOfTheDay == null
-                      ? const ProductContainerShimmer()
-                      : SizedBox(
-                          height: 240,
-                          child: ListView.builder(
-                              itemCount: dealOfTheDay!.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return ProductContainerWidget(
-                                  product: dealOfTheDay![index],
-                                );
-                              }),
-                        ),
+                  Consumer<HomeProvider>(
+                    builder: (context,homeProvider,child) {
+                      return homeProvider.isLoading
+                          ? const ProductContainerShimmer()
+                          : SizedBox(
+                              height: 240,
+                              child: ListView.builder(
+                                  itemCount: homeProvider.dealOfTheDay!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return ProductContainerWidget(
+                                      product: homeProvider.dealOfTheDay![index],
+                                    );
+                                  }),
+                            );
+                    }
+                  ),
                   const productTitleWidget(label: "Deal Of The Day"),
-                  dealOfTheDay == null
-                      ? const DealOfTheDayContainerShimmer()
-                      : DealOfTheDayContainer(
-                          product: dealOfTheDay![0],
-                        ),
+                 Consumer<HomeProvider>(
+                   builder: (context,homeProvider,child) {
+                     return homeProvider.isLoading
+                          ? const DealOfTheDayContainerShimmer()
+                          : DealOfTheDayContainer(
+                              product: homeProvider.dealOfTheDay![0],
+                            );
+                   }
+                 ),
                   const productTitleWidget(label: "New Arrivals"),
-                  newArrival == null
-                      ? const ProductContainerShimmer()
-                      : Container(
-                          height: 240,
-                          color: Colors.white,
-                          child: ListView.builder(
-                              itemCount: newArrival!.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return ProductContainerWidget(
-                                  product: newArrival![index],
-                                );
-                              }),
-                        ),
+                  Consumer<HomeProvider>(
+                    builder: (context,homeProvider,child) {
+                      return homeProvider.isLoading
+                          ? const ProductContainerShimmer()
+                          : Container(
+                              height: 240,
+                              color: Colors.white,
+                              child: ListView.builder(
+                                  itemCount: homeProvider.newArrival!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return ProductContainerWidget(
+                                      product: homeProvider.newArrival![index],
+                                    );
+                                  }),
+                            );
+                    }
+                  ),
                   Container(
                     margin: const EdgeInsets.all(10),
                     width: double.infinity,

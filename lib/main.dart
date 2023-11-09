@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
+import 'package:e_commerce_app/providers/home_provider.dart';
 import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/splash/screen/splash_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/router.dart';
@@ -15,28 +17,15 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => HomeProvider()),
       ],
       child: const MyApp(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  final AuthService _auth = AuthService();
-
-  @override
-  void initState() {
-    _auth.getUserData(context: context);
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +41,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         onGenerateRoute: (settings) => generateRoute(settings),
-        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? Provider.of<UserProvider>(context).user.type == 'user'
-                ? const BottomNavBar()
-                : const AdminScreen()
-            : const SignInScreen());
+        home: const SplashScreen()
+    );
   }
 }
