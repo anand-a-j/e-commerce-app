@@ -1,5 +1,7 @@
+import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -8,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus;
   final TextInputType inputType;
   final bool isPass;
+  final bool isEnabled;
   const CustomTextField(
       {super.key,
       required this.controller,
@@ -15,8 +18,8 @@ class CustomTextField extends StatelessWidget {
       this.maxLines = 1,
       this.autofocus = false,
       this.inputType = TextInputType.text,
-      this.isPass = false
-      });
+      this.isPass = false,
+      this.isEnabled = false});
 
   OutlineInputBorder borderDecoration() {
     return OutlineInputBorder(
@@ -28,23 +31,44 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      maxLines: maxLines,
-      autofocus: autofocus,
-      keyboardType: inputType,
-      obscureText: isPass,
-      decoration: InputDecoration(
-          isDense: true,
-          hintText: hintText,
-          border: borderDecoration(),
-          enabledBorder: borderDecoration()),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "Enter your $hintText";
-        }
-        return null;
-      },
-    );
+    return Consumer<AuthProvider>(builder: (context, auth, child) {
+      return TextFormField(
+        controller: controller,
+        maxLines: maxLines,
+        autofocus: autofocus,
+        keyboardType: inputType,
+        readOnly: isEnabled,
+        obscureText: isPass == true
+            ? auth.isPass == true
+                ? true
+                : false
+            : false,
+        decoration: InputDecoration(
+            isDense: true,
+            hintText: hintText,
+            border: borderDecoration(),
+            enabledBorder: borderDecoration(),
+            suffixIcon: isPass
+                ? IconButton(
+                    onPressed: () {
+                      if (auth.isPass == false) {
+                        auth.setIsPass(true);
+                      } else {
+                        auth.setIsPass(false);
+                      }
+                    },
+                    icon: Icon(
+                      auth.isPass ? Icons.visibility_off : Icons.visibility,
+                    ),
+                  )
+                : null),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Enter your $hintText";
+          }
+          return null;
+        },
+      );
+    });
   }
 }

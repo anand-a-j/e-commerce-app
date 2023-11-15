@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:e_commerce_app/models/user.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
-import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:e_commerce_app/utils/api.dart';
 import 'package:e_commerce_app/utils/error_handling.dart';
 import 'package:e_commerce_app/utils/utils.dart';
+import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -13,7 +13,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
+  bool _isPass = false;
+
   bool get isLoading => _isLoading;
+  bool get isPass => _isPass;
+
+  setIsPass(bool value) {
+    _isPass = value;
+    notifyListeners();
+  }
 
   // sign up user
   void signUpUser(
@@ -63,9 +71,8 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      if (context.mounted) {
-        showSnackBar(context, "No Internet Connection");
-      }
+      print(e.toString());
+      showSnackBar(context, "No Internet Connection");
     }
   }
 
@@ -102,8 +109,8 @@ class AuthProvider extends ChangeNotifier {
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
             await prefs.setString('x-auth-token', token);
             // ignore: use_build_context_synchronously
-            Navigator.pushNamedAndRemoveUntil(
-                context, HomeScreen.routeName, (route) => false);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const BottomNavBar()));
           });
 
       _isLoading = false;
@@ -111,9 +118,8 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      if (context.mounted) {
-        showSnackBar(context, "No Internet Connection");
-      }
+      print(e.toString());
+      showSnackBar(context, "No Internet Connection");
     }
   }
 }
