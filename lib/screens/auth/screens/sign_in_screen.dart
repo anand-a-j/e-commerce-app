@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/screens/auth/widgets/login_title.dart';
 import 'package:e_commerce_app/screens/auth/widgets/sign_in_bottom_title.dart';
-import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/services/network_service.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/utils.dart';
@@ -60,8 +59,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 Dimensions.kHeight20,
                 Consumer<AuthProvider>(builder: (context, authProvider, child) {
-                  print(
-                      "authProvider isloading ===> ${authProvider.isLoading}");
                   return CustomButton(
                       isLoading: authProvider.isLoading,
                       title: "Login",

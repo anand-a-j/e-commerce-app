@@ -63,8 +63,9 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print(e.toString());
-      showSnackBar(context, "No Internet Connection");
+      if (context.mounted) {
+        showSnackBar(context, "No Internet Connection");
+      }
     }
   }
 
@@ -110,8 +111,9 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print(e.toString());
-      showSnackBar(context, "No Internet Connection");
+      if (context.mounted) {
+        showSnackBar(context, "No Internet Connection");
+      }
     }
   }
 }

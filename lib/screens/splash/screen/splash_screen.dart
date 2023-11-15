@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/providers/user_provider.dart';
-import 'package:e_commerce_app/screens/admin/screen/admin_screen.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -33,19 +32,14 @@ class _SplashScreenState extends State<SplashScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
                WidgetsBinding.instance.addPostFrameCallback((_) {
                 Provider.of<UserProvider>(context,listen: false).user.token.isNotEmpty
-                  ? Provider.of<UserProvider>(context,listen: false).user.type == 'user'
+                  && Provider.of<UserProvider>(context,listen: false).user.type == 'user'
                       ? Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const BottomNavBar(),
                           ),
                         )
-                      : Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AdminScreen(),
-                          ),
-                        )
+                      
                   : Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -71,8 +65,7 @@ class NewSplashScreen extends StatelessWidget {
         child: Text(
           "IShopTech",
           style: TextStyle(
-              fontSize: 32,
-              fontStyle: FontStyle.italic,
+              fontSize: 42,
               fontWeight: FontWeight.bold,
               color: GlobalVariables.primaryColor),
         ),

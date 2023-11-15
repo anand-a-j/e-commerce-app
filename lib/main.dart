@@ -1,5 +1,8 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
+import 'package:e_commerce_app/providers/category_provider.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
+import 'package:e_commerce_app/providers/order_provider.dart';
+import 'package:e_commerce_app/providers/search_provider.dart';
 import 'package:e_commerce_app/screens/splash/screen/splash_screen.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/router.dart';
@@ -14,6 +17,9 @@ void main() {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => SearchProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: const MyApp(),
     ),

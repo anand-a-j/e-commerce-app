@@ -48,6 +48,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
+ @override
+  void deactivate() {
+     avgRating = 0;
+     myRating = 0;
+    super.deactivate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

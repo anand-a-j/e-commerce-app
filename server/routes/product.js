@@ -9,7 +9,7 @@ productRouter.get("/api/products/", auth, async (req, res) => {
         console.log(req.query.category);
       
         let products = await Product.find({ category: req.query.category });
-        console.log('Products:', products); 
+         
         res.json(products);
     } catch (e) {
         console.error(e);

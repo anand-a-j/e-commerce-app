@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../widgets/custom_button.dart';
 
 class OrderSuccessScreen extends StatelessWidget {

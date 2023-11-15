@@ -61,11 +61,13 @@ adminRouter.post('/admin/delete-product', admin, async (req, res) => {
 adminRouter.post('/admin/change-order-status', admin, async (req, res) => {
    try {
       const { id, status } = req.body;
+      console.log(id + status);
       let order = await Order.findById(id);
       order.status = status;
 
       order = order.save();
       res.json(order);
+
    } catch (err) {
       res.status(500).json({ error: err.message });
    }
@@ -77,14 +79,11 @@ adminRouter.get('/admin/analytics', admin, async (req, res) => {
       const orders = await Order.find({});
       let totalEarnings = 0;
 
-      console.log('orders length:'+ orders.length);
-
       for (let i = 0; i < orders.length; i++) {
          for (let j = 0; j < orders[i].products.length; j++) {
             totalEarnings += orders[i].products[j].quantity * orders[i].products[j].product.price;
          }
       }
-      console.log('total'+ totalEarnings);
 
       // get category wise earnings
       let SmartPhoneEarnings = await fetchCategoryWiseProduct('SmartPhone');
@@ -104,10 +103,6 @@ adminRouter.get('/admin/analytics', admin, async (req, res) => {
          SmartWatchEarnings,
          HeadPhonesEarnings
       }
-      console.log('total earnings' + earnings.totalEarnings);
-
-     
-
       res.json(earnings);
 
    } catch (e) {

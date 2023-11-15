@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:e_commerce_app/models/rating.dart';
 
 class ProductModel {

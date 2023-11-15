@@ -38,7 +38,6 @@ class BottomNavBar extends StatelessWidget {
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
     List<Widget> pages = const [HomeScreen(), CartScreen(), AccountScreen()];
     return Scaffold(
-      // body: Center(child: Text("hello world"),),
       body: WillPopScope(
         onWillPop: showExitPopup,
         child: ValueListenableBuilder(

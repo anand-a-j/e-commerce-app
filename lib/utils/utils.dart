@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,28 +13,40 @@ void showSnackBar(BuildContext context, String message,{bool isError = true}) {
   );
 }
 
-Future<List<File>> pickImages() async {
-  List<File> images = [];
-
-  try {
-    var file = await FilePicker.platform
-        .pickFiles(type: FileType.image, allowMultiple: true);
-
-    if (file != null && file.files.isNotEmpty) {
-      for (int i = 0; i < file.files.length; i++) {
-        images.add(File(file.files[i].path!));
-      }
-    } else {
-      debugPrint("No images selected.");
-    }
-  } catch (e) {
-    debugPrint("pickImage function error => ${e.toString()}");
-  }
-  return images;
-}
 
 String dateConvert(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
   String formattedDate = DateFormat('dd/MM/yyyy').format(date);
   return formattedDate;
+}
+
+Widget orderStatus(int status) {
+  switch (status) {
+    case 1:
+      return Chip(
+        backgroundColor: Colors.blue.shade200,
+        label: const Text(
+          "Packed",
+        ),
+      );
+    case 2:
+      return Chip(
+        backgroundColor: Colors.purple.shade200,
+        label: const Text(
+          "Shipping",
+        ),
+      );
+    case 3:
+      return Chip(
+        backgroundColor: Colors.green.shade200,
+        label: const Text(
+          "Delivered",
+        ),
+      );
+    default:
+      return Chip(
+        backgroundColor: Colors.orange.shade200,
+        label: const Text("Pending"),
+      );
+  }
 }

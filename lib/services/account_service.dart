@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService {
   Future<List<Order>> fetchOrderDetails({required BuildContext context}) async {
-    debugPrint("fetchorder function called");
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
@@ -28,9 +27,6 @@ class AccountService {
         },
       );
 
-      debugPrint("response category statuscode => ${response.statusCode}");
-      debugPrint("response category body => ${response.body}");
-
       if (context.mounted) {
         httpErrorHandle(
             response: response,
@@ -44,8 +40,6 @@ class AccountService {
                   ),
                 );
               }
-              debugPrint(
-                  "response catefgory===> ${response.statusCode}=> ${response.body}");
             });
       }
     } catch (e) {

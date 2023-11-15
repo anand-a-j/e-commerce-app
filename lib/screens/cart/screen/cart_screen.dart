@@ -5,6 +5,7 @@ import 'package:e_commerce_app/services/product_details_services.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
+import 'package:e_commerce_app/utils/utils.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -251,6 +252,14 @@ class _CartScreenState extends State<CartScreen> {
                         CustomButton(
                           title: "CheckOut",
                           onPressed: () {
+                            final user = context.read<UserProvider>().user;
+                            for (int i = 0; i < user.cart!.length; i++) {
+                              if (user.cart![i]['product']['quantity'] < 1) {
+                                showSnackBar(context,
+                                    '${user.cart![i]['product']['name']} is out of stock');
+                                return;
+                              }
+                            }
                             Navigator.pushNamed(
                                 context, AddressScreen.routeName,
                                 arguments: sum.toDouble());

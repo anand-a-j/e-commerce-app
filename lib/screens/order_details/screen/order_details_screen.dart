@@ -1,13 +1,10 @@
-import 'package:e_commerce_app/services/admin_services.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
 import 'package:e_commerce_app/models/order.dart';
-import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class OrderDetailsScreen extends StatefulWidget {
+class OrderDetailsScreen extends StatelessWidget {
   static const String routeName = '/order-details';
   final Order order;
   const OrderDetailsScreen({
@@ -16,36 +13,7 @@ class OrderDetailsScreen extends StatefulWidget {
   });
 
   @override
-  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
-}
-
-class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
-  final AdminServices adminServices = AdminServices();
-  int currentStep = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    currentStep = widget.order.status;
-  }
-
-  // only admin feature
-  void changeOrderStatus() {
-    adminServices.changeOrderStatus(
-        context: context,
-        status: currentStep + 1,
-        order: widget.order,
-        onSuccess: () {
-          setState(() {
-            currentStep += 1;
-          });
-        });
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: GlobalVariables.backgroundColor,
@@ -64,7 +32,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [ const Text("Order Id"), Text(widget.order.id)],
+                  children: [const Text("Order Id"), Text(order.id)],
                 ),
               ),
               Padding(
@@ -73,7 +41,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Date"),
-                    Text(dateConvert(widget.order.orderedAt))
+                    Text(dateConvert(order.orderedAt))
                   ],
                 ),
               ),
@@ -90,7 +58,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 0.7, color: Colors.grey)),
               child: Text(
-                widget.order.address,
+                order.address,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -100,9 +68,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           const productTitleWidget(label: "Products"),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: widget.order.products.length,
+            itemCount: order.products.length,
             itemBuilder: (context, index) {
-              var product = widget.order.products[index];
+              var product = order.products[index];
               return SizedBox(
                 height: 70,
                 width: double.infinity,
@@ -133,26 +101,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                   const Text("Total"),
-                    Text(widget.order.totalPrice.toString())
+                    const Text("Total"),
+                    Text(order.totalPrice.toString())
                   ],
                 ),
               ),
               const Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [Text("Delivery Charge"), Text("Free")],
                 ),
               ),
-             const Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [ Text("Tax"), Text("₹0.00")],
+                  children: [Text("Tax"), Text("₹0.00")],
                 ),
               ),
-             const Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Divider(
                   thickness: 1,
@@ -165,7 +133,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Sub Total"),
-                    Text('₹ ${widget.order.totalPrice}0')
+                    Text('₹ ${order.totalPrice}0')
                   ],
                 ),
               ),
@@ -176,12 +144,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
           const productTitleWidget(label: "Order Status"),
           Stepper(
-            currentStep: currentStep,
+            currentStep: order.status,
             controlsBuilder: (context, details) {
-              if (user.type == 'admin') {
-                return ElevatedButton(
-                    onPressed: () => changeOrderStatus(), child: const Text("Done"));
-              }
               return const SizedBox.shrink();
             },
             steps: [
@@ -190,25 +154,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   content: const Text(
                     'Your order is yet to be delivered',
                   ),
-                  isActive: currentStep >= 0),
+                  isActive: order.status >= 0),
               Step(
                   title: const Text('Packed'),
                   content: const Text(
                     'Order packed and shipping soon!',
                   ),
-                  isActive: currentStep > 1),
+                  isActive: order.status >= 1),
               Step(
                   title: const Text('Shipping'),
                   content: const Text(
                     'Your order stated shipping',
                   ),
-                  isActive: currentStep > 2),
+                  isActive: order.status >= 2),
               Step(
                   title: const Text('Delivered'),
                   content: const Text(
                     'Your order has been delivered and signed by you!',
                   ),
-                  isActive: currentStep >= 3 && currentStep <=3),
+                  isActive: order.status >= 3),
             ],
           )
         ],

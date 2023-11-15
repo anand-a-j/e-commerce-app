@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
@@ -13,7 +14,6 @@ import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import '../widgets/dealofday_container.dart';
@@ -36,9 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-
-    homeProvider.getDealOfTheDayProducts(context);
     homeProvider.getNewArrivalProducts(context);
+    homeProvider.getDealOfTheDayProducts(context);
     _pagingController.addPageRequestListener((pageKey) {
       fetchNextPage(pageKey);
     });
@@ -46,26 +45,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> fetchNextPage(int pageKey) async {
-    print("fetchnext page function called ");
     try {
-      print("fetchnext page function called enter try ");
       final homeProvider = Provider.of<HomeProvider>(context, listen: false);
       homeProvider.getDealOfTheDayProducts(context);
-      // List<ProductModel>?  nextPageData = await homeProvider.dealOfTheDay;
 
-      // homeProvider.setDealOfTheDay(nextPageData);
-
-      if (homeProvider.dealOfTheDay == null) {
-        _pagingController.appendPage(homeProvider.dealOfTheDay!, pageKey + 1);
-      } else {
-        // If it's the last page, mark it as the last page
-        _pagingController.appendLastPage(homeProvider.dealOfTheDay!);
-      }
+      Timer(const Duration(seconds: 2), () {
+        if (homeProvider.dealOfTheDay.isEmpty) {
+          _pagingController.appendPage(homeProvider.dealOfTheDay, pageKey + 1);
+        } else {
+          // If it's the last page, mark it as the last page
+          _pagingController.appendLastPage(homeProvider.dealOfTheDay);
+        }
+      });
     } catch (error) {
-      print("fetchnext page function error ===> ${error.toString()} ");
       // Handle error
       _pagingController.error = error;
     }
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -247,7 +248,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 80,
                                         width: 80,
                                         decoration: BoxDecoration(
-                                          // color: Colors.red,
                                           image: DecorationImage(
                                             image: AssetImage(GlobalVariables
                                                 .productCategory[index]['image']
@@ -282,12 +282,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         : SizedBox(
                             height: 240,
                             child: ListView.builder(
-                                itemCount: homeProvider.dealOfTheDay!.length,
+                                itemCount: homeProvider.dealOfTheDay.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return ProductContainerWidget(
-                                    product: homeProvider.dealOfTheDay![index],
+                                    product: homeProvider.dealOfTheDay[index],
                                   );
                                 }),
                           );
@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return homeProvider.isLoading
                         ? const DealOfTheDayContainerShimmer()
                         : DealOfTheDayContainer(
-                            product: homeProvider.dealOfTheDay![0],
+                            product: homeProvider.dealOfTheDay[0],
                           );
                   }),
                   const productTitleWidget(label: "New Arrivals"),
@@ -311,12 +311,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                             child: ListView.builder(
                                 reverse: true,
-                                itemCount: homeProvider.newArrival!.length,
+                                itemCount: homeProvider.newArrival.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return ProductContainerWidget(
-                                    product: homeProvider.newArrival![index],
+                                    product: homeProvider.newArrival[index],
                                   );
                                 }),
                           );
@@ -356,8 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.pushNamed(
                           context, ProductDetailsScreen.routeName,
-                          arguments: item
-                          );
+                          arguments: item);
                     },
                     child: Container(
                       width: double.infinity,

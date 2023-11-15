@@ -41,7 +41,8 @@ class AddressServices {
       }
     } catch (e) {
       if (context.mounted) {
-        showSnackBar(context, 'add product post err ${e.toString()}');
+        debugPrint('save address fun ==> ${e.toString()}');
+        showSnackBar(context, 'Something went wrong');
       }
     }
   }
@@ -53,7 +54,6 @@ class AddressServices {
       required double totalAmount,
       required String paymentId}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    print(userProvider.user.cart);
     try {
       http.Response response = await http.post(
         Uri.parse('$uri/api/order'),
@@ -73,9 +73,6 @@ class AddressServices {
         }),
       );
 
-      debugPrint("response => ${response.statusCode}");
-      debugPrint("response => ${response.body}");
-
       if (context.mounted) {
         httpErrorHandle(
             response: response,
@@ -87,13 +84,10 @@ class AddressServices {
                 cart: [],
               );
               userProvider.setUserFromModel(user);
-
-              debugPrint(
-                  "response orders===> ${response.statusCode}=> ${response.body}");
             });
       }
     } catch (e) {
-      debugPrint("post order error ==> ${e.toString()}");
+      debugPrint("place order error ==> ${e.toString()}");
       if (context.mounted) {
         showSnackBar(context, "No Internet Connection");
       }
