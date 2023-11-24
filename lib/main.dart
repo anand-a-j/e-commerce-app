@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'IShopTech',
         theme: ThemeData(
+          useMaterial3: false,
           scaffoldBackgroundColor: GlobalVariables.backgroundColor,
           colorScheme:
               const ColorScheme.light(primary: GlobalVariables.primaryColor),

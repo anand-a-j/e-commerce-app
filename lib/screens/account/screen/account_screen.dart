@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
+import 'package:e_commerce_app/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:e_commerce_app/services/account_service.dart';
 import 'package:e_commerce_app/screens/order_details/screen/orders_screen.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
@@ -82,7 +83,9 @@ class AccountScreen extends StatelessWidget {
                 MenuButton(
                     label: "Privacy Policy",
                     icon: Icons.policy,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, PrivacyPolicyScreen.routeName);
+                    }),
                 MenuButton(
                     label: "Logout",
                     icon: Icons.logout,

@@ -6,7 +6,6 @@ const auth = require('../middleware/auth.js');
 
 const authRouter = express.Router();
 
-
 // SIGN UP Route
 authRouter.post('/api/signup', async(req,res) => {
   /// Get the data from client

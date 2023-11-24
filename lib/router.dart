@@ -9,6 +9,7 @@ import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dar
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:e_commerce_app/screens/order_details/screen/order_details_screen.dart';
 import 'package:e_commerce_app/screens/order_details/screen/orders_screen.dart';
+import 'package:e_commerce_app/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:e_commerce_app/screens/product_details/screens/product_details_screen.dart';
 import 'package:e_commerce_app/screens/search/screens/search_screen.dart';
 import 'package:e_commerce_app/models/order.dart';
@@ -73,6 +74,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => OrderDetailsScreen(order: order));
+        case PrivacyPolicyScreen.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const PrivacyPolicyScreen());
     default:
       return MaterialPageRoute(
         settings: routeSettings,

@@ -1,5 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
+import 'package:e_commerce_app/screens/product_details/widget/product_image_slider.dart';
 import 'package:e_commerce_app/services/product_details_services.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
@@ -48,10 +49,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
- @override
+  @override
   void deactivate() {
-     avgRating = 0;
-     myRating = 0;
+    avgRating = 0;
+    myRating = 0;
     super.deactivate();
   }
 
@@ -88,32 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: SizedBox(
                 child: ListView(
                   children: [
-                    CarouselSlider.builder(
-                      itemCount: GlobalVariables.carouselImages.length,
-                      itemBuilder: (context, index, _) {
-                        return Container(
-                          height: 400,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                widget.product.images[0],
-                              ),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      },
-                      options: CarouselOptions(
-                        aspectRatio: 16 / 10,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 1000),
-                        viewportFraction: 0.95,
-                      ),
-                    ),
+                    ProductImageSlider(widget: widget),
                     Dimensions.kHeight20,
                     Text(
                       widget.product.name,
@@ -131,22 +107,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Dimensions.kHeight10,
                     RatingStars(rating: avgRating),
                     Dimensions.kHeight10,
-                    Text(widget.product.description),
-                    RatingBar.builder(
-                        itemCount: 5,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemBuilder: (_, context) => const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                        onRatingUpdate: (rating) {
-                          productDetailsServices.rateProducts(
-                              context: context,
-                              product: widget.product,
-                              rating: rating);
-                        }),
+                    Text(
+                      widget.product.description,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.justify,
+                    ),
+                   const SizedBox(height: 10),
+                    Column(
+                      children: [
+                        const Text("Rate this product"),
+                        RatingBar.builder(
+                            itemCount: 5,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemBuilder: (_, context) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                            onRatingUpdate: (rating) {
+                              productDetailsServices.rateProducts(
+                                  context: context,
+                                  product: widget.product,
+                                  rating: rating);
+                            }),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -164,7 +150,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(width: 1, color: GlobalVariables.primaryColor)),
+                        border: Border.all(
+                            width: 1, color: GlobalVariables.primaryColor)),
                     child: const Center(
                       child: Text(
                         "Add to Cart",
@@ -210,26 +197,3 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 }
 
-class AppBarButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onPressed;
-  const AppBarButton({
-    super.key,
-    required this.icon,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(
-          color: GlobalVariables.primaryColor.withOpacity(0.7), borderRadius: BorderRadius.circular(10)),
-      child: Center(
-        child: IconButton(onPressed: onPressed, icon: Icon(icon,color: GlobalVariables.backgroundColor,)),
-      ),
-    );
-  }
-}

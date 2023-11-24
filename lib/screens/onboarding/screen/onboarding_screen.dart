@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/providers/onboarding_provider.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/onboarding/widget/slider_indicator.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -91,23 +92,3 @@ class OnboardingScreen extends StatelessWidget {
   }
 }
 
-class Indicator extends StatelessWidget {
-  final bool isActive;
-
-  const Indicator({Key? key, required this.isActive}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 150),
-      curve: Curves.easeInOut,
-      width: isActive ? 20.0 : 10.0,
-      height: isActive ? 10.0 : 5.0,
-      decoration: BoxDecoration(
-        color: isActive ? GlobalVariables.primaryColor : Colors.grey,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-    );
-  }
-}
