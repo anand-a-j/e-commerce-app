@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/category_provider.dart';
 import 'package:e_commerce_app/screens/product_details/screens/product_details_screen.dart';
+import 'package:e_commerce_app/utils/dimensions.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
 
@@ -19,56 +21,70 @@ class CategoryProductsWidget extends StatelessWidget {
             arguments: product);
       },
       child: Container(
+        width: double.infinity,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            border: Border.all(width: 0.7, color: Colors.grey),
-            borderRadius: BorderRadius.circular(5)),
-        child: Column(
+          color: GlobalVariables.backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 1,
+              blurRadius: 6,
+              offset: Offset(0, 6),
+            ),
+            BoxShadow(
+              blurRadius: 3,
+              color: Colors.grey,
+              offset: Offset(-1, 0),
+            ),
+            BoxShadow(
+              blurRadius: 5,
+              color: Colors.grey,
+              offset: Offset(2, 0),
+            )
+          ],
+        ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 100,
+              height: 130,
+              width: 130,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                color: GlobalVariables.backgroundColor,
+                borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
-                    image: NetworkImage(product.images[0]), fit: BoxFit.cover),
+                  image: NetworkImage(product.images[0]),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(product.name,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: RatingStars(
-                          rating: category.calculateAvgRating(product.rating)),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text('₹ ${product.price.toString()}'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            Dimensions.kWidth20,
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Dimensions.kHeight10,
+                  RatingStars(
+                      rating: category.calculateAvgRating(product.rating)),
+                  Dimensions.kHeight10,
+                  Text(
+                    '₹ ${product.price.toString()}',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

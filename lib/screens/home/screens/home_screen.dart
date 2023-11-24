@@ -79,39 +79,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            HomeSliverAppBar(user: user),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                childCount: homeWidgets.length,
-                (context, index) => homeWidgets[index],
-              ),
+      body: CustomScrollView(
+        slivers: [
+          HomeSliverAppBar(user: user),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: homeWidgets.length,
+              (context, index) => homeWidgets[index],
             ),
-            SliverToBoxAdapter(
-              child: PagedListView<int, ProductModel>(
-                physics: const PageScrollPhysics(),
-                shrinkWrap: true,
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<ProductModel>(
-                    itemBuilder: (context, item, index) {
-                  double avgRating = 0;
-                  double totalRating = 0;
-                  for (int i = 0; i < item.rating!.length; i++) {
-                    totalRating += item.rating![i].rating;
-                  }
-
-                  if (totalRating != 0) {
-                    avgRating = totalRating / item.rating!.length;
-                  }
-                  return PagedProductContainer(
-                      avgRating: avgRating, item: item);
-                }),
-              ),
+          ),
+          SliverToBoxAdapter(
+            child: PagedListView<int, ProductModel>(
+              physics: const PageScrollPhysics(),
+              shrinkWrap: true,
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate<ProductModel>(
+                  itemBuilder: (context, item, index) {
+                double avgRating = 0;
+                double totalRating = 0;
+                for (int i = 0; i < item.rating!.length; i++) {
+                  totalRating += item.rating![i].rating;
+                }
+      
+                if (totalRating != 0) {
+                  avgRating = totalRating / item.rating!.length;
+                }
+                return PagedProductContainer(
+                    avgRating: avgRating, item: item);
+              }),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

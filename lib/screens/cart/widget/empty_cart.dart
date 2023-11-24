@@ -14,20 +14,16 @@ class EmptyCart extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-          SizedBox(
-            width: double.infinity,
-            height: 350,
-            child: Center(
-              child: Lottie.asset(
-                'assets/lottie/emptycart.json',
-                animate: true,
-                repeat: true,
-                fit: BoxFit.contain
-                ),
+            SizedBox(
+              width: double.infinity,
+              height: 350,
+              child: Center(
+                child: Lottie.asset('assets/lottie/emptycart.json',
+                    animate: true, repeat: true, fit: BoxFit.contain),
+              ),
             ),
-          ),
-          Dimensions.kHeight10,
-          const Text("No items in the cart"),
+            Dimensions.kHeight10,
+            const Text("No items in the cart"),
           ],
         ),
       ),

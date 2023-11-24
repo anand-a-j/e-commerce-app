@@ -25,13 +25,10 @@ class CategoryDealsScreen extends StatelessWidget {
             ? const Loader()
             : category.productList.isEmpty
                 ? const EmptyProduct()
-                : GridView.builder(
+                : ListView.builder(
+                   shrinkWrap: true,
                     itemCount: category.productList.length,
-                    scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
+
                     itemBuilder: (context, index) {
                       final product = category.productList[index];
                       return CategoryProductsWidget(product: product,category: category);
