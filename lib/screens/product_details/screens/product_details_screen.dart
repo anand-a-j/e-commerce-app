@@ -1,14 +1,14 @@
-
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
+import 'package:e_commerce_app/screens/product_details/widget/product_details_footer.dart';
 import 'package:e_commerce_app/screens/product_details/widget/product_image_slider.dart';
-import 'package:e_commerce_app/services/product_details_services.dart';
+import 'package:e_commerce_app/screens/product_details/widget/rate_this_product_widget.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
+import 'package:e_commerce_app/services/product_details_services.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -21,7 +21,9 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+
   ProductDetailsServices productDetailsServices = ProductDetailsServices();
+ 
   double avgRating = 0;
   double myRating = 0;
 
@@ -40,13 +42,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     if (totalRating != 0) {
       avgRating = totalRating / widget.product.rating!.length;
     }
-  }
-
-  void addToCart() {
-    productDetailsServices.addToCart(
-      context: context,
-      product: widget.product,
-    );
   }
 
   @override
@@ -113,84 +108,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       textAlign: TextAlign.justify,
                     ),
                    const SizedBox(height: 10),
-                    Column(
-                      children: [
-                        const Text("Rate this product"),
-                        RatingBar.builder(
-                            itemCount: 5,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemBuilder: (_, context) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                            onRatingUpdate: (rating) {
-                              productDetailsServices.rateProducts(
-                                  context: context,
-                                  product: widget.product,
-                                  rating: rating);
-                            }),
-                      ],
-                    ),
+                    RateThisProductWidget(productDetailsServices: productDetailsServices, widget: widget),
                   ],
                 ),
               ),
             ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: addToCart,
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                            width: 1, color: GlobalVariables.primaryColor)),
-                    child: const Center(
-                      child: Text(
-                        "Add to Cart",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: GlobalVariables.primaryColor),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    addToCart();
-                    Navigator.pushNamed(context, CartScreen.routeName);
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: GlobalVariables.primaryColor),
-                    child: const Center(
-                      child: Text(
-                        "Buy Now",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )
+          ProductDetailsFooter(product: widget.product,),
         ],
       ),
     );
