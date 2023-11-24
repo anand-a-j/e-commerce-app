@@ -52,12 +52,14 @@ class ProductContainerWidget extends StatelessWidget {
               height: 120,
               width: 165,
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  image: DecorationImage(
-                      image: NetworkImage(product.images[0]),
-                      fit: BoxFit.cover)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                image: DecorationImage(
+                  image: NetworkImage(product.images[0]),
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
@@ -87,7 +89,7 @@ class ProductContainerWidget extends StatelessWidget {
               onTap: () {
                 productDetailsServices.addToCart(
                     context: context, product: product);
-                showSnackBar(context, "Product Added to Cart",isError: false);
+                showSnackBar(context, "Product Added to Cart", isError: false);
               },
               child: Container(
                 height: 35,

@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/models/product.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
-import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
+import 'package:e_commerce_app/screens/home/widgets/best_deal_listview_widget.dart';
+import 'package:e_commerce_app/screens/home/widgets/category_grid_widget.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_container.dart';
 import 'package:e_commerce_app/screens/home/widgets/product_title.dart';
+import 'package:e_commerce_app/screens/home/widgets/search_bar.dart';
 import 'package:e_commerce_app/screens/product_details/screens/product_details_screen.dart';
-import 'package:e_commerce_app/screens/search/screens/search_screen.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
@@ -16,8 +16,8 @@ import 'package:e_commerce_app/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
+import '../widgets/banner_slider_widget.dart';
 import '../widgets/dealofday_container.dart';
-import '../widgets/slider_container_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -53,12 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
         if (homeProvider.dealOfTheDay.isEmpty) {
           _pagingController.appendPage(homeProvider.dealOfTheDay, pageKey + 1);
         } else {
-          // If it's the last page, mark it as the last page
           _pagingController.appendLastPage(homeProvider.dealOfTheDay);
         }
       });
     } catch (error) {
-      // Handle error
       _pagingController.error = error;
     }
   }
@@ -132,166 +130,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Dimensions.kWidth10
               ],
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, SearchScreen.routeName);
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.only(left: 10),
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: GlobalVariables.backgroundColor,
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 200, 200, 200),
-                              width: 0.7),
-                          borderRadius: Dimensions.kRadius10),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Search your products",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Icon(Icons.search)
-                          ],
-                        ),
-                      )),
-                ),
+              bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(50),
+                child: HomeSearchBar(),
               ),
             ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  CarouselSlider.builder(
-                    itemCount: GlobalVariables.carouselImages.length,
-                    itemBuilder: (context, index, _) {
-                      return SliderContainerWidget(
-                        imageUrl: GlobalVariables.carouselImages[index],
-                      );
-                    },
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: true,
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 1000),
-                      viewportFraction: 0.95,
-                    ),
-                  ),
-                  const productTitleWidget(
-                    label: "Categories",
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 250,
-                    child: Center(
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          physics: const PageScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: GlobalVariables.productCategory.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, CategoryDealsScreen.routeName,
-                                    arguments: GlobalVariables
-                                        .productCategory[index]['title']
-                                        .toString());
-                              },
-                              child: SizedBox(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      width: 90,
-                                      height: 90,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            GlobalVariables.primaryLightColor,
-                                        borderRadius: BorderRadius.circular(50),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            spreadRadius: 1,
-                                            blurRadius: 6,
-                                            offset: Offset(0, 6),
-                                          ),
-                                          BoxShadow(
-                                            blurRadius: 3,
-                                            color: Colors.grey,
-                                            offset: Offset(-1, 0),
-                                          ),
-                                          BoxShadow(
-                                            blurRadius: 5,
-                                            color: Colors.grey,
-                                            offset: Offset(2, 0),
-                                          )
-                                        ],
-                                      ),
-                                      child: Container(
-                                        margin: const EdgeInsets.all(12),
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(GlobalVariables
-                                                .productCategory[index]['image']
-                                                .toString()),
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Dimensions.kHeight10,
-                                    Text(
-                                      GlobalVariables.productCategory[index]
-                                              ['title']
-                                          .toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                  ),
-                  const productTitleWidget(
-                    label: "Best Deals",
-                  ),
-                  Consumer<HomeProvider>(
-                      builder: (context, homeProvider, child) {
-                    return homeProvider.isLoading
-                        ? const ProductContainerShimmer()
-                        : SizedBox(
-                            height: 240,
-                            child: ListView.builder(
-                                itemCount: homeProvider.dealOfTheDay.length,
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return ProductContainerWidget(
-                                    product: homeProvider.dealOfTheDay[index],
-                                  );
-                                }),
-                          );
-                  }),
+                  const HomeBannerSlider(),
+                  const productTitleWidget(label: "Categories"),
+                  const CategoryGrid(),
+                  const productTitleWidget(label: "Best Deals"),
+                  const BestDealListView(),
                   const productTitleWidget(label: "Deal Of The Day"),
                   Consumer<HomeProvider>(
                       builder: (context, homeProvider, child) {
@@ -431,3 +282,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
