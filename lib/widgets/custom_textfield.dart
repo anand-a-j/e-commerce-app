@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
         keyboardType: inputType,
         readOnly: isEnabled,
         obscureText: isPass == true
-            ? auth.isPass == true
+            ? auth.isPass != true
                 ? true
                 : false
             : false,
@@ -58,7 +58,7 @@ class CustomTextField extends StatelessWidget {
                       }
                     },
                     icon: Icon(
-                      auth.isPass ? Icons.visibility_off : Icons.visibility,
+                      auth.isPass != true ? Icons.visibility_off : Icons.visibility,
                     ),
                   )
                 : null),
