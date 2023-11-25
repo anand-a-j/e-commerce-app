@@ -18,12 +18,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body:  Padding(
+      body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(
           shrinkWrap: true,
           children: const [
-            productTitleWidget(label: "Privacy Policy"),
+            ProductTitleWidget(label: "Privacy Policy"),
             SizedBox(height: 10),
             Text(privacyPolicy)
           ],

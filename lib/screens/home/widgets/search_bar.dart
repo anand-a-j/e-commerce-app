@@ -23,7 +23,27 @@ class HomeSearchBar extends StatelessWidget {
               color: GlobalVariables.backgroundColor,
               border: Border.all(
                   color: const Color.fromARGB(255, 200, 200, 200), width: 0.7),
-              borderRadius: Dimensions.kRadius10),
+              borderRadius: Dimensions.kRadius10,
+              boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+              // BoxShadow(
+              //   blurRadius: 2,
+              //   color: Colors.grey,
+              //   offset: Offset(-1, 0),
+              // ),
+              // BoxShadow(
+              //   blurRadius: 2,
+              //   color: Colors.grey,
+              //   offset: Offset(1, 0),
+              // )
+            ],
+              ),
+              
           child: const Padding(
             padding: EdgeInsets.all(10.0),
             child: Row(

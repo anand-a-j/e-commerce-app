@@ -17,7 +17,8 @@ class HomeSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 70,
+      
+      expandedHeight: 110,
       backgroundColor: GlobalVariables.backgroundColor,
       title: const Text(
         "IShopTech",
@@ -71,7 +72,7 @@ class HomeSliverAppBar extends StatelessWidget {
         Dimensions.kWidth10
       ],
       bottom: const PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: Size.fromHeight(60),
         child: HomeSearchBar(),
       ),
     );

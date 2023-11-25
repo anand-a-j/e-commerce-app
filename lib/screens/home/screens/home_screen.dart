@@ -63,16 +63,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> homeWidgets = [
     const HomeBannerSlider(),
-    const productTitleWidget(label: "Categories"),
+    const ProductTitleWidget(label: "Categories"),
     const CategoryGrid(),
-    const productTitleWidget(label: "Best Deals"),
+    const ProductTitleWidget(label: "Best Deals"),
     const BestDealListView(),
-    const productTitleWidget(label: "Deal Of The Day"),
+    const ProductTitleWidget(label: "Deal Of The Day"),
     const DealOfTheDayWidget(),
-    const productTitleWidget(label: "New Arrivals"),
+    const ProductTitleWidget(label: "New Arrivals"),
     const NewArrivalListView(),
     const BottomBanner(),
-    const productTitleWidget(label: "All Items"),
+    // const ProductTitleWidget(label: "All Items"),
   ];
 
   @override
@@ -100,12 +100,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 for (int i = 0; i < item.rating!.length; i++) {
                   totalRating += item.rating![i].rating;
                 }
-      
+
                 if (totalRating != 0) {
                   avgRating = totalRating / item.rating!.length;
                 }
-                return PagedProductContainer(
-                    avgRating: avgRating, item: item);
+                return PagedProductContainer(avgRating: avgRating, item: item);
               }),
             ),
           ),

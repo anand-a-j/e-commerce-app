@@ -25,7 +25,7 @@ class OrderDetailsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          const productTitleWidget(label: "Order Details"),
+          const ProductTitleWidget(label: "Order Details"),
           Column(
             children: [
               Padding(
@@ -47,7 +47,7 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-          const productTitleWidget(label: "Shipping Address"),
+          const ProductTitleWidget(label: "Shipping Address"),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
@@ -65,7 +65,7 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          const productTitleWidget(label: "Products"),
+          const ProductTitleWidget(label: "Products"),
           ListView.builder(
             shrinkWrap: true,
             itemCount: order.products.length,
@@ -93,7 +93,7 @@ class OrderDetailsScreen extends StatelessWidget {
               );
             },
           ),
-          const productTitleWidget(label: "Price Details"),
+          const ProductTitleWidget(label: "Price Details"),
           Column(
             children: [
               Padding(
@@ -142,7 +142,7 @@ class OrderDetailsScreen extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const productTitleWidget(label: "Order Status"),
+          const ProductTitleWidget(label: "Order Status"),
           Stepper(
             currentStep: order.status,
             controlsBuilder: (context, details) {

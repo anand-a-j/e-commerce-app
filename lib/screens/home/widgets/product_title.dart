@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
-class productTitleWidget extends StatelessWidget {
+class ProductTitleWidget extends StatelessWidget {
   final String label;
-  const productTitleWidget({
-    super.key,
-    required this.label
-  });
+  const ProductTitleWidget({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       height: 50,
       width: double.infinity,
       child: Row(
@@ -18,7 +15,7 @@ class productTitleWidget extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           // TextButton(onPressed: () {}, child: Text("View All")),
         ],

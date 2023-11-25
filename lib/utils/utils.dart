@@ -13,7 +13,6 @@ void showSnackBar(BuildContext context, String message,{bool isError = true}) {
   );
 }
 
-
 String dateConvert(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
   String formattedDate = DateFormat('dd/MM/yyyy').format(date);

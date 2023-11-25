@@ -6,7 +6,5 @@ class Dimensions {
   static const kWidth10 = SizedBox(width: 10);
   static const kWidth20 = SizedBox(width: 20);
 
-  static BorderRadius kRadius10 = BorderRadius.circular(10);
-
- 
+  static BorderRadius kRadius10 = BorderRadius.circular(10); 
 }

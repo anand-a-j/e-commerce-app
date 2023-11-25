@@ -11,7 +11,8 @@ class DealOfTheDayContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context,  ProductDetailsScreen.routeName,arguments: product);
+        Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+            arguments: product);
       },
       child: Stack(
         children: [
@@ -20,9 +21,12 @@ class DealOfTheDayContainer extends StatelessWidget {
             width: 1000,
             height: 270,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    image: NetworkImage(product.images[0]), fit: BoxFit.cover)),
+              borderRadius: BorderRadius.circular(15),
+              image: DecorationImage(
+                image: NetworkImage(product.images[0]),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Positioned(
             bottom: 0,
