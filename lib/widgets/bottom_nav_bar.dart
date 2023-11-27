@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
+import 'package:e_commerce_app/screens/category/screen/category_screen.dart';
 import 'package:e_commerce_app/screens/home/screens/home_screen.dart';
 import 'package:e_commerce_app/services/network_service.dart';
+import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -36,7 +38,12 @@ class BottomNavBar extends StatelessWidget {
     }
 
     ValueNotifier<int> selectedIndex = ValueNotifier(0);
-    List<Widget> pages = const [HomeScreen(), CartScreen(), AccountScreen()];
+    List<Widget> pages = const [
+      HomeScreen(),
+      CategoryScreen(),
+      CartScreen(),
+      AccountScreen()
+    ];
     return Scaffold(
       body: WillPopScope(
         onWillPop: showExitPopup,
@@ -51,7 +58,13 @@ class BottomNavBar extends StatelessWidget {
           valueListenable: selectedIndex,
           builder: (context, updatedIndex, _) {
             return BottomNavigationBar(
+                type: BottomNavigationBarType.shifting,
                 currentIndex: updatedIndex,
+                selectedIconTheme: const IconThemeData(color: GlobalVariables.primaryColor),
+                unselectedIconTheme: const IconThemeData(color: GlobalVariables.unselectedNavBarColor),
+                selectedLabelStyle: const TextStyle(color: GlobalVariables.primaryColor),
+                // unselectedLabelStyle: const TextStyle(color: ),
+                useLegacyColorScheme: false,
                 onTap: (index) {
                   selectedIndex.value = index;
                 },
@@ -63,6 +76,13 @@ class BottomNavBar extends StatelessWidget {
                         ),
                       ),
                       label: "Home"),
+                  BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage(
+                          'assets/icons/shopbag.png',
+                        ),
+                      ),
+                      label: "Category"),
                   BottomNavigationBarItem(
                       icon: ImageIcon(
                         AssetImage(
