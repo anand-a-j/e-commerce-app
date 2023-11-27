@@ -61,7 +61,7 @@ class CartProductContainer extends StatelessWidget {
                 image: NetworkImage(
                   product.images[0],
                 ),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),
