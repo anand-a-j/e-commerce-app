@@ -1,7 +1,6 @@
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
-import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -60,15 +59,20 @@ class NewSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text(
-          "IShopTech",
-          style: TextStyle(
-              fontSize: 42,
-              fontWeight: FontWeight.bold,
-              color: GlobalVariables.primaryColor),
-        ),
+        child: Container(
+           margin: const EdgeInsets.all(15),
+           padding: const EdgeInsets.all(10),
+           width: 700,
+           height: 500,
+           decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/splash_logo.gif'),
+              fit: BoxFit.contain
+            ),
+           ),
+        )
       ),
     );
   }

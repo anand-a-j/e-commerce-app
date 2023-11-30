@@ -47,7 +47,7 @@ class SearchBar extends StatelessWidget {
         child: ListTile(
           leading: const Icon(Icons.search_outlined),
           title: const Text("Search your desired products here"),
-          titleTextStyle: TextStyle(color: Color(0xffcccccc).shade600),
+          titleTextStyle: TextStyle(color: Color(0xff999999)),
         ),
       ),
     );

@@ -120,8 +120,8 @@ class ProductContainerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Color(0xffcccccc).shade300,
-      highlightColor: Color(0xffcccccc).shade100,
+      baseColor: const Color(0xffcccccc),
+      highlightColor: const Color(0xffcccccc),
       enabled: true,
       child: SizedBox(
         height: 240,
@@ -136,7 +136,7 @@ class ProductContainerShimmer extends StatelessWidget {
               width: 165,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Color(0xffcccccc)),
+                  color: const Color(0xffcccccc)),
             );
           },
         ),

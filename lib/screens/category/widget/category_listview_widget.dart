@@ -30,19 +30,19 @@ class CategoryListViewWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xffcccccc).shade400,
+                  color: Color(0xffcccccc),
                   spreadRadius: 1,
                   blurRadius: 2,
                   offset: const Offset(0, 1),
                 ),
                 BoxShadow(
                   blurRadius: 1,
-                  color: Color(0xffcccccc).shade400,
+                  color: Color(0xffcccccc),
                   offset: const Offset(-1, 0),
                 ),
                 BoxShadow(
                   blurRadius: 2,
-                  color: Color(0xffcccccc).shade400,
+                  color: Color(0xffcccccc),
                   offset: const Offset(1, 0),
                 )
               ],

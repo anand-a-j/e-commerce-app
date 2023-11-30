@@ -119,7 +119,6 @@ class AuthProvider extends ChangeNotifier {
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print(e.toString());
       showSnackBar(context, "No Internet Connection");
     }
   }
