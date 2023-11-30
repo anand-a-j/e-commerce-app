@@ -72,7 +72,7 @@ class NewSplashScreen extends StatelessWidget {
               fit: BoxFit.contain
             ),
            ),
-        )
+        ),
       ),
     );
   }
