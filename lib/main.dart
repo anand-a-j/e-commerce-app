@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/providers/category_provider.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
+import 'package:e_commerce_app/providers/location_provider.dart';
 import 'package:e_commerce_app/providers/onboarding_provider.dart';
 import 'package:e_commerce_app/providers/order_provider.dart';
 import 'package:e_commerce_app/providers/search_provider.dart';
@@ -22,6 +23,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
         ChangeNotifierProvider(create: (context) => OnboardingProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),

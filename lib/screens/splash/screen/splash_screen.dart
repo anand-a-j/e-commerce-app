@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/location_provider.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
@@ -19,33 +20,39 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     _auth.getUserData(context: context);
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
- 
     return FutureBuilder(
         future: Future.delayed(const Duration(seconds: 3)),
         builder: (context, snapshot) {
+       
           if (snapshot.connectionState == ConnectionState.done) {
-               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Provider.of<UserProvider>(context,listen: false).user.token.isNotEmpty
-                  && Provider.of<UserProvider>(context,listen: false).user.type == 'user'
-                      ? Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BottomNavBar(),
-                          ),
-                        )
-                      
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Provider.of<UserProvider>(context, listen: false)
+                          .user
+                          .token
+                          .isNotEmpty &&
+                      Provider.of<UserProvider>(context, listen: false)
+                              .user
+                              .type ==
+                          'user'
+                  ? Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BottomNavBar(),
+                      ),
+                    )
                   : Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const SignInScreen(),
                       ),
                     );
-               });
+            });
             return const Scaffold(body: Loader());
           } else {
             return const NewSplashScreen();
@@ -59,19 +66,18 @@ class NewSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Center(
         child: Container(
-           margin: const EdgeInsets.all(15),
-           padding: const EdgeInsets.all(10),
-           width: 700,
-           height: 500,
-           decoration: const BoxDecoration(
+          margin: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
+          width: 700,
+          height: 500,
+          decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/splash_logo.gif'),
-              fit: BoxFit.contain
-            ),
-           ),
+                image: AssetImage('assets/images/splash_logo.gif'),
+                fit: BoxFit.contain),
+          ),
         ),
       ),
     );
