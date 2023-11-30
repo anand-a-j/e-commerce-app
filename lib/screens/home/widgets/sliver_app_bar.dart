@@ -2,7 +2,6 @@ import 'package:e_commerce_app/models/user.dart';
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/home/widgets/search_bar.dart';
-import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 
@@ -34,42 +33,47 @@ class HomeSliverAppBar extends StatelessWidget {
           },
           child: const ImageIcon(
             AssetImage(
-              'assets/icons/user.png',
+              'assets/icons/profile.png',
             ),
             color: GlobalVariables.blackColor,
+            size: 30,
           ),
         ),
+        const SizedBox(width: 15),
         GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, CartScreen.routeName);
           },
           child: Stack(
             children: [
-              const ImageIcon(
-                AssetImage(
-                  'assets/icons/cart.png',
+             const Center(
+                child: ImageIcon(
+                  AssetImage(
+                    'assets/icons/cart.png',
+                  ),
+                  color: GlobalVariables.blackColor,
+                   size: 30,
                 ),
-                color: GlobalVariables.blackColor,
-                size: 50,
               ),
               Positioned(
-                right: 5,
-                top: 2,
+                 top: 4,
+                 right: -1,
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
-                  radius: 8,
+                  radius: 10,
                   child: Center(
                     child: Text(
                       user.cart == null ? '0' : user.cart!.length.toString(),
-                      style: const TextStyle(fontSize: 10),
+                      style: const TextStyle(fontSize: 12,color: Colors.white),
                     ),
                   ),
                 ),
-              )
+              ),
+              
             ],
           ),
         ),
-        Dimensions.kWidth10
+        const SizedBox(width: 15)
       ],
       bottom: const PreferredSize(
         preferredSize: Size.fromHeight(60),

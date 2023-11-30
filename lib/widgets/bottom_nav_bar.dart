@@ -79,7 +79,7 @@ class BottomNavBar extends StatelessWidget {
                   BottomNavigationBarItem(
                       icon: ImageIcon(
                         AssetImage(
-                          'assets/icons/shopbag.png',
+                          'assets/icons/category.png',
                         ),
                       ),
                       label: "Category"),
@@ -93,7 +93,7 @@ class BottomNavBar extends StatelessWidget {
                   BottomNavigationBarItem(
                       icon: ImageIcon(
                         AssetImage(
-                          'assets/icons/user.png',
+                          'assets/icons/profile.png',
                         ),
                       ),
                       label: "Profile"),
