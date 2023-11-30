@@ -111,6 +111,7 @@ class AuthProvider extends ChangeNotifier {
             // ignore: use_build_context_synchronously
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const BottomNavBar()));
+           
           });
 
       _isLoading = false;

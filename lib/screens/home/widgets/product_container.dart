@@ -28,19 +28,19 @@ class ProductContainerWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           boxShadow: const [
             BoxShadow(
-              color: Colors.grey,
+              color: Color(0xffcccccc),
               spreadRadius: 1,
               blurRadius: 6,
               offset: Offset(0, 4),
             ),
             BoxShadow(
               blurRadius: 3,
-              color: Colors.grey,
+              color: Color(0xffcccccc),
               offset: Offset(-1, 0),
             ),
             BoxShadow(
               blurRadius: 4,
-              color: Colors.grey,
+              color: Color(0xffcccccc),
               offset: Offset(1, 0),
             )
           ],
@@ -120,8 +120,8 @@ class ProductContainerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: Color(0xffcccccc).shade300,
+      highlightColor: Color(0xffcccccc).shade100,
       enabled: true,
       child: SizedBox(
         height: 240,
@@ -135,7 +135,8 @@ class ProductContainerShimmer extends StatelessWidget {
               height: 120,
               width: 165,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15), color: Colors.grey),
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xffcccccc)),
             );
           },
         ),

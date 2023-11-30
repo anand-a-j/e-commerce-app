@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/screens/category/screen/category_deals_screen.dart';
-import 'package:e_commerce_app/screens/search/screens/search_screen.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 
@@ -31,19 +30,19 @@ class CategoryListViewWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.shade400,
+                  color: Color(0xffcccccc).shade400,
                   spreadRadius: 1,
                   blurRadius: 2,
                   offset: const Offset(0, 1),
                 ),
                 BoxShadow(
                   blurRadius: 1,
-                  color: Colors.grey.shade400,
+                  color: Color(0xffcccccc).shade400,
                   offset: const Offset(-1, 0),
                 ),
                 BoxShadow(
                   blurRadius: 2,
-                  color: Colors.grey.shade400,
+                  color: Color(0xffcccccc).shade400,
                   offset: const Offset(1, 0),
                 )
               ],
@@ -76,4 +75,3 @@ class CategoryListViewWidget extends StatelessWidget {
     ));
   }
 }
-

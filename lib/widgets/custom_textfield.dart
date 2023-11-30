@@ -58,17 +58,30 @@ class CustomTextField extends StatelessWidget {
                       }
                     },
                     icon: Icon(
-                      auth.isPass != true ? Icons.visibility_off : Icons.visibility,
+                      auth.isPass != true
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
                   )
                 : null),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Enter your $hintText";
+          } 
+          if (hintText == "Email" && !isVaildEmail(value)) {
+            return "Enter a vaild Email";
           }
           return null;
         },
       );
     });
+  }
+
+  isVaildEmail(String email) {
+    final bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+
+    return emailValid;
   }
 }

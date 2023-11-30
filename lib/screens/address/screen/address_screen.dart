@@ -8,6 +8,7 @@ import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
@@ -120,12 +121,14 @@ class _AddressScreenState extends State<AddressScreen> {
                   addressToBeUsed =
                       '''${user.name}\n${homeController.text}\n${streetController.text}\n${cityController.text},${stateController.text}\n${pincodeController.text}\nPh: ${phoneController.text}''';
 
-                  addressServices.saveUserAddress(
-                      context: context, address: user.address);
+                 if(context.mounted) {
+                   addressServices.saveUserAddress(
+                        context: context, address: user.address);
 
-                  Navigator.pushNamed(context, CheckoutScreen.routeName,
-                      arguments: AddressArguments(
-                          widget.totalAmount, addressToBeUsed));
+                    Navigator.pushNamed(context, CheckoutScreen.routeName,
+                        arguments: AddressArguments(
+                            widget.totalAmount, addressToBeUsed));
+                 }
                 }
               })
         ],

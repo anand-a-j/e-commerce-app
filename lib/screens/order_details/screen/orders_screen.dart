@@ -26,98 +26,102 @@ class OrdersScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Consumer<OrderProvider>(
-        builder: (context,orderProvider,_) {
-          return orderProvider.isLoading
-              ? const Loader()
-              : orderProvider.orders.isEmpty
-                  ? const Center(child: Text("No orders placed"))
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: orderProvider.orders.length,
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, OrderDetailsScreen.routeName,
-                              arguments: orderProvider.orders[index]);
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 0.8, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Order ID:",
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    orderProvider.orders[index].id,
-                                    style: const TextStyle(
+      body: Consumer<OrderProvider>(builder: (context, orderProvider, _) {
+        return orderProvider.isLoading
+            ? const Loader()
+            : orderProvider.orders.isEmpty
+                ? const Center(child: Text("No orders placed"))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: orderProvider.orders.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, OrderDetailsScreen.routeName,
+                            arguments: orderProvider.orders[index]);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 0.8, color: Color(0xffcccccc)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Order ID:",
+                                  style: TextStyle(
                                       fontSize: 16,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Date:",
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  orderProvider.orders[index].id,
+                                  style: const TextStyle(
+                                    fontSize: 16,
                                   ),
-                                  Text(
-                                    dateConvert(
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Date:",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  dateConvert(
                                       orderProvider.orders[index].orderedAt),
-                                    style: const TextStyle(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Total Price:",
+                                  style: TextStyle(
                                       fontSize: 16,
-                                    ),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  '₹ ${orderProvider.orders[index].totalPrice.toString()}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
                                   ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Total Price:",
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    '₹ ${orderProvider.orders[index].totalPrice.toString()}',
-                                    style: const TextStyle(
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Status",
+                                  style: TextStyle(
                                       fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Status",
-                                    style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  orderStatus(orderProvider.orders[index].status)
-                                ],
-                              ),
-                            ],
-                          ),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                orderStatus(orderProvider.orders[index].status)
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      reverse: true,
-                    );
-        }
-      ),
+                    ),
+                    reverse: true,
+                  );
+      }),
     );
   }
 }

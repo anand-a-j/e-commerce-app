@@ -11,8 +11,8 @@ class SignUpTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.10,
+           SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.20,
           ),
           const Text(
             "Create an Account",
@@ -25,7 +25,7 @@ class SignUpTitle extends StatelessWidget {
                 fontWeight: FontWeight.w400, fontSize: 14, color: Colors.black),
           ),
           SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.10,
+            height: MediaQuery.sizeOf(context).height * 0.05
           )
         ],
       ),

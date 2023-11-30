@@ -56,7 +56,7 @@ class OrderDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 0.7, color: Colors.grey)),
+                  border: Border.all(width: 0.7, color: Color(0xffcccccc))),
               child: Text(
                 order.address,
                 style: const TextStyle(
@@ -124,7 +124,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Divider(
                   thickness: 1,
-                  color: Colors.grey,
+                  color: Color(0xffcccccc),
                 ),
               ),
               Padding(

@@ -63,22 +63,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       isLoading: authProvider.isLoading,
                       title: "Login",
                       onPressed: () {
-                        if (_emailController.text.isEmpty ||
-                            _passwordController.text.isEmpty) {
-                          showSnackBar(
-                              context, "Enter your username and password");
-                        } else {
-                          if (_passwordController.text.length <= 6) {
-                            showSnackBar(context,
-                                "Password length should be greater that 6 charaters");
-                          } else {
-                            if (_signInFormKey.currentState!.validate()) {
-                              authProvider.signInUser(
-                                  context: context,
-                                  email: _emailController.text.trim(),
-                                  password: _passwordController.text.trim());
-                            }
-                          }
+                        if (_signInFormKey.currentState!.validate()) {
+                          authProvider.signInUser(
+                              context: context,
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim());
                         }
                       });
                 }),

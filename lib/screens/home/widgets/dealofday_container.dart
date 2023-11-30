@@ -69,15 +69,15 @@ class DealOfTheDayContainerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: Color(0xffcccccc).shade300,
+      highlightColor: Color(0xffcccccc).shade100,
       enabled: true,
       child: Container(
         margin: const EdgeInsets.all(10),
         width: 1000,
         height: 270,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15), color: Colors.grey),
+            borderRadius: BorderRadius.circular(15), color: Color(0xffcccccc)),
       ),
     );
   }

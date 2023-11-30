@@ -107,7 +107,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       style: const TextStyle(fontSize: 16),
                       textAlign: TextAlign.justify,
                     ),
-                   const SizedBox(height: 10),
+                   const SizedBox(height: 60),
                     RateThisProductWidget(productDetailsServices: productDetailsServices, widget: widget),
                   ],
                 ),

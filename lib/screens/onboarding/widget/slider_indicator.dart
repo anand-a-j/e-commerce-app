@@ -14,7 +14,7 @@ class Indicator extends StatelessWidget {
       width: isActive ? 20.0 : 10.0,
       height: isActive ? 10.0 : 5.0,
       decoration: BoxDecoration(
-        color: isActive ? GlobalVariables.primaryColor : Colors.grey,
+        color: isActive ? GlobalVariables.primaryColor : Color(0xffcccccc),
         borderRadius: BorderRadius.circular(10.0),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 5.0),

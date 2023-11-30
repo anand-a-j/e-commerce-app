@@ -18,10 +18,7 @@ class CategoryScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: const Column(
-        children: [
-          SearchBar(),
-          CategoryListViewWidget()
-        ],
+        children: [SearchBar(), CategoryListViewWidget()],
       ),
     );
   }
@@ -50,11 +47,9 @@ class SearchBar extends StatelessWidget {
         child: ListTile(
           leading: const Icon(Icons.search_outlined),
           title: const Text("Search your desired products here"),
-          titleTextStyle: TextStyle(color: Colors.grey.shade600),
+          titleTextStyle: TextStyle(color: Color(0xffcccccc).shade600),
         ),
       ),
     );
   }
 }
-
-

@@ -12,7 +12,7 @@ class LoginTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.20,
+            height: MediaQuery.sizeOf(context).height * 0.20
           ),
           const Text(
             "Hi, Welcome Back!👋",
@@ -24,9 +24,7 @@ class LoginTitle extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w400, fontSize: 18, color: Colors.black),
           ),
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.10,
-          )
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.05)
         ],
       ),
     );

@@ -24,10 +24,8 @@ class CategoryGrid extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, CategoryDealsScreen.routeName,
-                      arguments: GlobalVariables
-                          .productCategory[index]['title']
+                  Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+                      arguments: GlobalVariables.productCategory[index]['title']
                           .toString());
                 },
                 child: SizedBox(
@@ -44,19 +42,19 @@ class CategoryGrid extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50),
                           boxShadow: const [
                             BoxShadow(
-                              color: Colors.grey,
+                              color: Color(0xffcccccc),
                               spreadRadius: 1,
                               blurRadius: 6,
                               offset: Offset(0, 6),
                             ),
                             BoxShadow(
                               blurRadius: 3,
-                              color: Colors.grey,
+                              color: Color(0xffcccccc),
                               offset: Offset(-1, 0),
                             ),
                             BoxShadow(
                               blurRadius: 5,
-                              color: Colors.grey,
+                              color: Color(0xffcccccc),
                               offset: Offset(2, 0),
                             )
                           ],
@@ -67,11 +65,9 @@ class CategoryGrid extends StatelessWidget {
                           width: 80,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(
-                                  GlobalVariables
-                                    .productCategory[index]['image']
-                                    .toString()
-                                  ),
+                              image: AssetImage(GlobalVariables
+                                  .productCategory[index]['image']
+                                  .toString()),
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -79,8 +75,7 @@ class CategoryGrid extends StatelessWidget {
                       ),
                       Dimensions.kHeight10,
                       Text(
-                        GlobalVariables.productCategory[index]
-                                ['title']
+                        GlobalVariables.productCategory[index]['title']
                             .toString(),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       )

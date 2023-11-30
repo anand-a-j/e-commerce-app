@@ -33,19 +33,19 @@ class CartProductContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(boxShadow: const [
         BoxShadow(
-          color: Colors.grey,
+          color: Color(0xffcccccc),
           spreadRadius: 1,
           blurRadius: 6,
           offset: Offset(0, 6),
         ),
         BoxShadow(
           blurRadius: 3,
-          color: Colors.grey,
+          color: Color(0xffcccccc),
           offset: Offset(-1, 0),
         ),
         BoxShadow(
           blurRadius: 5,
-          color: Colors.grey,
+          color: Color(0xffcccccc),
           offset: Offset(2, 0),
         )
       ], borderRadius: BorderRadius.circular(15), color: Colors.white),

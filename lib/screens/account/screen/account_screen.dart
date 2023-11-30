@@ -5,6 +5,7 @@ import 'package:e_commerce_app/services/account_service.dart';
 import 'package:e_commerce_app/screens/order_details/screen/orders_screen.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
+import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,10 @@ class AccountScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, CartScreen.routeName);
             },
-            icon: const Icon(Icons.shopping_cart_checkout_rounded,color: Colors.white,),
+            icon: const Icon(
+              Icons.shopping_cart_checkout_rounded,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(
             width: 10,
@@ -42,30 +46,29 @@ class AccountScreen extends StatelessWidget {
             height: 300,
             width: double.infinity,
             decoration: const BoxDecoration(
-             gradient: GlobalVariables.gradient,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              )
-            ),
+                gradient: GlobalVariables.gradient,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                )),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                 const CircleAvatar(
+                  const CircleAvatar(
                     radius: 60,
                     backgroundColor: GlobalVariables.primaryLightColor,
-                    backgroundImage: AssetImage('assets/icons/profilepic.png',),
-                    
+                    backgroundImage: AssetImage(
+                      'assets/icons/profilepic.png',
+                    ),
                   ),
                   Dimensions.kHeight10,
-                   Text(
+                  Text(
                     user.name,
                     style: const TextStyle(
-                      color: GlobalVariables.backgroundColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
+                        color: GlobalVariables.backgroundColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
                   ),
                 ],
               ),
@@ -81,10 +84,24 @@ class AccountScreen extends StatelessWidget {
                       Navigator.pushNamed(context, OrdersScreen.routeName);
                     }),
                 MenuButton(
+                    label: "My Address",
+                    icon: Icons.location_city,
+                    onPressed: () {
+                      showSnackBar(context, "Something went wrong!!!");
+                    }),
+                MenuButton(
                     label: "Privacy Policy",
                     icon: Icons.policy,
                     onPressed: () {
-                      Navigator.pushNamed(context, PrivacyPolicyScreen.routeName);
+                      Navigator.pushNamed(
+                          context, PrivacyPolicyScreen.routeName);
+                    }),
+                MenuButton(
+                    label: "Contact Us",
+                    icon: Icons.contact_mail_outlined,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, PrivacyPolicyScreen.routeName);
                     }),
                 MenuButton(
                     label: "Logout",

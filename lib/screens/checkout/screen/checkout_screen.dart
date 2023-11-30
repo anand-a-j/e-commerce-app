@@ -47,7 +47,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         totalAmount: widget.totalAmount,
         paymentId: response.paymentId.toString());
 
-    Navigator.pushNamedAndRemoveUntil(context, OrderSuccessScreen.routeName, (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, OrderSuccessScreen.routeName, (route) => false);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -87,13 +88,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Center(
-              child: Lottie.asset(
-                'assets/lottie/checkout.json',
-                animate: true,
-                repeat: true,
-                fit: BoxFit.contain
+                  child: Lottie.asset('assets/lottie/checkout.json',
+                      animate: true, repeat: true, fit: BoxFit.contain),
                 ),
-            ),
               ),
             ),
             ListView(
@@ -116,7 +113,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 0.7, color: Colors.grey)),
+                        border:
+                            Border.all(width: 0.7, color: Color(0xffcccccc))),
                     child: Text(
                       widget.address,
                       style: const TextStyle(
@@ -148,14 +146,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             color: Colors.purple.shade100,
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
-                                image: NetworkImage(user.cart![index]['product']['images'][0]),
+                                image: NetworkImage(
+                                    user.cart![index]['product']['images'][0]),
                                 fit: BoxFit.cover),
                           ),
                         ),
                         title: Text(
                             user.cart![index]['product']['name'].toString()),
-                        subtitle: Text(
-                            "Quantity: ${user.cart![index]['quantity']}"),
+                        subtitle:
+                            Text("Quantity: ${user.cart![index]['quantity']}"),
                       ),
                     );
                   },
