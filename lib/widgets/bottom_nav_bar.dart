@@ -62,7 +62,7 @@ class BottomNavBar extends StatelessWidget {
                 currentIndex: updatedIndex,
                 selectedIconTheme: const IconThemeData(color: GlobalVariables.primaryColor),
                 unselectedIconTheme: const IconThemeData(color: GlobalVariables.unselectedNavBarColor),
-                selectedLabelStyle: const TextStyle(color: GlobalVariables.primaryColor),
+                selectedLabelStyle: const TextStyle(color: Color.fromARGB(255, 146, 70, 244)),
                 // unselectedLabelStyle: const TextStyle(color: ),
                 useLegacyColorScheme: false,
                 onTap: (index) {
