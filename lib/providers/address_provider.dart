@@ -43,19 +43,19 @@ class AddressProvider extends ChangeNotifier {
     if (isGetPosition) {
       Timer(const Duration(seconds: 2), () {
         _homeController.text = locationProvider.place.name ?? '';
-        _streetController.text =
-            '${locationProvider.place.administrativeArea ?? ''}, ${locationProvider.place.street ?? ''}';
+        _streetController.text = '${locationProvider.place.street ?? ''}';
         _cityController.text = locationProvider.place.locality ?? '';
-        _pincodeController.text = locationProvider.place.postalCode ?? '';   
-      }); 
+        _stateController.text = locationProvider.place.administrativeArea ?? '';
+        _pincodeController.text = locationProvider.place.postalCode ?? '';
+      });
 
-      _isLoading = false;  
+      _isLoading = false;
       notifyListeners();
-    }   
+    }
   }
 
   checkoutAddress(BuildContext context, double totalAmount) {
-    var user = Provider.of<UserProvider>(context, listen: true).user;
+    var user = Provider.of<UserProvider>(context, listen: false).user;
     if (_addressFormKey.currentState!.validate()) {
       _addressToBeUsed =
           '''${user.name}\n${homeController.text}\n${streetController.text}\n${cityController.text},${stateController.text}\n${pincodeController.text}\nPh: ${phoneController.text}''';
