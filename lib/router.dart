@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/screens/account/screen/account_screen.dart';
 import 'package:e_commerce_app/screens/address/screen/address_screen.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_up_screen.dart';
+import 'package:e_commerce_app/screens/login/screen/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/sign_up/screen/sign_up_screen.dart';
 import 'package:e_commerce_app/screens/cart/screen/cart_screen.dart';
 import 'package:e_commerce_app/screens/checkout/screen/checkout_screen.dart';
 import 'package:e_commerce_app/screens/checkout/screen/order_success_screen.dart';

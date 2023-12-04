@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/providers/onboarding_provider.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/login/screen/sign_in_screen.dart';
 import 'package:e_commerce_app/screens/onboarding/widget/slider_indicator.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +16,9 @@ class OnboardingScreen extends StatelessWidget {
    final PageController controller = PageController();
 
     final List<String> images = [
-      'assets/onboarding/1.png',
-      'assets/onboarding/2.png',
-      'assets/onboarding/3.png',
+      'assets/images/onboarding/1.png',
+      'assets/images/onboarding/2.png',
+      'assets/images/onboarding/3.png',
     ];
 
     return Consumer<OnboardingProvider>(

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:e_commerce_app/models/user.dart';
 import 'package:e_commerce_app/providers/user_provider.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/login/screen/sign_in_screen.dart';
 import 'package:e_commerce_app/utils/api.dart';
 import 'package:e_commerce_app/utils/error_handling.dart';
 import 'package:e_commerce_app/utils/utils.dart';

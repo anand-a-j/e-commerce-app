@@ -1,50 +1,48 @@
 import 'package:e_commerce_app/providers/auth_provider.dart';
-import 'package:e_commerce_app/screens/auth/widgets/login_title.dart';
-import 'package:e_commerce_app/screens/auth/widgets/sign_in_bottom_title.dart';
-import 'package:e_commerce_app/services/network_service.dart';
+import 'package:e_commerce_app/screens/sign_up/widgets/sign_up_bottom_title.dart';
+import 'package:e_commerce_app/screens/sign_up/widgets/sign_up_title.dart';
+import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/utils/dimensions.dart';
-import 'package:e_commerce_app/utils/utils.dart';
 import 'package:e_commerce_app/widgets/custom_button.dart';
 import 'package:e_commerce_app/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SignInScreen extends StatefulWidget {
-  static const String routeName = '/sign-in-screen';
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  static const String routeName = '/sign-up-screen';
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-  final _signInFormKey = GlobalKey<FormState>();
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _signUpFormKey = GlobalKey<FormState>();
+
+  AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      NetworkService().isDeviceOffline(context);
-    });
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
-          key: _signInFormKey,
+          key: _signUpFormKey,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginTitle(),
+                const SignUpTitle(),
+                Dimensions.kHeight10,
+                CustomTextField(
+                  controller: _nameController,
+                  hintText: "Username",
+                  inputType: TextInputType.name,
+                ),
                 Dimensions.kHeight10,
                 CustomTextField(
                   controller: _emailController,
@@ -60,19 +58,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 Dimensions.kHeight20,
                 Consumer<AuthProvider>(builder: (context, authProvider, child) {
                   return CustomButton(
+                      title: "SignUp",
                       isLoading: authProvider.isLoading,
-                      title: "Login",
                       onPressed: () {
-                        if (_signInFormKey.currentState!.validate()) {
-                          authProvider.signInUser(
+                        if (_signUpFormKey.currentState!.validate()) {
+                          authProvider.signUpUser(
                               context: context,
+                              name: _nameController.text.trim(),
                               email: _emailController.text.trim(),
                               password: _passwordController.text.trim());
                         }
                       });
                 }),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
-                const SignInBottomTitle()
+                const SignUpBottomTitle()
               ],
             ),
           ),

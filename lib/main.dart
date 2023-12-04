@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'IShopTech',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: false,
           scaffoldBackgroundColor: GlobalVariables.backgroundColor,

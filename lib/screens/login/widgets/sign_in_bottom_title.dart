@@ -1,5 +1,5 @@
 
-import 'package:e_commerce_app/screens/auth/screens/sign_up_screen.dart';
+import 'package:e_commerce_app/screens/sign_up/screen/sign_up_screen.dart';
 import 'package:e_commerce_app/utils/global_variables.dart';
 import 'package:flutter/material.dart';
 

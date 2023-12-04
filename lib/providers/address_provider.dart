@@ -43,7 +43,7 @@ class AddressProvider extends ChangeNotifier {
     if (isGetPosition) {
       Timer(const Duration(seconds: 2), () {
         _homeController.text = locationProvider.place.name ?? '';
-        _streetController.text = '${locationProvider.place.street ?? ''}';
+        _streetController.text = locationProvider.place.street ?? '';
         _cityController.text = locationProvider.place.locality ?? '';
         _stateController.text = locationProvider.place.administrativeArea ?? '';
         _pincodeController.text = locationProvider.place.postalCode ?? '';

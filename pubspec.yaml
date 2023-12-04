@@ -77,7 +77,6 @@ flutter:
     - assets/icons/
     - assets/category/
     - assets/lottie/
-    - assets/onboarding/
     - assets/images/
   #   - images/a_dot_ham.jpeg
 

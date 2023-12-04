@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/providers/user_provider.dart';
-import 'package:e_commerce_app/screens/auth/screens/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/login/screen/sign_in_screen.dart';
 import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
 import 'package:e_commerce_app/widgets/loader.dart';
