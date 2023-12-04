@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/providers/address_provider.dart';
 import 'package:e_commerce_app/providers/auth_provider.dart';
 import 'package:e_commerce_app/providers/category_provider.dart';
 import 'package:e_commerce_app/providers/home_provider.dart';
@@ -30,6 +31,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => SearchProvider()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: const MyApp(),

@@ -7,26 +7,33 @@ class LocationProvider extends ChangeNotifier {
   String? _currentAddress;
   Position? _currentPosition;
   bool? _hasPermission;
+  Placemark _place = Placemark();
 
   String? get currentAddress => _currentAddress;
   Position? get currentPosition => _currentPosition;
   bool? get hasPermission => _hasPermission;
+  Placemark get place => _place;
 
   // Get current position
-  Future<void> getCurrentPosition(BuildContext context) async {
+  Future<bool> getCurrentPosition(BuildContext context) async {
+    bool isGetPosition = false;
     _hasPermission = await LocationService.handleLocationPermission(context);
 
     if (!hasPermission!) {
-      return;
+      return isGetPosition;
     }
 
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       _currentPosition = position;
       getAddressFromLatLng(position);
+      isGetPosition = true;
+      return isGetPosition;
     }).catchError((e) {
+      isGetPosition = false;
       debugPrint(e.toString());
     });
+    return isGetPosition;
   }
 
   // get address from lag ans long
@@ -34,10 +41,12 @@ class LocationProvider extends ChangeNotifier {
     await placemarkFromCoordinates(
             currentPosition!.latitude, currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
+      _place = placemarks[0];
+
       _currentAddress =
-          '${place.name},${place.subLocality},${place.street},${place.subAdministrativeArea},${place.locality},${place.postalCode},${place.country}';
+          '${_place.name},${_place.subLocality},${_place.street},${_place.subAdministrativeArea},${_place.locality},${_place.postalCode},${_place.country}';
       notifyListeners();
+
       print("location => $_currentAddress");
     }).catchError((e) {
       debugPrint("get address function error ${e.toString()}");
