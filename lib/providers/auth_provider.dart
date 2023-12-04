@@ -32,6 +32,7 @@ class AuthProvider extends ChangeNotifier {
     if (isSignUp && context.mounted) {
       showSnackBar(context, "Account Created, Login with same credentials",
           isError: false);
+          
       Navigator.pushReplacementNamed(context, SignInScreen.routeName);
 
       _isLoading = false;
