@@ -1,17 +1,12 @@
-import 'dart:convert';
-import 'package:e_commerce_app/models/user.dart';
-import 'package:e_commerce_app/providers/user_provider.dart';
 import 'package:e_commerce_app/screens/login/screen/sign_in_screen.dart';
-import 'package:e_commerce_app/utils/api.dart';
-import 'package:e_commerce_app/utils/error_handling.dart';
+import 'package:e_commerce_app/services/auth_service.dart';
 import 'package:e_commerce_app/utils/utils.dart';
 import 'package:e_commerce_app/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
+  final AuthService authService = AuthService();
+
   bool _isLoading = false;
   bool _isPass = false;
 
@@ -23,103 +18,50 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // sign up user
   void signUpUser(
       {required BuildContext context,
+      required String username,
       required String email,
-      required String password,
-      required String name}) async {
+      required String password}) async {
     _isLoading = true;
     notifyListeners();
-    try {
-      UserModel user = UserModel(
-          id: '',
-          name: name,
-          email: email,
-          password: password,
-          address: '',
-          type: '',
-          token: '',
-          cart: []);
 
-      http.Response res = await http.post(
-        Uri.parse('$uri/api/signup'),
-        body: user.toJson(),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          "Access-Control-Allow-Origin":
-              "*", // Required for CORS support to work
-          "Access-Control-Allow-Headers":
-              "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-          "Access-Control-Allow-Methods": "POST, OPTIONS"
-        },
-      );
+    var isSignUp = await authService.signUpUser(
+        context: context, email: email, password: password, name: username);
 
-      // ignore: use_build_context_synchronously
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            showSnackBar(
-                context, "Account Created, Login with same credentials",
-                isError: false);
-            Navigator.pushReplacementNamed(context, SignInScreen.routeName);
-          });
+    if (isSignUp && context.mounted) {
+      showSnackBar(context, "Account Created, Login with same credentials",
+          isError: false);
+      Navigator.pushReplacementNamed(context, SignInScreen.routeName);
 
       _isLoading = false;
       notifyListeners();
-    } catch (e) {
+    } else {
       _isLoading = false;
       notifyListeners();
-      print(e.toString());
-      showSnackBar(context, "No Internet Connection");
     }
   }
 
-  // sign in user
-  void signInUser({
-    required BuildContext context,
-    required String email,
-    required String password,
-  }) async {
+// sign in user
+  void signInUser(
+      {required BuildContext context,
+      required String email,
+      required String password}) async {
     _isLoading = true;
     notifyListeners();
-    try {
-      http.Response res = await http.post(
-        Uri.parse('$uri/api/signin'),
-        body: jsonEncode({'email': email, 'password': password}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          "Access-Control-Allow-Origin":
-              "*", // Required for CORS support to work
-          "Access-Control-Allow-Headers":
-              "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-          "Access-Control-Allow-Methods": "POST, OPTIONS"
-        },
-      );
 
-      // ignore: use_build_context_synchronously
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () async {
-            final prefs = await SharedPreferences.getInstance();
-            String token = jsonDecode(res.body)['token'];
-            // ignore: use_build_context_synchronously
-            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-            await prefs.setString('x-auth-token', token);
-            // ignore: use_build_context_synchronously
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const BottomNavBar()));
-           
-          });
+    var isSignIn = await authService.signInUser(
+        context: context, email: email, password: password);
+
+    if (isSignIn && context.mounted) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const BottomNavBar()));
 
       _isLoading = false;
       notifyListeners();
-    } catch (e) {
+    } else {
       _isLoading = false;
       notifyListeners();
-      showSnackBar(context, "No Internet Connection");
     }
   }
 }

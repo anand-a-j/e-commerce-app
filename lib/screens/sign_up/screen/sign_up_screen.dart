@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if (_signUpFormKey.currentState!.validate()) {
                           authProvider.signUpUser(
                               context: context,
-                              name: _nameController.text.trim(),
+                              username: _nameController.text.trim(),
                               email: _emailController.text.trim(),
                               password: _passwordController.text.trim());
                         }
