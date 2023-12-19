@@ -29,6 +29,7 @@ class LocationProvider extends ChangeNotifier {
       getAddressFromLatLng(position);
       isGetPosition = true;
       return isGetPosition;
+    // ignore: body_might_complete_normally_catch_error
     }).catchError((e) {
       isGetPosition = false;
       debugPrint(e.toString());

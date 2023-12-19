@@ -62,6 +62,7 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+    print('login function called');
     bool isSignIn = false;
     try {
       http.Response res = await http.post(
