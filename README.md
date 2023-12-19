@@ -1,16 +1,23 @@
-# e_commerce_app
+# E-commerce User App
 
-A new Flutter project.
+![](https://github.com/anand-a-j/e-commerce-user/blob/main/assets/screenrecord.gif)
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+This is a Flutter commerce application with a Node.js backend, MongoDB database, and various features such as email & password authentication, persisting auth state, searching products, filtering products based on category, checking out with Razorpay payment gateway, and allowing users to add their current location address.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Email & Password Authentication:** Users can sign up and log in securely with their email and password.
+- **Persisting Auth State:** The application ensures that the user remains authenticated between sessions.
+- **Product Search:** Users can search for products based on keywords.
+- **Product Filtering:** Products can be filtered based on categories, making it easier for users to find what they're looking for.
+- **Location Address:** Users can add their current location address to facilitate smoother transactions.
+- **Razorpay Integration:** Secure payment checkout using the Razorpay payment gateway.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+- **Frontend:** Flutter with Provider for state management.
+- **Backend:** Node.js with Express.
+- **Database:** MongoDB.
+
+
