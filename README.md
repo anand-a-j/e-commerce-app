@@ -1,6 +1,9 @@
 # E-commerce User App
 
 ![](https://github.com/anand-a-j/e-commerce-user/blob/main/assets/screenrecord.gif)
+<p align="center">
+  <img src="https://github.com/anand-a-j/e-commerce-user/blob/main/assets/screenrecord.gif" alt="Alt text" width="400">
+</p>
 
 ## Overview
 
